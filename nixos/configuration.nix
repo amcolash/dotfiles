@@ -83,13 +83,19 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+    # terminal tools
+    vim
     wget
     git
     stow
     wev         # wayland event helper
-    upower
+    dos2unix
+    tldr
+    nix-search-cli
+    #upower
 
+    # hyprland, waybar, wofi
     kitty	# terminal
     waybar	# status bar
     dunst	# notifications
@@ -97,33 +103,39 @@ in
     hyprpaper   # wallpaper
     wofi        # launcher
 
+    # hyprland helpers
     hyprlock    # screen locker
     hyprshot    # take screenshots
     hyprpaper   # wallpaper manager
     hypridle    # idling tool
 
+    # styling
     papirus-icon-theme
     papirus-folders
     matcha-gtk-theme
     apple-cursor
 
+    # styling tools
     unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
     font-manager
 
+    # utils
     nemo
-    tldr
-    nix-search-cli
+    baobab
+    meld
 
+    # core programs
     google-chrome
     vscode
 
+    # media + large tools
     gimp
     inkscape
     audacity
-    libreoffice
-    transmission_4
     vlc
     darktable
+    libreoffice
+    transmission_4
   ];
 
   fonts.packages = with pkgs; [
@@ -176,6 +188,9 @@ in
 
   # file system + trash
   services.gvfs.enable = true;
+
+  # PATH helper for nixos (use things like /bin/bash w/ symlink)
+  services.envfs.enable = true;
 
   # enable audio
   security.rtkit.enable = true;

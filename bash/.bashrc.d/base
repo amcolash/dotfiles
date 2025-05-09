@@ -10,7 +10,7 @@ fi
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
-alias ls='ls -G'
+alias ls='ls --color=auto'
 #alias ls='eza --color=always --icons=always'
 alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
@@ -21,13 +21,6 @@ parse_git_branch() {
 }
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-# Node version in PS1
-node_version() {
-  if [ -f ~/.node-version.sh ]; then
-    ~/.node-version.sh
-  fi
-}
 
 # Export Editor
 export EDITOR="vim"
@@ -60,7 +53,7 @@ shopt -s checkwinsize
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-xterm-color) color_prompt=yes ;;
+xterm-color|*-256color|xterm-kitty) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -69,7 +62,7 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+  if [ $(command -v tput) ] && tput setaf 1 >&/dev/null; then
     # We have color support; assume it's compliant with Ecma-48
     # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
     # a case would tend to support setf rather than setaf.)
@@ -91,7 +84,10 @@ if [ "$color_prompt" = yes ]; then
   _BG="${_RESET}${_BOLD}${_GREEN}"
   _BB="${_RESET}${_BOLD}${_BLUE}"
 
-  PS1='\[${_BG}\]\u@\h \[${_BB}\]\w `parse_git_branch``node_version`\$ \[${_RESET}\]'
+  # Old PS1, not sure if I want to keep it
+  #PS1='\[${_BG}\]\u@\h \[${_BB}\]\w `parse_git_branch`\$ \[${_RESET}\]'
+
+  PS1='${_BG}\u@\h ${_BB}\w `parse_git_branch`\$ ${_RESET}'
 else
   PS1='\u@\h \w \$ '
 fi
