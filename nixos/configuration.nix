@@ -4,16 +4,24 @@
 
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  # Bootloader
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelParams = [ "mem_sleep_default=deep" "acpi_backlight=vendor" ];
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -86,12 +94,22 @@
     hyprlock    # screen locker
     hyprshot    # take screenshots
     hyprpaper   # wallpaper manager
+    hypridle    # idling tool
+
+    papirus-icon-theme
+    papirus-folders
+    matcha-gtk-theme
+    apple-cursor
+
+    unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
+    font-manager
 
     nemo
     tldr
     nix-search-cli
 
     google-chrome
+    vscode
 
     gimp
     inkscape
@@ -103,10 +121,13 @@
   ];
 
   fonts.packages = with pkgs; [
+    corefonts
     font-awesome
+    liberation_ttf
+    nerdfonts
     noto-fonts
     noto-fonts-emoji
-    nerdfonts
+    vistafonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
