@@ -65,6 +65,12 @@ in
     packages = with pkgs; [];
   };
 
+  # set up env vars
+  environment.variables = {
+    EDITOR = "vim";
+    VISUAL = "vim";
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
