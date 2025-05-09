@@ -7,6 +7,11 @@ if [ -z "$PS1" ]; then
   return
 fi
 
+# Exports
+export DOTFILES=/home/amcolash/Github/dotfiles
+export EDITOR="vim"
+export VISUAL="vim"
+
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
@@ -14,17 +19,14 @@ alias ls='ls --color=auto'
 #alias ls='eza --color=always --icons=always'
 alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
+alias dot="pushd $DOTFILES"
 
-# Git completion
+# Git branch for PS1
 parse_git_branch() {
   git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-# Export Editor
-export EDITOR="vim"
-export VISUAL="vim"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
