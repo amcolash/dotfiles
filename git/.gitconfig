@@ -1,0 +1,8 @@
+[user]
+	name = Andrew McOlash
+	email = amcolash@gmail.com
+[alias]
+	a = add
+	s = status
+	p = push
+	c = commit
