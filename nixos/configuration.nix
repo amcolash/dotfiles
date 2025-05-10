@@ -83,6 +83,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # services
+    #upower
 
     # terminal tools
     vim
@@ -93,7 +95,6 @@ in
     dos2unix
     tldr
     nix-search-cli
-    #upower
 
     # hyprland, waybar, wofi
     kitty	# terminal
@@ -108,6 +109,10 @@ in
     hyprshot    # take screenshots
     hyprpaper   # wallpaper manager
     hypridle    # idling tool
+
+    # indicators
+    indicator-sound-switcher
+    nm-applet
 
     # styling
     papirus-icon-theme
@@ -124,6 +129,7 @@ in
     baobab
     meld
     pavucontrol
+    gnome-system-monitor
 
     # core programs
     google-chrome
@@ -169,6 +175,9 @@ in
   };
 
   # List services that you want to enable:
+
+  # bluetooth
+  services.blueman.enable = true;
 
   # login screen
   services.greetd = {
