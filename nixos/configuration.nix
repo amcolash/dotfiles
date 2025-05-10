@@ -20,7 +20,7 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [ "mem_sleep_default=deep" "acpi_backlight=vendor" ];
+    kernelParams = [ "mem_sleep_default=deep" ];
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -95,6 +95,7 @@ in
     dos2unix
     tldr
     nix-search-cli
+    brightnessctl
 
     # hyprland, waybar, wofi
     kitty	# terminal
@@ -112,7 +113,7 @@ in
 
     # indicators
     indicator-sound-switcher
-    nm-applet
+    networkmanagerapplet
 
     # styling
     papirus-icon-theme
@@ -134,6 +135,9 @@ in
     # core programs
     google-chrome
     vscode
+
+    # code
+    nodejs_22
 
     # media + large tools
     gimp
@@ -201,6 +205,9 @@ in
 
   # PATH helper for nixos (use things like /bin/bash w/ symlink)
   services.envfs.enable = true;
+
+  # power profiles (low, perf, etc)
+  services.power-profiles-daemon.enable = true;
 
   # enable audio
   security.rtkit.enable = true;
