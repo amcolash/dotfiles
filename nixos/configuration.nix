@@ -123,6 +123,7 @@ in
     nemo
     baobab
     meld
+    pavucontrol
 
     # core programs
     google-chrome
