@@ -13,7 +13,10 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
+      # Base system config + services
       ./system.nix
+
+      # System + user packages
       ./packages.nix
 
       # hyprland
@@ -22,6 +25,9 @@ in
 
       # cinnamon
       ./cinnamon.nix
+
+      # tuxedo
+      ./tuxedo.nix
     ];
 
   # This value determines the NixOS release from which the default

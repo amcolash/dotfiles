@@ -1,30 +1,20 @@
 { config, pkgs, ... }:
 
-let
-  # Override papirus-icon-theme to use a custom color
-  papirus-icon-teal = pkgs.papirus-icon-theme.override {
-    color = "teal"; # Change this to whatever color you want
-  };
-in
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # services
-    #upower
-
     # terminal tools
     vim
     wget
     git
     stow
-    wev         # wayland event helper
     dos2unix
     tldr
     nix-search-cli
 
     # styling
-    papirus-icon-teal
+    (papirus-icon-theme.override { color = "teal"; })
     matcha-gtk-theme
     apple-cursor
 
@@ -32,6 +22,7 @@ in
     nemo
     baobab
     meld
+    font-manager
 
     # terminal
     kitty
@@ -43,6 +34,7 @@ in
 
     # code
     nodejs_22
+    python313
 
     # media + large tools
     gimp
@@ -56,9 +48,8 @@ in
 
   fonts.packages = with pkgs; [
     corefonts
-    font-awesome
     liberation_ttf
-    nerdfonts
+    (nerdfonts.override { fonts = [ "UbuntuMono" ]; }) # note: may break in future versions of nix: https://nixos.wiki/wiki/Fonts
     noto-fonts
     noto-fonts-emoji
     vistafonts

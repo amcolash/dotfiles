@@ -22,6 +22,7 @@
     libnotify
     hyprpaper   # wallpaper
     wofi        # launcher
+    wev         # wayland event helper
 
     # hyprland helpers
     hyprlock    # screen locker
@@ -35,10 +36,13 @@
 
     # styling tools
     unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
-    font-manager
 
     # utils
     pavucontrol # sound control
     gnome-system-monitor
+  ];
+
+  fonts.packages = with pkgs; [
+    font-awesome
   ];
 }
