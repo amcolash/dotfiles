@@ -7,12 +7,10 @@
     "format": "{icon}",
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": [
-       "kitty"
-    ]
+    "ignore-list": ["kitty"]
   },
   "clock": {
-    "format": "<span foreground='#f5c2e7'>󰀠  </span>{:%a %d %H:%M}",
+    "format": "<span foreground='#f5c2e7'>󰀠  </span>{:%a %b %d, %I:%M %p}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "battery": {
@@ -38,12 +36,12 @@
     "tooltip-format-wifi": "Signal Strenght: {signalStrength}%"
   },
   "pulseaudio": {
-      "format": "{icon}  {volume}%",
-      "format-muted": "",
-      "format-icons": {
-          "default": ["", "", ""]
-      },
-      "on-click": "pavucontrol",
-      "scroll-step": 5
+    "format": "{icon}  {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "scroll-step": 5
   }
 }
