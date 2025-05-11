@@ -17,8 +17,11 @@ in
       ./packages.nix
 
       # hyprland
-      ./hyprland/hyprland.nix
-      ./hyprland/services.nix
+      #./hyprland/hyprland.nix
+      #./hyprland/services.nix
+
+      # cinnamon
+      ./cinnamon.nix
     ];
 
   # This value determines the NixOS release from which the default

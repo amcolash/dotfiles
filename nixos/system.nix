@@ -69,12 +69,25 @@
     VISUAL = "vim";
   };
 
+  # Automatically install system updates daily
+  system.autoUpgrade = {
+    enable = true;
+    #allowReboot = true;
+    dates = "18:00"; # UTC = 12pm PDT / 11am PST
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   nix = {
     settings = {
       download-buffer-size = 500000000;
+    };
+    # Run garbage collection on a weekly basis to avoid filling up disk
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
     };
   };
 }

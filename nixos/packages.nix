@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+  # Override papirus-icon-theme to use a custom color
+  papirus-icon-teal = pkgs.papirus-icon-theme.override {
+    color = "teal"; # Change this to whatever color you want
+  };
+in
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -18,8 +24,7 @@
     nix-search-cli
 
     # styling
-    papirus-icon-theme
-    papirus-folders
+    papirus-icon-teal
     matcha-gtk-theme
     apple-cursor
 
@@ -27,8 +32,7 @@
     nemo
     baobab
     meld
-    pavucontrol
-    gnome-system-monitor
+    kitty # terminal
 
     # core programs
     google-chrome

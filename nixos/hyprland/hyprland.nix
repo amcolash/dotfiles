@@ -17,7 +17,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # hyprland, waybar, wofi
-    kitty	# terminal
     waybar	# status bar
     dunst	# notifications
     libnotify
@@ -37,5 +36,9 @@
     # styling tools
     unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
     font-manager
+
+    # utils
+    pavucontrol # sound control
+    gnome-system-monitor
   ];
 }
