@@ -64,9 +64,15 @@
   };
 
   # set up env vars
-  environment.variables = {
+  environment = {
+    systemPackages = with pkgs; [
+      # allow faster reboot by bypassing bios: https://ash64.eu/blog/2023/rebooting-via-kexec
+      (writeShellScriptBin "reboot-kexec" (builtins.readFile ./reboot-kexec.sh))
+    ];
+    variables = {
     EDITOR = "vim";
     VISUAL = "vim";
+    };
   };
 
   # Automatically install system updates daily
