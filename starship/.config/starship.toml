@@ -1,7 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](red)\
 $username\
 
 [](bg:peach fg:red)\
@@ -13,7 +12,7 @@ $git_branch\
 $git_status\
 
 $time\
-[ ](fg:green)\
+[ ](fg:green)\
 $line_break\
 $character"""
 
@@ -53,11 +52,11 @@ format = '[](bg:yellow fg:peach)[[ $symbol $branch ](fg:crust bg:yellow)]($st
 
 [git_status]
 style = "bg:yellow"
-format = '[[($all_status $ahead_behind )](fg:crust bg:yellow)]($style)[](fg:yellow bg:green)'
-ahead = "󰁞 ${count}"
-behind = "󰁆 ${count}"
+format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)[](fg:yellow bg:green)'
+ahead = " 󰁞 ${count}"
+behind = " 󰁆 ${count}"
 modified = ""
-diverged = "󰁞 ${ahead_count} 󰁆 ${behind_count}"
+diverged = " 󰁞 ${ahead_count} 󰁆 ${behind_count}"
 
 [time]
 disabled = false
