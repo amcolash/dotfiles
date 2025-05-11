@@ -54,6 +54,10 @@ format = '[](bg:yellow fg:peach)[[ $symbol $branch ](fg:crust bg:yellow)]($st
 [git_status]
 style = "bg:yellow"
 format = '[[($all_status $ahead_behind )](fg:crust bg:yellow)]($style)[](fg:yellow bg:green)'
+ahead = "󰁞${count}"
+behind = "󰁆${count}"
+modified = ""
+diverged = "󰁞${ahead_count} 󰁆${behind_count}"
 
 [time]
 disabled = false
