@@ -1,10 +1,13 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+palette = "bar_colors"
+
 format = """
 $username\
 
-[](bg:peach fg:red)\
+[](bg:bar2 fg:bar1)\
 $directory\
+${custom.dir_stack}\
 
 ${custom.fix_arrow}\
 
@@ -12,30 +15,32 @@ $git_branch\
 $git_status\
 
 $time\
-[ ](fg:green)\
+[ ](fg:bar4)\
 $line_break\
 $character"""
-
-palette = 'catppuccin_mocha'
 
 [custom.fix_arrow]
 when = "test ! -d .git && ! git rev-parse --is-inside-work-tree > /dev/null 2>&1"
 command = "echo "
-style = "fg:peach bg:green"
-shell = ["bash"]
+style = "fg:bar2 bg:bar4"
 format = "[$output]($style)"
-disabled = false
+
+[custom.dir_stack]
+when = "test \"$(cat ~/.dir_stack_active 2>/dev/null)\" = \"1\""
+command = "echo "
+style = "bg:bar2"
+format = "[$output  ]($style)"
 
 [username]
 show_always = true
-style_user = "bg:red fg:crust"
-style_root = "bg:red fg:crust"
+style_user = "bg:bar1 fg:black"
+style_root = "bg:bar1 fg:black"
 format = '[ $user ]($style)'
 
 [directory]
-style = "bg:peach fg:crust"
+style = "bg:bar2 fg:black"
 format = "[ $path ]($style)"
-truncation_length = 5
+truncation_length = 3
 truncation_symbol = "…/"
 
 [directory.substitutions]
@@ -47,12 +52,12 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:yellow"
-format = '[](bg:yellow fg:peach)[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+style = "bg:bar3"
+format = '[](bg:bar3 fg:bar2)[[ $symbol $branch ](fg:black bg:bar3)]($style)'
 
 [git_status]
-style = "bg:yellow"
-format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)[](fg:yellow bg:green)'
+style = "bg:bar3"
+format = '[[($all_status$ahead_behind )](fg:black bg:bar3)]($style)[](fg:bar3 bg:bar4)'
 ahead = " 󰁞 ${count}"
 behind = " 󰁆 ${count}"
 modified = ""
@@ -61,8 +66,8 @@ diverged = " 󰁞 ${ahead_count} 󰁆 ${behind_count}"
 [time]
 disabled = false
 time_format = "%l:%M"
-style = "bg:green"
-format = '[[  $time ](fg:crust bg:green)]($style)'
+style = "bg:bar4"
+format = '[[$time ](fg:black bg:bar4)]($style)'
 
 [line_break]
 disabled = true
@@ -72,34 +77,14 @@ disabled = false
 success_symbol = '[❯](bold fg:green)'
 error_symbol = '[❯](bold fg:red)'
 vimcmd_symbol = '[❮](bold fg:green)'
-vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
-vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
+vimcmd_replace_symbol = '[❮](bold fg:purple)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
-[palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+
+# Palette from kitty colors
+[palettes.bar_colors]
+bar1 = "#98be65"
+bar2 = "#c678dd"
+bar3 = "#ecbe7b"
+bar4 = "#51afef"
