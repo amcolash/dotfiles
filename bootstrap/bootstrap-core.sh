@@ -36,7 +36,7 @@ cd dotfiles
 for dir in */ ; do
   name="${dir%/}"
   case "$name" in
-    nixos|bootstrap)
+    nixos|bootstrap|dconf)
       echo "[=] Skipping $name"
       ;;
     *)
@@ -45,6 +45,16 @@ for dir in */ ; do
       ;;
   esac
 done
+
+# 5. Prompt for loading d-conf (cinnamon)
+echo
+read -p "Would you like to load Cinnamon settings? [y/N] " do_dconf
+if [[ "$do_dconf" =~ ^[Yy]$ ]]; then
+  echo "[*] Loading Cinnamon settings"
+  ../dconf/load-dconf.sh
+else
+  echo "[=] Skipping Cinnamon load"
+fi
 
 # 5. Prompt for nixos-rebuild
 echo
