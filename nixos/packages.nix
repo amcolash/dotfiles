@@ -23,6 +23,7 @@
     baobab
     meld
     font-manager
+    gparted
 
     # terminal
     kitty
