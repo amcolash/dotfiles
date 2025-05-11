@@ -33,5 +33,9 @@
     # indicators
     indicator-sound-switcher
     networkmanagerapplet
+
+    # styling tools
+    unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
+    font-manager
   ];
 }
