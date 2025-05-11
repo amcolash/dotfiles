@@ -32,7 +32,10 @@ in
     nemo
     baobab
     meld
-    kitty # terminal
+
+    # terminal
+    kitty
+    starship
 
     # core programs
     google-chrome
