@@ -3,8 +3,18 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main/bootstrap/bootstrap-core.sh"
+SCRIPT_DOWNLOAD=0
+
+# Grab the script if it doesn't exist
+if ! [ -f bootstrap-core.sh ]; then
+  echo "[+] Bootstrap script missing — downloading from Github"
+  curl $CORE_SCRIPT -o bootstrap-core.sh
+  SCRIPT_DOWNLOAD=1
+fi
+
 # Detect NixOS
-if [[ -f /etc/NIXOS ]] || command -v nixos-version >/dev/null; then
+if [[ -f /etc/NIXOS ]]; then
   echo "[+] Detected NixOS — using nix-shell"
 
   exec nix-shell -p git stow openssh firefox --run "$SCRIPT_DIR/bootstrap-core.sh"
@@ -19,4 +29,9 @@ else
   done
 
   bash "$SCRIPT_DIR/bootstrap-core.sh"
+fi
+
+if [ SCRIPT_DOWNLOAD == 1 ]; then
+  echo "[+] Removing temporary bootstrap script"
+  rm bootstrap-core.sh
 fi
