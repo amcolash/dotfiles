@@ -9,6 +9,7 @@ SCRIPT_DOWNLOAD=0
 # Grab the script if it doesn't exist
 if ! [ -f bootstrap-core.sh ]; then
   echo "[+] Bootstrap script missing — downloading from Github"
+  echo
   curl $CORE_SCRIPT -o bootstrap-core.sh
   chmod +x bootstrap-core.sh
   SCRIPT_DOWNLOAD=1
@@ -33,6 +34,7 @@ else
 fi
 
 if [ SCRIPT_DOWNLOAD == 1 ]; then
+  echo
   echo "[+] Removing temporary bootstrap script"
   rm bootstrap-core.sh
 fi
