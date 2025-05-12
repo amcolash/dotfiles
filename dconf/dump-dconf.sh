@@ -9,6 +9,7 @@ pushd "$SCRIPT_DIR" > /dev/null
 PATHS=(
   "/org/cinnamon/"
   "/org/gnome/meld/"
+  "/org/gnome/desktop/"
 )
 
 for path in "${PATHS[@]}"; do
