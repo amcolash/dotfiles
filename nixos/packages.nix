@@ -12,6 +12,7 @@
     dos2unix
     tldr
     nix-search-cli
+    bat
 
     # styling
     (papirus-icon-theme.override { color = "teal"; })
@@ -19,7 +20,6 @@
     apple-cursor
 
     # utils
-    nemo
     baobab
     meld
     font-manager
@@ -30,6 +30,7 @@
     starship
 
     # core programs
+    firefox
     google-chrome
     vscode
 

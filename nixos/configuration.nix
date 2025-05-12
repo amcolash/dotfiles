@@ -9,9 +9,9 @@ let
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+      # Include the results of the hardware scan - always use the local machine version
+      /etc/nixos/hardware-configuration.nix
 
       # Base system config + services
       ./system.nix

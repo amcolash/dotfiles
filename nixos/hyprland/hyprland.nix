@@ -40,6 +40,7 @@
     # utils
     pavucontrol # sound control
     gnome-system-monitor
+    nemo
   ];
 
   fonts.packages = with pkgs; [
