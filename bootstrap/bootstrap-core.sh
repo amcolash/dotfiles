@@ -5,7 +5,7 @@ echo
 echo "[+] Starting dotfiles bootstrap"
 
 # Check for required programs before running script
-for cmd in git stow ssh-keygen firefox; do
+for cmd in unzip git stow ssh-keygen firefox; do
   if ! command -v "$cmd" >/dev/null; then
     echo "[!] Missing required command: $cmd"
     exit 1
@@ -67,7 +67,7 @@ for dir in */ ; do
   name="${dir%/}"
   case "$name" in
     # skip these directories from using stow on them
-    nixos|bootstrap|dconf)
+    nixos|bootstrap|dconf|cinnamon)
       ;;
     *)
       echo "[*] Stowing $name"

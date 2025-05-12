@@ -13,6 +13,7 @@
     tldr
     nix-search-cli
     bat
+    unzip
 
     # styling
     (papirus-icon-theme.override { color = "teal"; })

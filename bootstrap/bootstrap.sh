@@ -19,17 +19,9 @@ fi
 if [[ -f /etc/NIXOS ]]; then
   echo "[+] Detected NixOS — using nix-shell"
 
-  exec nix-shell -p git stow openssh firefox --run "$SCRIPT_DIR/bootstrap-core.sh"
+  exec nix-shell -p git stow openssh firefox unzip --run "$SCRIPT_DIR/bootstrap-core.sh"
 else
-  echo "[+] Non-NixOS system — checking for required tools"
-
-  for cmd in git stow ssh-keygen firefox; do
-    if ! command -v "$cmd" >/dev/null; then
-      echo "[!] Missing required command: $cmd"
-      exit 1
-    fi
-  done
-
+  echo "[+] Non-NixOS system — running normally"
   bash "$SCRIPT_DIR/bootstrap-core.sh"
 fi
 
