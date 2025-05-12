@@ -14,6 +14,8 @@
     nix-search-cli
     bat
     unzip
+    atuin # better history
+    blesh # bash line editor
 
     # styling
     (papirus-icon-theme.override { color = "teal"; })

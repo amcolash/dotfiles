@@ -4,3 +4,10 @@ fi
 
 alias rebuild="sudo nixos-rebuild -I nixos-config=$DOTFILES/nixos/configuration.nix switch"
 alias nix="vim $DOTFILES/nixos/"
+
+# enable ble.sh
+source "$(blesh-share)"/ble.sh --attach=none
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+# atuin
+eval "$(atuin init bash)"
