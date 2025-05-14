@@ -62,7 +62,9 @@
   fonts.packages = with pkgs; [
     corefonts
     liberation_ttf
-    (nerdfonts.override { fonts = [ "UbuntuMono" "SourceCodePro" ]; }) # note: may break in future versions of nix: https://nixos.wiki/wiki/Fonts
+    #(nerdfonts.override { fonts = [ "UbuntuMono" "SourceCodePro" ]; }) # note: may break in future versions of nix: https://nixos.wiki/wiki/Fonts
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.ubuntu-mono
     noto-fonts
     noto-fonts-emoji
     vistafonts
