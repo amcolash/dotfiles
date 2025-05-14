@@ -4,10 +4,6 @@
 
 { config, ... }:
 
-let
-  unstable = import <nixos-unstable> {};
-in
-
 {
   imports = [
       # Include the results of the hardware scan - always use the local machine version
@@ -27,7 +23,10 @@ in
       ./cinnamon.nix
 
       # tuxedo
-      ./tuxedo.nix
+      # ./tuxedo.nix
+
+      # framework
+      ./framework.nix
     ];
 
   # This value determines the NixOS release from which the default

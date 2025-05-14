@@ -1,6 +1,11 @@
 { config, ... }:
 
 {
+  # keyboard layout
+  services.xserver.xkb = {
+    variant = "altgr-intl";
+  };
+
   # tuxedo drivers
   hardware.tuxedo-drivers.enable = true;
 

@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 
 {
-    # Bootloader
+  # Bootloader
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 30;
+      };
       efi.canTouchEfiVariables = true;
     };
     kernelParams = [ "mem_sleep_default=deep" ];
@@ -52,14 +55,14 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
-    variant = "altgr-intl";
+    variant = "";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amcolash = {
     isNormalUser = true;
     description = "Andrew McOlash";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" ];
     packages = with pkgs; [];
   };
 
@@ -68,10 +71,13 @@
     systemPackages = with pkgs; [
       # allow faster reboot by bypassing bios: https://ash64.eu/blog/2023/rebooting-via-kexec
       (writeShellScriptBin "reboot-kexec" (builtins.readFile ./reboot-kexec.sh))
+      
+      vim
+      git
     ];
     variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
+      EDITOR = "vim";
+      VISUAL = "vim";
     };
   };
 
@@ -86,6 +92,7 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = {
+    # larger download buffer
     settings = {
       download-buffer-size = 500000000;
     };

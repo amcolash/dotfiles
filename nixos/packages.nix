@@ -11,11 +11,18 @@
     stow
     dos2unix
     tldr
-    nix-search-cli
     bat
     unzip
     atuin # better history
     blesh # bash line editor
+    xclip
+    btop
+
+    # utils
+    nix-search-cli
+    usbutils # lsusb
+    pciutils # lspci
+    lshw
 
     # styling
     (papirus-icon-theme.override { color = "teal"; })
@@ -27,6 +34,7 @@
     meld
     font-manager
     gparted
+    gnome-system-monitor
 
     # terminal
     kitty
