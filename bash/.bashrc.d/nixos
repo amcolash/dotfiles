@@ -3,6 +3,7 @@ if [ ! -f /etc/NIXOS ]; then
 fi
 
 alias rebuild="sudo nixos-rebuild -I nixos-config=$DOTFILES/nixos/configuration.nix switch"
+alias upgrade="sudo nix-channel --update"
 alias nix="vim $DOTFILES/nixos/"
 
 # enable ble.sh

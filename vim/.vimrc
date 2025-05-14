@@ -45,8 +45,8 @@ endif
 
 " Change default highlighting for parenthesis and brackets
 highlight MatchParen cterm=bold ctermbg=none ctermfg=cyan
-" Highlight when over 80 characters in file
-au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+" Highlight when over 120 characters in file
+au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 " Highlight extra whitespace
 highlight ExtraWhitespace ctermbg=yellow guibg=yellow
 :match ExtraWhitespace /\s\+$\| \+\zs\t/

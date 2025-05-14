@@ -4,6 +4,7 @@ palette = "bar_colors"
 
 format = """
 $username\
+$nix_shell\
 
 [](bg:bar2 fg:bar1)\
 $directory\
@@ -27,7 +28,7 @@ format = "[$output]($style)"
 
 [custom.dir_stack]
 when = "test \"$(cat ~/.dir_stack_active 2>/dev/null)\" = \"1\""
-command = "echo "
+command = "echo  "
 style = "bg:bar2 fg:black"
 format = "[$output  ]($style)"
 
@@ -36,6 +37,11 @@ show_always = true
 style_user = "bg:bar1 fg:black"
 style_root = "bg:bar1 fg:black"
 format = '[ $user ]($style)'
+
+[nix_shell]
+style = "bg:bar1 fg:black"
+symbol = "󱄅 "
+format = "[$symbol]($style)"
 
 [directory]
 style = "bg:bar2 fg:black"
@@ -51,7 +57,7 @@ truncation_symbol = "…/"
 "Developer" = "󰲋 "
 
 [git_branch]
-symbol = ""
+symbol = " "
 style = "bg:bar3"
 format = '[](bg:bar3 fg:bar2)[[ $symbol $branch ](fg:black bg:bar3)]($style)'
 
