@@ -10,7 +10,7 @@
     git
     stow
     dos2unix
-    tldr
+    tlrc # tldr rust client
     bat
     unzip
     atuin # better history
@@ -35,6 +35,7 @@
     font-manager
     gparted
     gnome-system-monitor
+    gnome-power-manager
 
     # terminal
     kitty
