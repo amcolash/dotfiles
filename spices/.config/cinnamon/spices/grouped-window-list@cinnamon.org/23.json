@@ -362,12 +362,11 @@
             "nemo.desktop",
             "code.desktop",
             "spotify.desktop",
-            "org.gnome.SystemMonitor.desktop",
-            "gimp.desktop",
-            "org.inkscape.Inkscape.desktop",
+            "steam.desktop",
             "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
             "chrome-cmcgllllbclcpmgpnejgmkfadcikgkfj-Default.desktop",
             "chrome-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop",
+            "org.gnome.SystemMonitor.desktop",
             "cinnamon-settings.desktop"
         ]
     },

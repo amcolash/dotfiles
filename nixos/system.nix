@@ -94,6 +94,13 @@
     };
   };
 
+  # enable virtualization
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  services.qemuGuest.enable =true;
+  services.spice-vdagentd.enable = true;
+
   # enable gnome keyring
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
