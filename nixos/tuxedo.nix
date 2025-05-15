@@ -1,9 +1,9 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   # keyboard layout
   services.xserver.xkb = {
-    variant = "altgr-intl";
+    variant = lib.mkForce "altgr-intl";
   };
 
   # tuxedo drivers
