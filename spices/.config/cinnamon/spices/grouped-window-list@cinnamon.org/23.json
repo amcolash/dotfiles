@@ -365,6 +365,9 @@
             "org.gnome.SystemMonitor.desktop",
             "gimp.desktop",
             "org.inkscape.Inkscape.desktop",
+            "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
+            "chrome-cmcgllllbclcpmgpnejgmkfadcikgkfj-Default.desktop",
+            "chrome-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop",
             "cinnamon-settings.desktop"
         ]
     },

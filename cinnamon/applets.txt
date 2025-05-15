@@ -1,3 +1,5 @@
+batterypower@joka42
 betterlock
+power-profiles@rcalixte
 temperature@fevimu
 weather@mockturtl

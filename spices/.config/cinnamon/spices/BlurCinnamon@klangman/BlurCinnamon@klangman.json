@@ -205,7 +205,7 @@
         "description": "Panels  (Please read tooltip)",
         "tooltip": "Apply effects to the Panels. This option should work well with most dark desktop themes but light themes could also be made to work with some creative use of the dimming color settings and an appropriate background image. It overrides some themes settings to achieve a (semi-)transparent panel so that the blurred background is visible.",
         "default": true,
-        "value": false
+        "value": true
     },
     "enable-popup-effects": {
         "type": "switch",
@@ -276,7 +276,7 @@
         "type": "switch",
         "description": "Use unique effect settings for the Panels",
         "default": false,
-        "value": false
+        "value": true
     },
     "enable-popup-override": {
         "type": "switch",
@@ -499,7 +499,7 @@
         "dependency": "blurType=2",
         "tooltip": "Adjusts the intensity of the blur effect by changing the radius use by the effect.",
         "default": 9,
-        "value": 9
+        "value": 10.5
     },
     "saturation": {
         "type": "scale",
@@ -617,7 +617,7 @@
         "default": 30,
         "step": 1,
         "dependency": "!enable-panel-unique-settings",
-        "value": 30
+        "value": 59.0
     },
     "panels-blendColor": {
         "type": "colorchooser",
@@ -649,7 +649,7 @@
         "tooltip": "Adjusts the intensity of the Gaussian blur effect by changing the radius use by the effect. This setting does not effect the Simple blur type",
         "default": 6,
         "dependency": "!enable-panel-unique-settings",
-        "value": 6
+        "value": 17.9
     },
     "panels-saturation": {
         "type": "scale",

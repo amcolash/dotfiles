@@ -19,6 +19,7 @@
     btop
     fd
     dust
+    ripgrep
 
     # terminal utils
     nix-search-cli
@@ -102,18 +103,4 @@
     enable = true;
     remotePlay.openFirewall = true;
   };
-
-  # virtualbox
-  #virtualisation.virtualbox = {
-  #  host = {
-  #    enable = true;
-  #    enableExtensionPack = true;
-  #  };
-  #  guest = {
-  #    enable = true;
-  #    dragAndDrop = true;
-  #  };
-  #};
-
-  #users.extraGroups.vboxusers.members = [ "amcolash" ];
 }

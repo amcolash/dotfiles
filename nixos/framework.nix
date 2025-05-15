@@ -4,16 +4,19 @@
   # fingerprint reader
   services.fprintd.enable = true;
 
-  # firmware updates
-  services.fwupd.enable = true;
-
   boot = {
     # latest kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
     # use amd igpu
-    kernelModules = [ "amdgpu" ];
+    initrd.kernelModules = [ "amdgpu" ];
   };
+
+  # for now, power profiles specific to framework latop
+  services.udev.extraRules = ''
+    SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
+    SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
+  '';
 
   # enable graphics acceleration
   hardware.graphics = {
@@ -23,13 +26,19 @@
     extraPackages = with pkgs; [
       vaapiVdpau
       libvdpau-va-gl
+      rocmPackages.clr.icd
     ];
   };
+
+  # enable HIP (like amd cuda)
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   # enable gpu for X
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # add lact (amd controller) + mesa
+  # add lact (amd controller)
   environment.systemPackages = with pkgs; [ lact ];
   systemd.packages = with pkgs; [ lact ];
   systemd.services.lactd.wantedBy = ["multi-user.target"];

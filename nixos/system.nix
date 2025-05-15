@@ -13,6 +13,10 @@
     kernelParams = [ "quiet" "splash" "mem_sleep_default=deep" ];
   };
 
+  # firmware updates
+  services.fwupd.enable = true;
+
+  # networking
   networking = {
     hostName = "nixos"; # Define your hostname.
 
@@ -60,7 +64,11 @@
     HibernateDelaySec=60min
   '';
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  services.logind = {
+    lidSwitch = "suspend-then-hibernate";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amcolash = {
