@@ -20,6 +20,7 @@ alias ls='ls --color=auto'
 alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
 alias dot="pushd $DOTFILES"
+alias bashrc="vim $DOTFILES/bash/.bashrc.d/"
 
 # Git branch for PS1
 parse_git_branch() {

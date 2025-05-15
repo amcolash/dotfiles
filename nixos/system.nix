@@ -76,6 +76,7 @@
     description = "Andrew McOlash";
     extraGroups = [ "networkmanager" "wheel" "video" ];
     packages = with pkgs; [];
+    shell = pkgs.bash;
   };
 
   # set up env vars
