@@ -23,10 +23,10 @@
       ./cinnamon.nix
 
       # tuxedo
-      # ./tuxedo.nix
+      ./tuxedo.nix
 
       # framework
-      ./framework.nix
+      # ./framework.nix
     ];
 
   # This value determines the NixOS release from which the default
