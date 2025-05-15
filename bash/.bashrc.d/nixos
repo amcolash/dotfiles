@@ -2,7 +2,7 @@ if [ ! -f /etc/NIXOS ]; then
   return
 fi
 
-alias rebuild="sudo nixos-rebuild -I nixos-config=$DOTFILES/nixos/configuration.nix switch"
+alias rebuild="cat /sys/class/dmi/id/product_name > $DOTFILES/nixos/device.txt && sudo nixos-rebuild -I nixos-config=$DOTFILES/nixos/configuration.nix switch"
 alias update="sudo nix-channel --update"
 alias nix="vim $DOTFILES/nixos/"
 

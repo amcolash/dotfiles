@@ -2,32 +2,35 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  # load the device name from file (since the build can't read from system, copy before build w/ rebuild alias)
+  device = lib.strings.trim(builtins.readFile ./device.txt);
+
+  # choose either cinnamon or hyprland
+  desktopEnvironment = "cinnamon";
+
+in
 {
   imports = [
-      # Include the results of the hardware scan - always use the local machine version
-      /etc/nixos/hardware-configuration.nix
+    # Include the results of the hardware scan - always use the local machine version
+    /etc/nixos/hardware-configuration.nix
 
-      # Base system config + services
-      ./system.nix
+    # Base system config + services
+    ./system.nix
 
-      # System + user packages
-      ./packages.nix
+    # System + user packages
+    ./packages.nix
+  ]
 
-      # hyprland
-      #./hyprland/hyprland.nix
-      #./hyprland/services.nix
+  # conditionally load a DE configuration
+  ++ lib.optionals (desktopEnvironment == "hyprland") [ ./hyprland/hyprland.nix ./hyprland/services.nix ]
+  ++ lib.optionals (desktopEnvironment == "cinnamon") [ ./cinnamon.nix ]
 
-      # cinnamon
-      ./cinnamon.nix
-
-      # tuxedo
-      ./tuxedo.nix
-
-      # framework
-      # ./framework.nix
-    ];
+  # conditionally import configurations for different devices
+  ++ lib.optionals (device == "InfinityBook S 14 v5") [ ./tuxedo.nix ]
+  ++ lib.optionals (device == "frameworkTODO") [ ./framework.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

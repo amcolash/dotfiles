@@ -47,6 +47,7 @@
     rpi-imager
     solaar
     mqtt-explorer
+    gnome-boxes # alternative to virtualbox
 
     # terminal
     kitty
@@ -102,16 +103,16 @@
   };
 
   # virtualbox
-  virtualisation.virtualbox = {
-    host = {
-      enable = true;
-      enableExtensionPack = true;
-    };
-    guest = {
-      enable = true;
-      dragAndDrop = true;
-    };
-  };
+  #virtualisation.virtualbox = {
+  #  host = {
+  #    enable = true;
+  #    enableExtensionPack = true;
+  #  };
+  #  guest = {
+  #    enable = true;
+  #    dragAndDrop = true;
+  #  };
+  #};
 
-  users.extraGroups.vboxusers.members = [ "amcolash" ];
+  #users.extraGroups.vboxusers.members = [ "amcolash" ];
 }
