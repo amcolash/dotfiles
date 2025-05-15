@@ -17,6 +17,7 @@
     blesh # bash line editor
     xclip
     btop
+    fd
 
     # utils
     nix-search-cli

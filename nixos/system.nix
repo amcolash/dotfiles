@@ -16,20 +16,12 @@
   networking = {
     hostName = "nixos"; # Define your hostname.
 
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # proxy.default = "http://user:password@proxy:port/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
     # Enable networking
     networkmanager.enable = true;
 
     # Open ports in the firewall.
     # firewall.allowedTCPPorts = [ ... ];
     # firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # firewall.enable = false;
   };
 
   # Set your time zone.
@@ -63,6 +55,13 @@
     Defaults        timestamp_timeout=20
   '';
 
+  # set up suspend then hibernate
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=60min
+  '';
+
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amcolash = {
     isNormalUser = true;
@@ -87,14 +86,19 @@
   };
 
   # enable gnome keyring
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+  services.dbus.packages = [ pkgs.seahorse ];
+
+  # enable ssh agent
+  programs.ssh.startAgent = true;
 
   # Automatically install system updates daily
-  system.autoUpgrade = {
-    enable = true;
-    #allowReboot = true;
-    dates = "18:00"; # UTC = 12pm PDT / 11am PST
-  };
+  #system.autoUpgrade = {
+  #  enable = true;
+  #  allowReboot = true;
+  #  dates = "18:00"; # UTC = 12pm PDT / 11am PST
+  #};
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
