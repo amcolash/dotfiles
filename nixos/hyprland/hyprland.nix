@@ -34,9 +34,6 @@
     indicator-sound-switcher
     networkmanagerapplet
 
-    # styling tools
-    unstable.nwg-look # (unstable) set/view gtk themes, cursors, icons
-
     # utils
     pavucontrol # sound control
     nemo

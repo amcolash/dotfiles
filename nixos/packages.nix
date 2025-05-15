@@ -29,6 +29,7 @@
     minicom
 
     # styling
+    nwg-look # change themes for everything
     (papirus-icon-theme.override { color = "teal"; })
     matcha-gtk-theme
     apple-cursor

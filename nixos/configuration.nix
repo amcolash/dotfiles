@@ -30,7 +30,7 @@ in
 
   # conditionally import configurations for different devices
   ++ lib.optionals (device == "InfinityBook S 14 v5") [ ./tuxedo.nix ]
-  ++ lib.optionals (device == "frameworkTODO") [ ./framework.nix ];
+  ++ lib.optionals (device == "Laptop 13 (AMD Ryzen AI 300 Series)") [ ./framework.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
