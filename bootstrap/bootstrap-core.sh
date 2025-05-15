@@ -90,6 +90,8 @@ fi
 if [[ -f /etc/NIXOS ]]; then
   echo
   echo "[*] Running nixos-rebuild"
+  # write device name to a file for all nix builds (to optionally configure things as necessary)
+  cat /sys/class/dmi/id/product_name > $DOTFILES/nixos/device.txt
   sudo nixos-rebuild -I nixos-config=nixos/configuration.nix boot
 fi
 
