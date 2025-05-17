@@ -54,17 +54,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# use ble.sh for better line completion + auto complete
-if [ $(command -v blesh-share)]; then
-  source "$(blesh-share)"/ble.sh --attach=none
-  [[ ! ${BLE_VERSION-} ]] || ble-attach
-fi
-
-# use atuin for better history
-if [ $(command -v autin) ]; then
-  eval "$(atuin init bash)"
-fi
-
 # use starship if possible, otherwise fall back to old manual PS1
 if [ $(command -v starship) ]; then
   eval "$(starship init bash)"
@@ -138,6 +127,17 @@ else
     ;;
   *) ;;
   esac
+fi
+
+# use ble.sh for better line completion + auto complete
+if [ $(command -v blesh-share) ]; then
+  source "$(blesh-share)"/ble.sh --attach=none
+  [[ ! ${BLE_VERSION-} ]] || ble-attach
+fi
+
+# use atuin for better history
+if [ $(command -v atuin) ]; then
+  eval "$(atuin init bash)"
 fi
 
 # enable color support of ls and also add handy aliases
