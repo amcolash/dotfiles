@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, ... }:
 
 let
@@ -17,8 +13,14 @@ in
     # Include the results of the hardware scan - always use the local machine version
     /etc/nixos/hardware-configuration.nix
 
-    # Base system config + services
+    # Base system config
     ./system.nix
+
+    # Localization settings
+    ./localization.nix
+
+    # System services
+    ./services.nix
 
     # System + user packages
     ./packages.nix

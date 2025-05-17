@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+    # Include services specific to a better Hyprland experience
+  imports = [
+    ./services.nix
+  ];
+
   # Enable hyprland with XWayland support
   programs.hyprland = {
     enable = true;
@@ -13,8 +18,7 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Packages to install alongside Hyprland
   environment.systemPackages = with pkgs; [
     # hyprland, waybar, wofi
     waybar	# status bar
@@ -37,9 +41,5 @@
     # utils
     pavucontrol # sound control
     nemo
-  ];
-
-  fonts.packages = with pkgs; [
-    font-awesome
   ];
 }

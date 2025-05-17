@@ -1,16 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
   # bluetooth
   services.blueman.enable = true;
 
@@ -23,12 +13,6 @@
       };
     };
   };
-
-  # PATH helper for nixos (use things like /bin/bash w/ symlink)
-  services.envfs.enable = true;
-
-  # file system + trash
-  services.gvfs.enable = true;
 
   # power profiles (low, perf, etc)
   services.power-profiles-daemon.enable = true;
