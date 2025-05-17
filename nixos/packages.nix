@@ -42,6 +42,7 @@
     gnome-system-monitor
     gnome-power-manager
     jstest-gtk
+    cheese
 
     # utils
     meld

@@ -4,13 +4,29 @@
   # Bootloader
   boot = {
     loader = {
+      timeout = 2;
+
       systemd-boot = {
         enable = true;
-        configurationLimit = 30;
+        configurationLimit = 15;
+        consoleMode = "2";
       };
+
       efi.canTouchEfiVariables = true;
+
+      #grub = {
+      #  enable = true;
+      #  efiSupport = true;
+      #  device = "nodev";
+      #  fontSize = 64;
+      #};
     };
     kernelParams = [ "quiet" "splash" "mem_sleep_default=deep" ];
+
+    # Hide boot text
+    plymouth.enable = true;
+    consoleLogLevel = 0;
+    initrd.verbose = false;
   };
 
   # firmware updates
