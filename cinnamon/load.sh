@@ -10,7 +10,7 @@ TARGET_BASE="$HOME/.local/share/cinnamon"
 
 mkdir -p "$TARGET_BASE/applets" "$TARGET_BASE/extensions"
 
-echo "Restoring Cinnamon spices using sparse Git checkout..."
+echo "[+] Restoring Cinnamon spices using sparse Git checkout..."
 
 # Function to install a spice using sparse checkout
 clone_sparse_spice() {

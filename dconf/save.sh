@@ -8,6 +8,8 @@ pushd "$SCRIPT_DIR" > /dev/null
 if [ ! $(command -v dconf) ]; then
   echo "[!] dconf is not installed. Skipping saving."
 else
+  echo "[+] Saving dconf settings..."
+
   # List of dconf paths to export
   PATHS=(
     "/org/cinnamon/"
@@ -22,7 +24,7 @@ else
 
     filename="${clean_path//\//.}.conf"
 
-    echo "Exporting $path -> $filename"
+    echo "[*] Exporting $path -> $filename"
     dconf dump "$path" > "$filename"
   done
 fi
