@@ -13,10 +13,3 @@ function nix() {
     vim $DOTFILES/nixos/$1.nix
   fi
 }
-
-# enable ble.sh
-source "$(blesh-share)"/ble.sh --attach=none
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-
-# atuin
-eval "$(atuin init bash)"

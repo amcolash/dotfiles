@@ -54,17 +54,39 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# use ble.sh for better line completion + auto complete
+if [ $(command -v blesh-share)]; then
+  source "$(blesh-share)"/ble.sh --attach=none
+  [[ ! ${BLE_VERSION-} ]] || ble-attach
+fi
+
+# use atuin for better history
+if [ $(command -v autin) ]; then
+  eval "$(atuin init bash)"
+fi
+
 # use starship if possible, otherwise fall back to old manual PS1
 if [ $(command -v starship) ]; then
   eval "$(starship init bash)"
 
-  # custom pushd/popd functions to set a file to indicate if the directory stack is active
+  export STARSHIP_SESSION=$(starship session)
+  export SESSION_DIR=~/.sessionStack
+
+` # make session stack dir (to keep track of pushed dirs)`
+  mkdir -p $SESSION_DIR
+
+  # remove sessions older than 7 days
+  find $SESSION_DIR -atime +7 -delete
+
+  # custom functions to set a file to indicate if the directory stack is active
   pushd() {
-    command pushd "$@" && echo "1" > ~/.dir_stack_active
+    command pushd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 
   popd() {
-    command popd "$@" && echo "0" > ~/.dir_stack_active
+    command popd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 else
   # set a fancy prompt (non-color, unless we know we "want" color)
