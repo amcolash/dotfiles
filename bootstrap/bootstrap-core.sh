@@ -76,15 +76,10 @@ for dir in */ ; do
   esac
 done
 
-# 5. Prompt for loading d-conf (cinnamon)
+# 5. Load additional settings (cinnamon, dconf, etc.)
 echo
-read -p "Would you like to load Cinnamon settings? [y/N] " do_dconf < /dev/tty
-if [[ "$do_dconf" =~ ^[Yy]$ ]]; then
-  echo "[*] Loading Cinnamon settings"
-  dconf/load-dconf.sh
-else
-  echo "[=] Skipping Cinnamon load"
-fi
+echo "[+] Loading additional settings"
+./load.sh
 
 # 5. Prompt for nixos-rebuild
 if [[ -f /etc/NIXOS ]]; then
@@ -102,4 +97,3 @@ read -p "Would you like to reboot now? [y/N] " do_reboot < /dev/tty
 if [[ "$do_reboot" =~ ^[Yy]$ ]]; then
   sudo reboot now
 fi
-

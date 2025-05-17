@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
+
+# move to the script directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+pushd "$SCRIPT_DIR" > /dev/null
 
 # Local install locations
 TARGET_BASE="$HOME/.local/share/cinnamon"
