@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 let
   # load the device name from file (since the build can't read from system, copy before build w/ rebuild alias)

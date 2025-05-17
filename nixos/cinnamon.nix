@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   # Use cinnamon as the desktop environment

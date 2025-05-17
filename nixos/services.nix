@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # PATH helper for nixos (use things like /bin/bash w/ symlink)

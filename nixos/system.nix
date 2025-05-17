@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Bootloader
@@ -6,20 +6,21 @@
     loader = {
       timeout = 2;
 
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 15;
-        consoleMode = "2";
-      };
+      # systemd-boot = {
+      #   enable = true;
+      #   configurationLimit = 15;
+      #   consoleMode = "2";
+      # };
 
       efi.canTouchEfiVariables = true;
 
-      #grub = {
-      #  enable = true;
-      #  efiSupport = true;
-      #  device = "nodev";
-      #  fontSize = 64;
-      #};
+      grub = {
+        enable = true;
+        configurationLimit = 15;
+        efiSupport = true;
+        device = "nodev";
+        fontSize = 64;
+      };
     };
     kernelParams = [ "quiet" "splash" "mem_sleep_default=deep" ];
 
