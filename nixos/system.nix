@@ -19,7 +19,8 @@
         configurationLimit = 15;
         efiSupport = true;
         device = "nodev";
-        fontSize = 64;
+        font = "${pkgs.nerd-fonts.sauce-code-pro}/share/fonts/truetype/NerdFonts/SauceCodePro/SauceCodeProNerdFontMono-Regular.ttf";
+        fontSize = 28;
       };
     };
     kernelParams = [ "quiet" "splash" "mem_sleep_default=deep" ];
