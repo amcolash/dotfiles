@@ -2,6 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+pushd "$SCRIPT_DIR" > /dev/null
 
 CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main/bootstrap/bootstrap-core.sh"
 SCRIPT_DOWNLOAD=0
@@ -30,3 +31,5 @@ if [ SCRIPT_DOWNLOAD == 1 ]; then
   echo "[+] Removing temporary bootstrap script"
   rm bootstrap-core.sh
 fi
+
+popd > /dev/null

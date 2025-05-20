@@ -8,6 +8,11 @@ pushd "$SCRIPT_DIR" > /dev/null
 # Local install locations
 TARGET_BASE="$HOME/.local/share/cinnamon"
 
+if [ ! -d "$TARGET_BASE" ]; then
+  echo "[!] No Cinnamon install found. Skipping spice restoration."
+  exit 0
+fi
+
 mkdir -p "$TARGET_BASE/applets" "$TARGET_BASE/extensions"
 
 echo "[+] Restoring Cinnamon spices using sparse Git checkout..."

@@ -5,12 +5,20 @@ echo
 echo "[+] Starting dotfiles bootstrap"
 
 # Check for required programs before running script
-for cmd in unzip git stow ssh-keygen firefox; do
+for cmd in unzip git stow ssh-keygen; do
   if ! command -v "$cmd" >/dev/null; then
     echo "[!] Missing required command: $cmd"
     exit 1
   fi
 done
+
+# only check for firefox for non-macOS systems
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  if ! command -v firefox >/dev/null; then
+    echo "[!] Missing required command: firefox"
+    exit 1
+  fi
+fi
 
 # 1. SSH key generation
 echo
@@ -42,7 +50,14 @@ else
   cat ~/.ssh/id_ed25519.pub
   echo
   echo "[*] Opening GitHub SSH key add page..."
-  firefox --new-window https://github.com/settings/ssh/new &
+
+  # open normally on mac, on linux use firefox
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    open https://github.com/settings/ssh/new
+  else
+    firefox --new-window https://github.com/settings/ssh/new &
+  fi
+
   read -p "Press enter after adding your SSH key..." < /dev/tty
 fi
 
