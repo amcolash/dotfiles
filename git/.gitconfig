@@ -38,8 +38,6 @@
 
 [pull]
 	rebase = false
-[includeIf "gitdir:~/dev/"]
-  path = ~/dev/.gitconfig
 [remote "origin"]
 	prune = true
 [init]
