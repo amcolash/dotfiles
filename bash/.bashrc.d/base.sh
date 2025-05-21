@@ -130,9 +130,15 @@ else
 fi
 
 # use ble.sh for better line completion + auto complete
+# (nixos)
 if [ $(command -v blesh-share) ]; then
   source "$(blesh-share)"/ble.sh --attach=none
   [[ ! ${BLE_VERSION-} ]] || ble-attach
+fi
+
+# ble.sh (non-nix)
+if [ -f ~/.local/share/blesh/ble.sh ]; then
+  source ~/.local/share/blesh/ble.sh
 fi
 
 # use atuin for better history
