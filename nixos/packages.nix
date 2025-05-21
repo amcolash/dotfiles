@@ -20,6 +20,9 @@
     fd
     dust
     ripgrep
+    jq
+    imagemagick
+    newt # adds whiptail, tui used for bootstrap
 
     # terminal utils
     nix-search-cli
@@ -59,6 +62,7 @@
     # browsers
     firefox
     google-chrome
+    # pantheon.elementary-capnet-assist # captive wifi portal helper
 
     # languages and tools for code
     nodejs_22

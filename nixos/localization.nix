@@ -1,8 +1,8 @@
 { ... }:
 
 {
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  # Enable automatic timezone service
+  services.tzupdate.enable = true;
 
   # Select internationalization properties.
   i18n = {

@@ -39,7 +39,23 @@
     hostName = "nixos"; # Define your hostname.
 
     # Enable networking
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+
+      # might remove this...
+      wifi.backend = "iwd";
+
+      settings = {
+        connectivity = {
+          uri = "http://connectivity-check.ubuntu.com/";
+          response = "OK";
+          interval = 180;
+        };
+      };
+    };
+
+    # use iwd, not sure about that... is supposed to help w/ captive portals
+    wireless.iwd.enable = true;
 
     # Open ports in the firewall.
     # firewall.allowedTCPPorts = [ ... ];
@@ -66,7 +82,7 @@
   users.users.amcolash = {
     isNormalUser = true;
     description = "Andrew McOlash";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
+    extraGroups = [ "networkmanager" "plugdev" "wheel" "video" ];
     packages = with pkgs; [];
     shell = pkgs.bash;
   };

@@ -20,7 +20,7 @@ fi
 if [[ -f /etc/NIXOS ]]; then
   echo "[+] Detected NixOS — using nix-shell"
 
-  exec nix-shell -p git stow openssh firefox unzip --run "$SCRIPT_DIR/bootstrap-core.sh"
+  exec nix-shell -p git stow openssh firefox unzip newt --run "$SCRIPT_DIR/bootstrap-core.sh"
 else
   echo "[+] Non-NixOS system — running normally"
   bash "$SCRIPT_DIR/bootstrap-core.sh"
