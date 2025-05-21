@@ -5,10 +5,21 @@ echo
 echo "[+] Starting dotfiles bootstrap"
 
 # Check for required programs before running script
-for cmd in unzip git stow ssh-keygen; do
+for cmd in unzip git stow ssh-keygen whiptail; do
   if ! command -v "$cmd" >/dev/null; then
     echo "[!] Missing required command: $cmd"
-    exit 1
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      echo "  [*] Attempting to install $cmd using Homebrew..."
+
+      if $cmd == "whiptail"; then
+        cmd="newt"
+      fi
+
+      brew install "$cmd"
+    else
+      exit 1
+    fi
   fi
 done
 
@@ -51,7 +62,7 @@ else
   echo
   echo "[*] Opening GitHub SSH key add page..."
 
-  # open normally on mac, on linux use firefox
+  # open github ssh page - normally on mac, otherwise use firefox
   if [[ "$OSTYPE" == "darwin"* ]]; then
     open https://github.com/settings/ssh/new
   else
@@ -61,7 +72,7 @@ else
   read -p "Press enter after adding your SSH key..." < /dev/tty
 fi
 
-# 3. Clone dotfiles
+# 3. Clone dotfiles repo
 echo
 
 mkdir -p ~/Github
@@ -74,22 +85,11 @@ else
   echo "[=] dotfiles repo already exists"
 fi
 
-# 4. Stow configs, skipping nixos/ and bootstrap/
-echo
-echo "[+] Stowing dotfiles"
+# 4. Stow configs interactively
 cd dotfiles
-for dir in */ ; do
-  name="${dir%/}"
-  case "$name" in
-    # skip these directories from using stow on them
-    nixos|bootstrap|dconf|cinnamon)
-      ;;
-    *)
-      echo "[*] Stowing $name"
-      stow "$name"
-      ;;
-  esac
-done
+echo
+
+bootstrap/bootstrap-stow.sh
 
 # 5. Load additional settings (cinnamon, dconf, etc.)
 echo
@@ -107,8 +107,8 @@ fi
 
 echo
 echo "[✓] Bootstrap complete!"
-read -p "Would you like to reboot now? [y/N] " do_reboot < /dev/tty
 
+read -p "Would you like to reboot now? [y/N] " do_reboot < /dev/tty
 if [[ "$do_reboot" =~ ^[Yy]$ ]]; then
   sudo reboot now
 fi
