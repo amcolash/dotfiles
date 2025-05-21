@@ -5,7 +5,20 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR/../" > /dev/null
 
 # List of directories to exclude from the whiptail menu
-EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon")
+EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon" )
+
+# Hide some dotfiles if they are not applicable
+if ! command -v hyprland >/dev/null; then
+  EXCLUDE_DIRS+=("hypr")
+fi
+
+if ! command -v waybar >/dev/null; then
+  EXCLUDE_DIRS+=("waybar")
+fi
+
+if ! command -v cinnamon >/dev/null; then
+  EXCLUDE_DIRS+=("spices")
+fi
 
 # Build the whiptail menu options
 OPTIONS=()
