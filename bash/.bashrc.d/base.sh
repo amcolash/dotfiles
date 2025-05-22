@@ -61,7 +61,7 @@ if [ $(command -v starship) ]; then
   export STARSHIP_SESSION=$(starship session)
   export SESSION_DIR=~/.sessionStack
 
-` # make session stack dir (to keep track of pushed dirs)`
+  # make session stack dir (to keep track of pushed dirs)
   mkdir -p $SESSION_DIR
 
   # remove sessions older than 7 days
@@ -69,12 +69,12 @@ if [ $(command -v starship) ]; then
 
   # custom functions to set a file to indicate if the directory stack is active
   pushd() {
-    command pushd "$@"
+    builtin pushd "$@"
     dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 
   popd() {
-    command popd "$@"
+    builtin popd "$@"
     dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 else

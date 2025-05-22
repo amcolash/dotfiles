@@ -54,6 +54,7 @@
     solaar
     mqtt-explorer
     gnome-boxes # alternative to virtualbox
+    seahorse # manage gnome keyring
 
     # terminal
     kitty

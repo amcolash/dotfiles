@@ -9,6 +9,26 @@ export CODEARTIFACT_AUTH_TOKEN=""
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+# mise
+eval "$(~/.local/bin/mise activate bash)"
+
+# override pushd/popd from mise to include dir stack
+if [ $(command -v starship) ]; then
+  pushd() {
+    __zsh_like_cd pushd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+  }
+
+  popd() {
+    __zsh_like_cd popd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+  }
+fi
+
 # Increase max node memory (14gb, pretty insane)
 export NODE_OPTIONS="--max-old-space-size=14336"
 
@@ -76,9 +96,3 @@ waitForServer() {
   fi
 }
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$BUN_INSTALL/bin:$PATH
-
-# mise
-eval "$(~/.local/bin/mise activate bash)"

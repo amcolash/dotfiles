@@ -81,8 +81,13 @@ cd ~/Github
 if [[ ! -d dotfiles ]]; then
   echo "[+] Cloning dotfiles repo..."
   git clone git@github.com:amcolash/dotfiles.git
+  git submodule init
+  git submodule update
 else
-  echo "[=] dotfiles repo already exists"
+  echo "[=] Dotfiles repo already exists"
+  echo "[*] Pulling latest changes"
+  git pull
+  git submodule update
 fi
 
 # 4. Stow configs interactively
