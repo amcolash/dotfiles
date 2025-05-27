@@ -13,7 +13,7 @@ for cmd in unzip git stow ssh-keygen whiptail; do
     if [ $(command -v brew) ]; then
       echo "  [*] Attempting to install $cmd using Homebrew..."
 
-      if $cmd == "whiptail"; then
+      if [[ $cmd == "whiptail" ]]; then
         cmd="newt"
       fi
 
