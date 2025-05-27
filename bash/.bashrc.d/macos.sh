@@ -32,6 +32,9 @@ fi
 # Increase max node memory (14gb, pretty insane)
 export NODE_OPTIONS="--max-old-space-size=14336"
 
+# Increase vitest debugging output
+DEBUG_PRINT_LIMIT=15000
+
 # Turn on "fast-mode" for building with csr app
 export FAST_MODE=enabled
 
