@@ -22,7 +22,7 @@ for item in "${COMMAND_DIR_MAP[@]}"; do
   IFS=':' read -r command_name dir_name <<< "$item"
 
   # Check if the command exists silently
-  if ! command -v "$command_name" >/dev/null 2>&1; then
+  if [ ! $(command -v "$command_name") ]; then
     # If the command is not found, add its corresponding directory to EXCLUDE_DIRS
     EXCLUDE_DIRS+=("$dir_name")
   fi

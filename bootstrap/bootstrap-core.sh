@@ -6,11 +6,11 @@ echo "[+] Starting dotfiles bootstrap"
 
 # Check for required programs before running script
 for cmd in unzip git stow ssh-keygen whiptail; do
-  if ! command -v "$cmd" >/dev/null; then
+  if [ ! $(command -v "$cmd") ]; then
     echo "[!] Missing required command: $cmd"
 
     # Attempt to install the missing command with Homebrew if available
-    if command -v brew >/dev/null; then
+    if [ $(command -v brew) ]; then
       echo "  [*] Attempting to install $cmd using Homebrew..."
 
       if $cmd == "whiptail"; then
@@ -63,9 +63,9 @@ else
   GITHUB_URL="https://github.com/settings/ssh/new"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     open $GITHUB_URL
-  elif [ command -v "google-chrome" >/dev/null ]; then
+  elif [ $(command -v "google-chrome") ]; then
     google-chrome $GITHUB_URL &
-  elif [ command -v "firefox" >/dev/null ]; then
+  elif [ $(command -v "firefox" ]; then
     firefox --new-window $GITHUB_URL &
   else
     echo "[*] Please add your SSH key manually to GitHub at $GITHUB_URL"
