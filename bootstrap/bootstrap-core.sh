@@ -9,7 +9,8 @@ for cmd in unzip git stow ssh-keygen whiptail; do
   if ! command -v "$cmd" >/dev/null; then
     echo "[!] Missing required command: $cmd"
 
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Attempt to install the missing command with Homebrew if available
+    if command -v brew >/dev/null; then
       echo "  [*] Attempting to install $cmd using Homebrew..."
 
       if $cmd == "whiptail"; then
@@ -23,9 +24,9 @@ for cmd in unzip git stow ssh-keygen whiptail; do
   fi
 done
 
-# 1. SSH key generation
+# 1. SSH key generation (if a key does not already exist)
 echo
-if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+if [[ ! -f ~/.ssh/id_ed25519 && ! -f ~/.ssh/id_rsa ]]; then
   echo "[+] Generating new SSH key..."
   ssh-keygen -t ed25519 -C "$(whoami)@$(hostname)" -f ~/.ssh/id_ed25519 -N ""
 else
@@ -42,13 +43,17 @@ ssh_output="$(
 )"
 
 ssh_exit_code=$(< /tmp/ssh_exit_code)
-echo "$ssh_output"
 
 if [[ "$ssh_exit_code" -eq 1 ]] && echo "$ssh_output" | grep -q "successfully authenticated"; then
   echo "[✓] SSH key is already registered with GitHub."
 else
+  echo
+  echo "$ssh_output"
+  echo
+
   echo "[!] SSH key not recognized. You may need to add it to GitHub."
   echo
+
   echo "[*] Your SSH public key:"
   cat ~/.ssh/id_ed25519.pub
   echo
