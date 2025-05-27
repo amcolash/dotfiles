@@ -23,14 +23,6 @@ for cmd in unzip git stow ssh-keygen whiptail; do
   fi
 done
 
-# only check for firefox for non-macOS systems
-if [[ "$OSTYPE" != "darwin"* ]]; then
-  if ! command -v firefox >/dev/null; then
-    echo "[!] Missing required command: firefox"
-    exit 1
-  fi
-fi
-
 # 1. SSH key generation
 echo
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
@@ -63,13 +55,18 @@ else
   echo "[*] Opening GitHub SSH key add page..."
 
   # open github ssh page - normally on mac, otherwise use firefox
+  GITHUB_URL="https://github.com/settings/ssh/new"
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    open https://github.com/settings/ssh/new
+    open $GITHUB_URL
+  else if [ command -v "google-chrome" >/dev/null ]; then
+    google-chrome $GITHUB_URL &
+  else if [ command -v "firefox" >/dev/null ]; then
+    firefox --new-window $GITHUB_URL &
   else
-    firefox --new-window https://github.com/settings/ssh/new &
+    echo "[*] Please add your SSH key manually to GitHub at $GITHUB_URL"
   fi
 
-  read -p "Press enter after adding your SSH key..." < /dev/tty
+  read -p "Press [enter] after adding your SSH key..." < /dev/tty
 fi
 
 # 3. Clone dotfiles repo

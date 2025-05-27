@@ -8,6 +8,7 @@ CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main
 SCRIPT_DOWNLOAD=0
 
 # Grab the script if it doesn't exist
+# TODO: Remove the download, just use curl + exec (?)
 if ! [ -f bootstrap-core.sh ]; then
   echo "[+] Bootstrap script missing — downloading from Github"
   echo

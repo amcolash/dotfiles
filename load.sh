@@ -9,13 +9,9 @@ echo "[+] Loading saved settings..."
 
 for dir in */ ; do
   if [ -f "$dir/load.sh" ]; then
-
-    read -p "Would you like to load $dir? [y/N] " do_load < /dev/tty
-    if [[ "$do_load" =~ ^[Yy]$ ]]; then
-      pushd "$dir" > /dev/null
-      ./load.sh
-      popd > /dev/null
-    fi
+    pushd "$dir" > /dev/null
+    ./load.sh
+    popd > /dev/null
   fi
 done
 

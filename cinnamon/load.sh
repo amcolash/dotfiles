@@ -1,21 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# move to the script directory
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd "$SCRIPT_DIR" > /dev/null
-
 # Local install locations
 TARGET_BASE="$HOME/.local/share/cinnamon"
 
+# get the script directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# check if settings can be loaded
 if [ ! -d "$TARGET_BASE" ]; then
-  echo "[!] No Cinnamon install found. Skipping spice restoration."
+  echo "[-] No Cinnamon install found. Skipping spice restoration."
   exit 0
 fi
 
-mkdir -p "$TARGET_BASE/applets" "$TARGET_BASE/extensions"
+# check if user wants to load settings
+read -p "Would you like to load $SCRIPT_DIR? [y/N] " do_load < /dev/tty
+if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
+  echo "[-] Skipping $SCRIPT_DIR."
+  exit 0
+fi
+
+# go to the script directory
+pushd "$SCRIPT_DIR" > /dev/null
 
 echo "[+] Restoring Cinnamon spices using sparse Git checkout..."
+mkdir -p "$TARGET_BASE/applets" "$TARGET_BASE/extensions"
 
 # Function to install a spice using sparse checkout
 clone_sparse_spice() {
