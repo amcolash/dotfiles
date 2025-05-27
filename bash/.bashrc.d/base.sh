@@ -2,6 +2,23 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Function to mark the beginning of a timed section.
+# Example: _start_bashrc_timer "Loading NVM"
+_start_timer() {
+  __bashrc_section_start_time=$(date +%s.%N)
+  echo ">>> Starting: $1..."
+}
+
+# Function to mark the end of a timed section and print its duration.
+# Example: _stop_bashrc_timer "Loading NVM"
+_stop_timer() {
+  local current_time=$(date +%s.%N)
+  local elapsed_time=$(echo "$current_time - $__bashrc_section_start_time" | bc -l)
+  echo "<<< Finished: $1 took ${elapsed_time} seconds."
+}
+
+_start_timer "Init"
+
 # Exit now if in scp session (None of the below is necessary)
 if [ -z "$PS1" ]; then
   return
@@ -67,6 +84,9 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+_stop_timer "Init"
+_start_timer "Starship"
+
 # use starship if possible, otherwise fall back to old manual PS1
 if [ $(command -v starship) ]; then
   eval "$(starship init bash)"
@@ -112,6 +132,9 @@ else
   esac
 fi
 
+_stop_timer "Starship"
+_start_timer "Blesh"
+
 # use ble.sh for better line completion + auto complete
 # (nixos)
 if [ $(command -v blesh-share) ]; then
@@ -138,10 +161,16 @@ if [ ! $(command -v ble) ]; then
   HISTFILESIZE=20000
 fi
 
+_stop_timer "Blesh"
+_start_timer "Atuin"
+
 # use atuin for better history
 if [ $(command -v atuin) ]; then
   eval "$(atuin init bash)"
 fi
+
+_stop_timer "Atuin"
+_start_timer "Misc"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -170,3 +199,5 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
+
+_stop_timer "Misc"
