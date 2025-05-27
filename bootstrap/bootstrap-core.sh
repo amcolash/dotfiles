@@ -65,7 +65,7 @@ else
     open $GITHUB_URL
   elif [ $(command -v "google-chrome") ]; then
     google-chrome $GITHUB_URL &
-  elif [ $(command -v "firefox" ]; then
+  elif [ $(command -v "firefox") ]; then
     firefox --new-window $GITHUB_URL &
   else
     echo "[*] Please add your SSH key manually to GitHub at $GITHUB_URL"
