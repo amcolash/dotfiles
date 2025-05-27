@@ -76,9 +76,20 @@ fi
 
 # 3. Clone dotfiles repo
 echo
-mkdir -p ~/Github
-cd ~/Github
 
+# Set the root directory for dotfiles
+ROOT_DIR=~/Github
+
+  # If running on a Synology NAS, use a different directory
+if [ cat /sys/class/dmi/id/product_name == "DS216+" ]; then
+  ROOT_DIR=~/data/scripts/
+fi
+
+# Create the root directory if it doesn't exist
+mkdir -p $ROOT_DIR
+cd $ROOT_DIR
+
+# Clone the repo, or update it if it already exists
 if [[ ! -d dotfiles ]]; then
   echo "[+] Cloning dotfiles repo..."
   git clone git@github.com:amcolash/dotfiles.git

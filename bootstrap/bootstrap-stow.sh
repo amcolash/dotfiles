@@ -7,18 +7,26 @@ pushd "$SCRIPT_DIR/../" > /dev/null
 # List of directories to exclude from the whiptail menu
 EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon" )
 
-# Hide some dotfiles if they are not applicable
-if ! command -v hyprland >/dev/null; then
-  EXCLUDE_DIRS+=("hypr")
-fi
+# Hide some dotfiles if they are not applicable (mapping of command to directory)
+declare -a COMMAND_DIR_MAP=(
+  "hyprland:hypr"
+  "kitty:kitty"
+  "cinnamon:spices"
+  "waybar:waybar"
+  "alacritty:alacritty"
+)
 
-if ! command -v waybar >/dev/null; then
-  EXCLUDE_DIRS+=("waybar")
-fi
+# Iterate over the defined command-to-directory mappings
+for item in "${COMMAND_DIR_MAP[@]}"; do
+  # Temporarily set IFS to ':' to split the string into command and directory
+  IFS=':' read -r command_name dir_name <<< "$item"
 
-if ! command -v cinnamon >/dev/null; then
-  EXCLUDE_DIRS+=("spices")
-fi
+  # Check if the command exists silently
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    # If the command is not found, add its corresponding directory to EXCLUDE_DIRS
+    EXCLUDE_DIRS+=("$dir_name")
+  fi
+done
 
 # Build the whiptail menu options
 OPTIONS=()
