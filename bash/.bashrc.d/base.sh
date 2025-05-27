@@ -16,13 +16,30 @@ export VISUAL="vim"
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
 alias ls='ls --color=auto'
-#alias ls='eza --color=always --icons=always'
 alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
 
+# override `ls` to use `eza` if available
+if command -v eza &> /dev/null; then
+  alias ls='eza --group-directories-first --color=always'
+  alias ll='eza --long --group-directories-first --color=always'
+  alias la='eza --all --long --group-directories-first --color=always'
+  alias l='eza -CF --group-directories-first --color=always'
+else
+  alias ll='ls -l'
+  alias la='ls -A'
+  alias l='ls -CF'
+fi
+
 # Dotfile helper functions
 dot() {
-  pushd $DOTFILES
+  pushd $DOTFILES > /dev/null
+}
+
+dotpull() {
+  pushd $DOTFILES > /dev/null
+  git pull
+  popd > /dev/null
 }
 
 bashrc() {
@@ -134,11 +151,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

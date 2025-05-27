@@ -4,7 +4,6 @@ fi
 
 # Hide zsh warning
 export BASH_SILENCE_DEPRECATION_WARNING=1
-export CODEARTIFACT_AUTH_TOKEN=""
 
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
@@ -12,6 +11,9 @@ export PATH=/opt/homebrew/bin:$PATH
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
+
+# eza
+export EZA_CONFIG_DIR="$HOME/.config/eza"
 
 # mise
 if [ -f "$HOME/.local/bin/mise" ]; then
