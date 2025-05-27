@@ -2,4 +2,4 @@ if [[ -f /sys/class/dmi/id/product_name && "$(cat /sys/class/dmi/id/product_name
   return
 fi
 
-export DOTFILES="$HOME/data/scripts/dotfiles"
+export DOTFILES="$HOME/scripts/dotfiles"

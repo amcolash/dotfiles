@@ -80,9 +80,9 @@ echo
 # Set the root directory for dotfiles
 ROOT_DIR=~/Github
 
-  # If running on a Synology NAS, use a different directory
-if [[ -f /sys/class/dmi/id/product_name &&  "$(cat /sys/class/dmi/id/product_name)" == "DS216+" ]]; then
-  ROOT_DIR=~/data/scripts/
+# If running on a Synology NAS, use a different directory
+if [[ -f /sys/class/dmi/id/product_name && "$(cat /sys/class/dmi/id/product_name)" == "DS216+" ]]; then
+  ROOT_DIR=~/scripts/
 fi
 
 # Create the root directory if it doesn't exist
