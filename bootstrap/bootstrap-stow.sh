@@ -58,9 +58,7 @@ exitstatus=$?
 
 if [[ -z "$CHOICES" || $exitstatus != 0 ]]; then
   echo "[!] No choices selected or stow cancelled."
-fi
-
-if [ $exitstatus = 0 ]; then
+else
   echo "[+] Stowing selected dotfiles..."
   echo
   # Iterate over the selected choices (which are space-separated)
