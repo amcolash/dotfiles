@@ -1,3 +1,6 @@
+# use ble.sh history
+bleopt history_share=1
+
 # set ble.sh to 16 colors. this was copied from https://github.com/akinomyoga/blesh-contrib/blob/master/scheme/base16.bash
 # in the future, this can be changed simply to bleopt color_scheme = base16
 
