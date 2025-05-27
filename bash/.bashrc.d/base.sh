@@ -40,8 +40,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -83,42 +83,12 @@ else
   xterm-color|*-256color|xterm-kitty) color_prompt=yes ;;
   esac
 
-  # uncomment for a colored prompt, if the terminal has the capability; turned
-  # off by default to not distract the user: the focus in a terminal window
-  # should be on the output of commands, not on the prompt
-  force_color_prompt=yes
-
-  if [ -n "$force_color_prompt" ]; then
-    if [ $(command -v tput) ] && tput setaf 1 >&/dev/null; then
-      # We have color support; assume it's compliant with Ecma-48
-      # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-      # a case would tend to support setf rather than setaf.)
-      color_prompt=yes
-    else
-      color_prompt=
-    fi
-  fi
-
   if [ "$color_prompt" = yes ]; then
-    _GREEN=$(tput setaf 2)
-    _BLUE=$(tput setaf 4)
-    _RED=$(tput setaf 1)
-    _CYAN=$(tput setaf 6)
-    _PURPLE=$(tput setaf 5)
-    _RESET=$(tput sgr0)
-    _BOLD=$(tput bold)
-
-    _BG="${_RESET}${_BOLD}${_GREEN}"
-    _BB="${_RESET}${_BOLD}${_BLUE}"
-
-    # Old PS1, not sure if I want to keep it
-    #PS1='\[${_BG}\]\u@\h \[${_BB}\]\w `parse_git_branch`\$ \[${_RESET}\]'
-
-    PS1='${_BG}\u@\h ${_BB}\w `parse_git_branch`\$ ${_RESET}'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w `parse_git_branch`$\[\033[00m\] '
   else
     PS1='\u@\h \w \$ '
   fi
-  unset color_prompt force_color_prompt
+  unset color_prompt
 
   # If this is an xterm set the title to user@host:dir
   case "$TERM" in
