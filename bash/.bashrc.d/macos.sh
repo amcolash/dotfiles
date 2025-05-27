@@ -14,7 +14,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
 # mise
-eval "$(~/.local/bin/mise activate bash)"
+if [ -f "$HOME/.local/bin/mise" ]; then
+  eval "$(~/.local/bin/mise activate bash)"
+fi
 
 # override pushd/popd from mise to include dir stack
 if [ $(command -v starship) ]; then

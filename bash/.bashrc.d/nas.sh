@@ -4,14 +4,6 @@
 # Override DOTFILES dir
 export DOTFILES="$HOME/scripts/dotfiles"
 
-alias dot="pushd $DOTFILES"
-alias bashrc="vim $DOTFILES/bash/.bashrc.d/"
-
-# Load linux homebrew
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
 # Restart a service with docker compose
 docker-restart() {
   if [ $# -ne 1 ]; then

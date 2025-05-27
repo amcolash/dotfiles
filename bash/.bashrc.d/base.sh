@@ -8,10 +8,7 @@ if [ -z "$PS1" ]; then
 fi
 
 # Exports
-if [ -z "$DOTFILES" ]; then
-  export DOTFILES="$HOME/Github/dotfiles"
-fi
-
+export DOTFILES="$HOME/Github/dotfiles"
 export EDITOR="vim"
 export VISUAL="vim"
 
@@ -22,8 +19,15 @@ alias ls='ls --color=auto'
 #alias ls='eza --color=always --icons=always'
 alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
-alias dot="pushd $DOTFILES"
-alias bashrc="vim $DOTFILES/bash/.bashrc.d/"
+
+# Dotfile helper functions
+dot() {
+  pushd $DOTFILES
+}
+
+bashrc() {
+  vim $DOTFILES/bash/.bashrc.d/
+}
 
 # Git branch for PS1
 parse_git_branch() {
