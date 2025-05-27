@@ -18,7 +18,7 @@ fi
 if ! [ -f bootstrap-core.sh ]; then
   echo "[+] Bootstrap script missing — downloading from Github"
   echo
-  curl $CORE_SCRIPT -o bootstrap-core.sh
+  curl -s $CORE_SCRIPT -o bootstrap-core.sh
   chmod +x bootstrap-core.sh
   SCRIPT_DOWNLOAD=1
 fi

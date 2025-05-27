@@ -48,11 +48,17 @@ for dir in */ ; do
 done
 
 # Generate the whiptail menu
+set +e
 CHOICES=$(whiptail --title "Stow Dotfiles" --checklist \
 "Choose the dotfiles you want to stow:" 20 78 15 \
 "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
+set -e
 
 exitstatus=$?
+
+if [[ -z "$CHOICES" || $exitstatus != 0 ]]; then
+  echo "[!] No choices selected or stow cancelled."
+fi
 
 if [ $exitstatus = 0 ]; then
   echo "[+] Stowing selected dotfiles..."
