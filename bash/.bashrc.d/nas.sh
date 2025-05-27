@@ -1,8 +1,6 @@
 [[ ! -f "/sys/class/dmi/id/product_name" ]] && return
 [[ "$(<"/sys/class/dmi/id/product_name")" != "DS216+" ]] && return
 
-export DOTFILES="$HOME/scripts/dotfiles"
-
 # Restart a service with docker compose
 docker-restart() {
   if [ $# -ne 1 ]; then

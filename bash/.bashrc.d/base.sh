@@ -8,7 +8,10 @@ if [ -z "$PS1" ]; then
 fi
 
 # Exports
-export DOTFILES="$HOME/Github/dotfiles"
+if [ -z "$DOTFILES" ]; then
+  export DOTFILES="$HOME/Github/dotfiles"
+fi
+
 export EDITOR="vim"
 export VISUAL="vim"
 
