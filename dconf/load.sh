@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # check if settings can be loaded
 if [ ! $(command -v dconf) ]; then
-  echo "[!] dconf is not installed. Skipping loading."
+  echo "[-] dconf is not installed. Skipping loading."
   exit 0
 fi
 

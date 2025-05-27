@@ -58,9 +58,9 @@ else
   GITHUB_URL="https://github.com/settings/ssh/new"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     open $GITHUB_URL
-  else if [ command -v "google-chrome" >/dev/null ]; then
+  elif [ command -v "google-chrome" >/dev/null ]; then
     google-chrome $GITHUB_URL &
-  else if [ command -v "firefox" >/dev/null ]; then
+  elif [ command -v "firefox" >/dev/null ]; then
     firefox --new-window $GITHUB_URL &
   else
     echo "[*] Please add your SSH key manually to GitHub at $GITHUB_URL"
@@ -71,31 +71,29 @@ fi
 
 # 3. Clone dotfiles repo
 echo
-
 mkdir -p ~/Github
 cd ~/Github
 
 if [[ ! -d dotfiles ]]; then
   echo "[+] Cloning dotfiles repo..."
   git clone git@github.com:amcolash/dotfiles.git
+  cd dotfiles
   git submodule init
   git submodule update
 else
   echo "[=] Dotfiles repo already exists"
   echo "[*] Pulling latest changes"
+  cd dotfiles
   git pull
   git submodule update
 fi
 
 # 4. Stow configs interactively
-cd dotfiles
 echo
-
 bootstrap/bootstrap-stow.sh
 
 # 5. Load additional settings (cinnamon, dconf, etc.)
 echo
-echo "[+] Loading additional settings"
 ./load.sh
 
 # 5. Prompt for nixos-rebuild
@@ -110,7 +108,10 @@ fi
 echo
 echo "[✓] Bootstrap complete!"
 
-read -p "Would you like to reboot now? [y/N] " do_reboot < /dev/tty
-if [[ "$do_reboot" =~ ^[Yy]$ ]]; then
-  sudo reboot now
+# Only prompt for reboot on NixOS
+if [[ -f /etc/NIXOS ]]; then
+  read -p "Would you like to reboot now? [y/N] " do_reboot < /dev/tty
+  if [[ "$do_reboot" =~ ^[Yy]$ ]]; then
+    sudo reboot now
+  fi
 fi

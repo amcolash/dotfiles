@@ -48,12 +48,19 @@ exitstatus=$?
 
 if [ $exitstatus = 0 ]; then
   echo "[+] Stowing selected dotfiles..."
+  echo
   # Iterate over the selected choices (which are space-separated)
   for choice in $CHOICES; do
     # Remove quotes from the choice
     clean_choice=$(echo "$choice" | sed 's/"//g')
-    echo "  [*] Stowing $clean_choice"
-    stow "$clean_choice"
+
+    if stow "$clean_choice"; then
+      echo "  [✓] Successfully stowed $clean_choice"
+    else
+      echo
+      echo "  [!] Failed to stow $clean_choice"
+      echo
+    fi
   done
 fi
 
