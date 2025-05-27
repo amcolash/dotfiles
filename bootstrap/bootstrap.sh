@@ -7,6 +7,12 @@ pushd "$SCRIPT_DIR" > /dev/null
 CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main/bootstrap/bootstrap-core.sh"
 SCRIPT_DOWNLOAD=0
 
+# Remove old bootstrap if not in git repo
+if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+  echo "[*] Not in a git repository — removing old bootstrap script"
+  rm -f bootstrap-core.sh
+fi
+
 # Grab the script if it doesn't exist
 # TODO: Remove the download, just use curl + exec (?)
 if ! [ -f bootstrap-core.sh ]; then
