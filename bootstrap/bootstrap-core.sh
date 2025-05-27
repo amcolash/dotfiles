@@ -81,7 +81,7 @@ echo
 ROOT_DIR=~/Github
 
   # If running on a Synology NAS, use a different directory
-if [[ -f /sys/class/dmi/id/product_name &&  "$(cat /sys/class/dmi/id/product_name == "DS216+")" ]]; then
+if [[ -f /sys/class/dmi/id/product_name &&  "$(cat /sys/class/dmi/id/product_name)" == "DS216+" ]]; then
   ROOT_DIR=~/data/scripts/
 fi
 
