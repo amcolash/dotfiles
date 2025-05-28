@@ -23,6 +23,7 @@
     jq
     imagemagick
     newt # adds whiptail, tui used for bootstrap
+    eza
 
     # terminal utils
     nix-search-cli
@@ -70,6 +71,7 @@
     python313
     vscode
     arduino-ide
+    devbox
 
     # media
     gimp

@@ -21,14 +21,19 @@
   # enable ssh agent
   programs.ssh.startAgent = true;
 
+  # enable avahi
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+
+  # help resolve local network dns
+  services.resolved.enable = true;
+
   # Automatically install system updates daily
   #system.autoUpgrade = {
   #  enable = true;
   #  allowReboot = true;
   #  dates = "18:00"; # UTC = 12pm PDT / 11am PST
   #};
-
-  # auto backlight off (for laptops)
-  services.upower.enable = true;
-  services.tp-auto-kbbl.enable = true;
 }

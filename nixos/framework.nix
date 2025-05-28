@@ -12,7 +12,7 @@
     initrd.kernelModules = [ "amdgpu" ];
   };
 
-  # for now, power profiles specific to framework latop
+  # automatic ac/battery power profiles
   services.udev.extraRules = ''
     SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
     SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
@@ -30,7 +30,7 @@
     ];
   };
 
-  # enable HIP (like amd cuda)
+  # enable rocm/HIP (like amd cuda)
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];

@@ -6,12 +6,6 @@
     loader = {
       timeout = 2;
 
-      # systemd-boot = {
-      #   enable = true;
-      #   configurationLimit = 15;
-      #   consoleMode = "2";
-      # };
-
       efi.canTouchEfiVariables = true;
 
       grub = {
@@ -42,20 +36,14 @@
     networkmanager = {
       enable = true;
 
-      # might remove this...
-      wifi.backend = "iwd";
-
-      settings = {
-        connectivity = {
-          uri = "http://connectivity-check.ubuntu.com/";
-          response = "OK";
-          interval = 180;
-        };
-      };
+#      settings = {
+#        connectivity = {
+#          uri = "http://connectivity-check.ubuntu.com/";
+#          response = "OK";
+#          interval = 180;
+#        };
+#      };
     };
-
-    # use iwd, not sure about that... is supposed to help w/ captive portals
-    wireless.iwd.enable = true;
 
     # Open ports in the firewall.
     # firewall.allowedTCPPorts = [ ... ];
