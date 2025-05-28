@@ -3,7 +3,7 @@
 ## Quick Bootstrap
 
 ```
-curl -s -L curl -L setup.amcolash.com | bash
+curl -sL setup.amcolash.com | bash
 ```
 
 ## Slightly More Verbose
