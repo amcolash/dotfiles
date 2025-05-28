@@ -139,7 +139,16 @@ if [ ! $(command -v ble) ]; then
 fi
 
 # use atuin for better history
+if [ -f "$HOME/.atuin/bin/env" ]; then
+  . "$HOME/.atuin/bin/env"
+fi
+
 if [ $(command -v atuin) ]; then
+  # use bash-preexec if atuin ble.sh not installed
+  if [ ! $(command -v ble) ]; then
+    [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+  fi
+
   eval "$(atuin init bash)"
 fi
 
