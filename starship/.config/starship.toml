@@ -3,6 +3,7 @@
 palette = "bar_colors"
 
 format = """
+$hostname\
 $username\
 $nix_shell\
 
@@ -31,6 +32,11 @@ when = "test ! $(cat $SESSION_DIR/$STARSHIP_SESSION) = '1'"
 command = "echo  "
 style = "bg:bar2 fg:black"
 format = "[$output  ]($style)"
+
+[hostname]
+style = "bg:bar1 fg:black"
+ssh_symbol = "󰢹 "
+format = "[ $ssh_symbol]($style)"
 
 [username]
 show_always = true
