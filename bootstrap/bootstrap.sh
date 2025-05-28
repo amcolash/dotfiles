@@ -33,7 +33,7 @@ else
   bash "$SCRIPT_DIR/bootstrap-core.sh"
 fi
 
-if [ $SCRIPT_DOWNLOAD == 1 ]; then
+if [ $SCRIPT_DOWNLOAD -eq 1 ]; then
   echo
   echo "[+] Removing temporary bootstrap script"
   rm bootstrap-core.sh
