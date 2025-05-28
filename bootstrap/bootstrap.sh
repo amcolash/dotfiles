@@ -5,7 +5,6 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR" > /dev/null
 
 CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main/bootstrap/bootstrap-core.sh"
-SCRIPT_DOWNLOAD=0
 
 # Remove old bootstrap if not in git repo
 if ! git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -20,7 +19,6 @@ if ! [ -f bootstrap-core.sh ]; then
   echo
   curl -s $CORE_SCRIPT -o bootstrap-core.sh
   chmod +x bootstrap-core.sh
-  SCRIPT_DOWNLOAD=1
 fi
 
 # Detect NixOS
@@ -33,7 +31,7 @@ else
   bash "$SCRIPT_DIR/bootstrap-core.sh"
 fi
 
-if [ $SCRIPT_DOWNLOAD -eq 1 ]; then
+if ! git rev-parse --is-inside-work-tree &>/dev/null; then
   echo
   echo "[+] Removing temporary bootstrap script"
   rm bootstrap-core.sh
