@@ -72,6 +72,7 @@
     vscode
     arduino-ide
     devbox
+    distrobox
 
     # media
     gimp
@@ -111,4 +112,7 @@
     enable = true;
     remotePlay.openFirewall = true;
   };
+
+  # kde connect
+  programs.kdeconnect.enable = true;
 }

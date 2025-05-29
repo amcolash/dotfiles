@@ -48,6 +48,10 @@
     # Open ports in the firewall.
     # firewall.allowedTCPPorts = [ ... ];
     # firewall.allowedUDPPorts = [ ... ];
+
+    # KDE connect
+    firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   };
 
   # longer timeout (minutes) for sudo
