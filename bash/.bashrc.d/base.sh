@@ -31,6 +31,12 @@ else
   alias l='ls -CF'
 fi
 
+# helpful apt commands
+if [ $(command -v apt) ]; then
+  alias upgrade="sudo apt update && sudo apt upgrade"
+  alias updateInstall="sudo apt update && sudo apt install"
+fi
+
 # Dotfile helper functions
 dot() {
   pushd $DOTFILES > /dev/null

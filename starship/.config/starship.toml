@@ -94,9 +94,8 @@ vimcmd_replace_symbol = '[❮](bold fg:purple)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 
-# Palette from kitty colors
 [palettes.bar_colors]
-bar1 = "#98be65"
-bar2 = "#c678dd"
-bar3 = "#ecbe7b"
-bar4 = "#51afef"
+bar1 = "green"
+bar2 = "purple"
+bar3 = "yellow"
+bar4 = "blue"

@@ -1,6 +1,10 @@
 # use ble.sh history
 bleopt history_share=1
 
+# perf tweaks (slightly slower autocomplete to make typing faster)
+bleopt complete_auto_delay=500
+bleopt complete_auto_menu=500
+
 # set ble.sh to 16 colors. this was copied from https://github.com/akinomyoga/blesh-contrib/blob/master/scheme/base16.bash
 # in the future, this can be changed simply to bleopt color_scheme = base16
 
