@@ -17,6 +17,7 @@ $git_branch\
 $git_status\
 
 $time\
+$jobs\
 [ ](fg:bar4)\
 $line_break\
 $character"""
@@ -34,19 +35,19 @@ style = "bg:bar2 fg:black"
 format = "[$output  ]($style)"
 
 [hostname]
-style = "bg:bar1 fg:black"
 ssh_symbol = "󰢹 "
+style = "bg:bar1 fg:black"
 format = "[ $ssh_symbol]($style)"
 
 [username]
 show_always = true
 style_user = "bg:bar1 fg:black"
-style_root = "bg:bar1 fg:black"
+style_root = "bg:bar1 fg:red"
 format = '[ $user ]($style)'
 
 [nix_shell]
-style = "bg:bar1 fg:black"
 symbol = "󱄅 "
+style = "bg:bar1 fg:black"
 format = "[$symbol]($style)"
 
 [directory]
@@ -64,12 +65,12 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = " "
-style = "bg:bar3"
-format = '[](bg:bar3 fg:bar2)[[ $symbol $branch ](fg:black bg:bar3)]($style)'
+style = "fg:black bg:bar3"
+format = '[](fg:bar2 bg:bar3)[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:bar3"
-format = '[[($all_status$ahead_behind )](fg:black bg:bar3)]($style)[](fg:bar3 bg:bar4)'
+style = "fg:black bg:bar3"
+format = '[($all_status$ahead_behind )]($style)[](fg:bar3 bg:bar4)'
 ahead = " 󰁞 ${count}"
 behind = " 󰁆 ${count}"
 modified = ""
@@ -78,8 +79,13 @@ diverged = " 󰁞 ${ahead_count} 󰁆 ${behind_count}"
 [time]
 disabled = false
 time_format = "%l:%M"
-style = "bg:bar4"
-format = '[[ $time ](fg:black bg:bar4)]($style)'
+style = "fg:black bg:bar4"
+format = '[ $time ]($style)'
+
+[jobs]
+symbol = ""
+style = "fg:black bg:bar4"
+format = "[$symbol$number ]($style)"
 
 [line_break]
 disabled = true
@@ -88,11 +94,6 @@ disabled = true
 disabled = false
 success_symbol = '[❯](bold fg:green)'
 error_symbol = '[❯](bold fg:red)'
-vimcmd_symbol = '[❮](bold fg:green)'
-vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
-vimcmd_replace_symbol = '[❮](bold fg:purple)'
-vimcmd_visual_symbol = '[❮](bold fg:yellow)'
-
 
 [palettes.bar_colors]
 bar1 = "green"

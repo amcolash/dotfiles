@@ -35,14 +35,6 @@
     # Enable networking
     networkmanager = {
       enable = true;
-
-#      settings = {
-#        connectivity = {
-#          uri = "http://connectivity-check.ubuntu.com/";
-#          response = "OK";
-#          interval = 180;
-#        };
-#      };
     };
 
     # Open ports in the firewall.
@@ -66,8 +58,8 @@
 
   services.logind = {
     lidSwitch = "suspend-then-hibernate";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "suspend-then-hibernate";
+    lidSwitchExternalPower = "suspend-then-hibernate";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
