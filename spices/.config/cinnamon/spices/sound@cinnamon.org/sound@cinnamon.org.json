@@ -42,7 +42,8 @@
             "vlc",
             "rhythmbox",
             "firefox",
-            "spotify"
+            "spotify",
+            "org.kde.kdeconnect.app"
         ]
     },
     "section2": {

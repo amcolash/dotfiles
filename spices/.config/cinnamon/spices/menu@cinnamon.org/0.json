@@ -99,7 +99,7 @@
         "units": "px",
         "description": "Icon size",
         "dependency": "menu-custom",
-        "value": 22.0
+        "value": 20.0
     },
     "menu-label": {
         "type": "entry",
