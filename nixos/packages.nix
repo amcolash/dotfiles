@@ -24,6 +24,8 @@
     imagemagick
     newt # adds whiptail, tui used for bootstrap
     eza
+    rclone # mount remote filesystems (faster than sshfs)
+    appimage-run
 
     # terminal utils
     nix-search-cli
@@ -47,6 +49,7 @@
     gnome-power-manager
     jstest-gtk
     cheese
+    gedit
 
     # utils
     meld

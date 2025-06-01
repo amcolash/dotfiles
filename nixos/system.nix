@@ -6,6 +6,7 @@
     loader = {
       timeout = 2;
 
+      #systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
 
       grub = {
@@ -46,21 +47,59 @@
     firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   };
 
+  #fileSystems."/mnt/nas" = {
+  #  device = "amcolash@192.168.1.101:~";
+  #  fsType = "sshfs";
+  #  options = [
+  #    "nodev"
+  #    "noatime"
+  #    "allow_other"
+  #    "reconnect"              # handle connection drops
+  #    "ServerAliveInterval=15" # keep connections alive
+  #    "IdentityFile=/home/amcolash/.ssh/id_ed25519"
+  #  ];
+  #};
+
+  environment.etc."rclone-mnt.conf".text = ''
+    [nas]
+    type = sftp
+    host = 192.168.1.101
+    user = amcolash
+    key_file = /root/.ssh/id_ed25519
+  '';
+
+  fileSystems."/mnt/nas" = {
+    device = "nas:~/";
+    fsType = "rclone";
+    options = [
+      "nodev"
+      "nofail"
+      "allow_other"
+      "args2env"
+      #"x-systemd.automount"  # mount on demand
+      #"reconnect"              # handle connection drops
+      #"ServerAliveInterval=15" # keep connections alive
+      "config=/etc/rclone-mnt.conf"
+    ];
+  };
+
   # longer timeout (minutes) for sudo
   security.sudo.extraConfig = ''
     Defaults        timestamp_timeout=20
   '';
 
   # set up suspend then hibernate
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=60min
-  '';
+  #systemd.sleep.extraConfig = ''
+  #  AllowSuspendThenHibernate=yes
+  #  HibernateDelaySec=60min
+  #  SuspendState=mem
+  #'';
 
-  services.logind = {
-    lidSwitch = "suspend-then-hibernate";
-    lidSwitchDocked = "suspend-then-hibernate";
-    lidSwitchExternalPower = "suspend-then-hibernate";
-  };
+  #services.logind = {
+  #  lidSwitch = "suspend-then-hibernate";
+  #  lidSwitchDocked = "suspend-then-hibernate";
+  #  lidSwitchExternalPower = "suspend-then-hibernate";
+  #};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amcolash = {
@@ -94,11 +133,12 @@
     settings = {
       download-buffer-size = 500000000;
     };
-    # Run garbage collection on a weekly basis to avoid filling up disk
+
+    # Run garbage collection on a daily basis to avoid filling up disk
     gc = {
       automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
+      dates = "daily";
+      options = "--delete-older-than 15d";
     };
   };
 }

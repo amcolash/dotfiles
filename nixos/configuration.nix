@@ -36,7 +36,7 @@ in
   # conditionally import configurations for different devices
   ++ lib.optionals (device == "InfinityBook S 14 v5") [ ./tuxedo.nix ]
   #++ lib.optionals (device == "Laptop 13 (AMD Ryzen AI 300 Series)") [ ./framework.nix ];
-  ++ lib.optionals (device == "Laptop 13 (AMD Ryzen AI 300 Series)") [ <nixos-hardware/framework/13-inch/amd-ai-300-series> ]
+  ++ lib.optionals (device == "Laptop 13 (AMD Ryzen AI 300 Series)") [ <nixos-hardware/framework/13-inch/amd-ai-300-series> ./framework.nix ]
 
   ;
 

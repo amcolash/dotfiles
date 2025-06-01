@@ -1,42 +1,8 @@
 { pkgs, ... }:
 
 {
-  # fingerprint reader
-  services.fprintd.enable = true;
-
-  boot = {
-    # latest kernel
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    # use amd igpu
-    initrd.kernelModules = [ "amdgpu" ];
-  };
-
-  # automatic ac/battery power profiles
-  services.udev.extraRules = ''
-    SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
-    SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
-  '';
-
-  # enable graphics acceleration
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-      rocmPackages.clr.icd
-    ];
-  };
-
-  # enable rocm/HIP (like amd cuda)
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-
-  # enable gpu for X
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  #boot.resumeDevice = "/dev/disk/by-uuid/83c2d287-6496-4f0a-9307-086be53ca47d";
+  boot.resumeDevice = "/dev/nvme0n1p4";
 
   # add lact (amd controller)
   environment.systemPackages = with pkgs; [ lact ];

@@ -83,9 +83,9 @@ style = "fg:black bg:bar4"
 format = '[ $time ]($style)'
 
 [jobs]
-symbol = ""
+symbol = " "
 style = "fg:black bg:bar4"
-format = "[$symbol$number ]($style)"
+format = "[$symbol$number]($style)"
 
 [line_break]
 disabled = true
