@@ -1,0 +1,12 @@
+flatpak install flathub cc.arduino.IDE2 -y
+flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub com.github.tchx84.Flatseal -y
+flatpak install flathub com.rustdesk.RustDesk -y
+flatpak install flathub com.spotify.Client -y
+flatpak install flathub com.valvesoftware.Steam -y
+flatpak install flathub fr.handbrake.ghb -y
+flatpak install flathub org.bunkus.mkvtoolnix-gui -y
+flatpak install flathub org.darktable.Darktable -y
+flatpak install flathub org.fontforge.FontForge -y
+flatpak install flathub org.gimp.GIMP -y
+flatpak install flathub org.inkscape.Inkscape -y
