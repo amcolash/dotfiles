@@ -1,12 +1,26 @@
-flatpak install flathub cc.arduino.IDE2 -y
-flatpak install flathub com.discordapp.Discord -y
-flatpak install flathub com.github.tchx84.Flatseal -y
-flatpak install flathub com.rustdesk.RustDesk -y
-flatpak install flathub com.spotify.Client -y
-flatpak install flathub com.valvesoftware.Steam -y
-flatpak install flathub fr.handbrake.ghb -y
-flatpak install flathub org.bunkus.mkvtoolnix-gui -y
-flatpak install flathub org.darktable.Darktable -y
-flatpak install flathub org.fontforge.FontForge -y
-flatpak install flathub org.gimp.GIMP -y
-flatpak install flathub org.inkscape.Inkscape -y
+#!/usr/bin/env bash
+set -euo pipefail
+
+# get the script directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# check if flatpak can be used
+if [ ! $(command -v flatpak) ]; then
+  echo "[-] flatpak is not installed. Skipping loading."
+  exit 0
+fi
+
+# check if user wants to load flatpaks
+read -p "Would you like to load $SCRIPT_DIR? [y/N] " do_load < /dev/tty
+if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
+  echo "[-] Skipping $SCRIPT_DIR."
+  exit 0
+fi
+
+# go to the script directory
+pushd "$SCRIPT_DIR" > /dev/null
+
+echo "[+] Restoring flatpaks..."
+./flatpaks.sh
+
+popd > /dev/null
