@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # check if brew can be used
 if [ ! $(command -v brew) ]; then

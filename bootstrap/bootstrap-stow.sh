@@ -5,9 +5,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR/../" > /dev/null
 
 # List of directories to exclude from the whiptail menu
-EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon" "flatpak" )
+EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon" "flatpak" "brew" "copied" )
 
-# Hide some dotfiles if they are not applicable (mapping of command to directory)
+# Hide some dotfiles if they are not applicable (mapping of [command:directory])
 declare -a COMMAND_DIR_MAP=(
   "hyprland:hypr"
   "kitty:kitty"
