@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR" > /dev/null
 
 echo "[+] Saving settings..."
+echo
 
 for dir in */ ; do
   if [ -f "$dir/save.sh" ]; then
@@ -15,4 +16,5 @@ for dir in */ ; do
   fi
 done
 
+echo
 echo "[✓] Saving complete."
