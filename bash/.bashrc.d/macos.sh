@@ -23,13 +23,13 @@ fi
 # override pushd/popd from mise to include dir stack
 if [ $(command -v starship) ]; then
   pushd() {
-    __zsh_like_cd pushd "$@"
-    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+__zsh_like_cd pushd "$@"
+dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 
   popd() {
-    __zsh_like_cd popd "$@"
-    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+__zsh_like_cd popd "$@"
+dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 fi
 
@@ -56,17 +56,27 @@ alias nuke="cd $GROW_HOME && docker-compose down && docker system prune --all --
 alias rebuild="cd $GROW_HOME && git checkout main && git pull && server && client"
 alias owners="codeowners \$(git diff --name-only main) | grep -v \"provider-coordination\|unowned\""
 alias viz="pushd $GROW_HOME/grow-therapy-frontend/apps/csr-app && npx vite-bundle-visualizer && popd"
-alias grow-login='echo yes | grow login && eval "$(grow shellenv)"'
+alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
+
+# override codegen to check hash before re-gen
+yarn() {
+  if [ "$1" == "codegen" ]; then
+    fastCodegen "$2"
+    return 0
+  fi
+
+  command yarn "$@"
+}
 
 codeartifact() {
   pushd $GROW_HOME &>/dev/null
 
   aws sts get-caller-identity &>/dev/null
   if [ $? != 0 ]; then
-    grow login
-    # aws sso login
+grow login
+# aws sso login
   fi
 
   eval $(grow shellenv)
@@ -78,17 +88,17 @@ codeartifact() {
 
 dotenv() {
   if [ "$1" ]; then
-    pushd $1
+pushd $1
   fi
 
   if [ -f .env ]; then
-    set -a
-    source .env
-    set +a
+set -a
+source .env
+set +a
   fi
 
   if [ "$1" ]; then
-    popd
+popd
   fi
 }
 
@@ -97,9 +107,34 @@ waitForServer() {
   echo Waiting for the server to start...
 
   if curl -sf --retry 8 --retry-all-errors http://provider.growtherapylocal.com:5000/health-status > /dev/null; then
-    echo
+echo
   else
-    echo "Could not reach server, check that it is running."
+echo "Could not reach server, check that it is running."
   fi
 }
 
+fastCodegen() {
+  SCHEMA=$(curl -s 'http://provider.growtherapylocal.com:5000/graphql?' \
+  -H 'content-type: application/json' \
+  --data-raw '{"query":"\nquery IntrospectionQuery {\n  __schema {\n\nqueryType { name }\nmutationType { name }\nsubscriptionType { name }\ntypes {\n  ...FullType\n}\ndirectives {\n  name\n  description\n  \n  locations\n  args {\n...InputValue\n  }\n}\n  }\n}\n\nfragment FullType on __Type {\n  kind\n  name\n  description\n  \n  fields(includeDeprecated: true) {\nname\ndescription\nargs {\n  ...InputValue\n}\ntype {\n  ...TypeRef\n}\nisDeprecated\ndeprecationReason\n  }\n  inputFields {\n...InputValue\n  }\n  interfaces {\n...TypeRef\n  }\n  enumValues(includeDeprecated: true) {\nname\ndescription\nisDeprecated\ndeprecationReason\n  }\n  possibleTypes {\n...TypeRef\n  }\n}\n\nfragment InputValue on __InputValue {\n  name\n  description\n  type { ...TypeRef }\n  defaultValue\n  \n  \n}\n\nfragment TypeRef on __Type {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\n  }\n}\n  }\n}\n  }\n}\n  }\n}\n  ","operationName":"IntrospectionQuery"}')
+
+  MD5=$(echo "$SCHEMA" | md5sum)
+  OLD_MD5=""
+
+  if [ "$1" == "-f" ]; then
+    echo "Force regenerating codegen files..."
+    rm -f "$HOME/.grow/schema.md5"
+  fi
+
+  if [ -f "$HOME/.grow/schema.md5" ]; then
+    OLD_MD5=$(cat "$HOME/.grow/schema.md5")
+  fi
+
+  if [ "$MD5" != "$OLD_MD5" ]; then
+    echo "Generating new codegen files..."
+    rm -f "$HOME/.grow/schema.md5"
+    npx nx codegen csr-app && npx nx codegen data-access && echo "$MD5" > "$HOME/.grow/schema.md5"
+  else
+    echo "Codegen files are up to date. Force rebuild with 'yarn codegen -f'"
+  fi
+}
