@@ -11,6 +11,7 @@ fi
 export DOTFILES="$HOME/Github/dotfiles"
 export EDITOR="vim"
 export VISUAL="vim"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Custom aliases
 alias reboot="sudo reboot && exit"

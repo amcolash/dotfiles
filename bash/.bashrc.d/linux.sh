@@ -4,7 +4,7 @@ if [ -f /etc/NIXOS ]; then
 fi
 
 # Mostly ChatGPT for this helper function
-_stow_file_internal() {
+stow_file() {
   local stow_dir="$1"
   local filename="$2"
   local dotfiles_repo="$HOME/Github/dotfiles"
@@ -46,15 +46,11 @@ _stow_file_internal() {
   # Create the necessary directory structure in the dotfiles repo
   mkdir -p "$destination_parent_dir" || { echo "Error: Could not create directory '$destination_parent_dir'"; return 1; }
 
-  mv "$absolute_filename" "$destination_path" || { echo "Error: Could not move file '$absolute_filename' to '$destination_path'"; return 1; }
+  # Move the file using sudo
+  sudo mv "$absolute_filename" "$destination_path" || { echo "Error: Could not move file '$absolute_filename' to '$destination_path'"; return 1; }
 
   echo "Running 'stow' on '$stow_dir'..."
-  stow -d "$dotfiles_repo" -t / "$stow_dir" || { echo "Error: Stow failed for '$stow_dir'"; return 1; }
+  sudo stow -d "$dotfiles_repo" -t / "$stow_dir" || { echo "Error: Stow failed for '$stow_dir'"; return 1; }
 
   echo "Successfully stowed '$absolute_filename' to '$dotfiles_repo/$stow_dir' and created symlink."
-}
-
-# This passes the entire function definition and then its call to a new bash instance run by sudo.
-stow_file() {
-  sudo -E bash -c "$(declare -f _stow_file_internal); _stow_file_internal \"$@\"" _ "$@"
 }
