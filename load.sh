@@ -8,7 +8,7 @@ pushd "$SCRIPT_DIR" > /dev/null
 echo "[+] Loading saved settings..."
 
 for dir in */ ; do
-  if [ -f "$dir/load.sh" ]; then
+  if [ -f "$dir/save.sh" ] && [ ! $dir == "templates/" ]; then
     pushd "$dir" > /dev/null
     ./load.sh
     popd > /dev/null

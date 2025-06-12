@@ -12,9 +12,12 @@ else
 
   # List of dconf paths to export
   PATHS=(
+    "/com/linuxmint/updates/"
     "/org/cinnamon/"
-    "/org/gnome/meld/"
+    "/org/gnome/calculator/"
     "/org/gnome/desktop/"
+    "/org/gnome/gedit/"
+    "/org/gnome/meld/"
   )
 
   for path in "${PATHS[@]}"; do

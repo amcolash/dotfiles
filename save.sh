@@ -9,7 +9,7 @@ echo "[+] Saving settings..."
 echo
 
 for dir in */ ; do
-  if [ -f "$dir/save.sh" ]; then
+  if [ -f "$dir/save.sh" ] && [ ! $dir == "templates/" ]; then
     pushd "$dir" > /dev/null
     ./save.sh
     popd > /dev/null

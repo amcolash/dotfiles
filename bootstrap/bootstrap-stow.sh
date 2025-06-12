@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR/../" > /dev/null
 
 # List of directories to exclude from the whiptail menu (save/load dirs are excluded already)
-EXCLUDE_DIRS=("nixos" "bootstrap" "system")
+EXCLUDE_DIRS=("nixos" "bootstrap" "system" "templates")
 
 # Hide some dotfiles if they are not applicable (mapping of [command:directory])
 declare -a COMMAND_DIR_MAP=(
