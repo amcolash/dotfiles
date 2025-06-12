@@ -64,7 +64,7 @@
         "dependency": "change-color",
         "description": "Only use colors to alert me",
         "tooltip": "Select this option to not display text alerts in horizontal panels.\n(No text alert is ever displayed on vertical panels.)",
-        "value": true
+        "value": false
     },
     "keep_size": {
         "type": "switch",

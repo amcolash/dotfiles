@@ -1,0 +1,50 @@
+{
+    "section1": {
+        "type": "section",
+        "description": "Keyboard Shortcuts"
+    },
+    "previousProfileKey": {
+        "type": "keybinding",
+        "description": "Previous profile",
+        "default": "",
+        "tooltip": "Set keybinding(s) to switch to previous power profile.",
+        "value": ""
+    },
+    "nextProfileKey": {
+        "type": "keybinding",
+        "description": "Next profile",
+        "default": "",
+        "tooltip": "Set keybinding(s) to switch to next power profile.",
+        "value": ""
+    },
+    "cycleProfiles": {
+        "type": "switch",
+        "default": false,
+        "description": "Cycle through profiles when using keyboard shortcuts",
+        "tooltip": "If enabled, if the current profile is 'Power Saver' and the 'Previous profile' keyboard shortcut is used, the next profile would be 'Performance' (or 'Balanced' on some systems).\n\nIf disabled, if the current profile is 'Power Saver' and the 'Previous profile' keyboard shortcut is used, the profile would not change.",
+        "value": false
+    },
+    "showOSD": {
+        "type": "switch",
+        "default": true,
+        "description": "On-screen display for keyboard shortcuts",
+        "tooltip": "Show on-screen display of the new profile when using the keyboard shortcuts",
+        "value": true
+    },
+    "section2": {
+        "type": "section",
+        "description": "Appearance"
+    },
+    "iconStyle": {
+        "type": "combobox",
+        "default": "classic",
+        "description": "Icon Style",
+        "options": {
+            "Classic": "classic",
+            "Papirus": "papirus"
+        },
+        "tooltip": "Choose the style of the applet's icon. This is used for the panel and the on-screen display.",
+        "value": "classic"
+    },
+    "__md5__": "4d85178b1344ded7d45dec1ceced0c30"
+}
