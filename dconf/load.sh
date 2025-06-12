@@ -3,6 +3,7 @@ set -euo pipefail
 
 # get the script directory
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+DIRNAME=$(basename "$SCRIPT_DIR")
 
 # check if settings can be loaded
 if [ ! $(command -v dconf) ]; then
@@ -11,9 +12,9 @@ if [ ! $(command -v dconf) ]; then
 fi
 
 # check if user wants to load settings
-read -p "Would you like to load $SCRIPT_DIR? [y/N] " do_load < /dev/tty
+read -p "Would you like to load $DIRNAME? [y/N] " do_load < /dev/tty
 if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
-  echo "[-] Skipping $SCRIPT_DIR."
+  echo "[-] Skipping $DIRNAME."
   exit 0
 fi
 

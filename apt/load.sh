@@ -5,13 +5,13 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DIRNAME=$(basename "$SCRIPT_DIR")
 
-# check if $DIR can be used
-if [ ! $(command -v $DIR) ]; then
-  echo "[-] $DIR is not installed. Skipping loading."
+# check if apt can be used
+if [ ! $(command -v apt) ]; then
+  echo "[-] apt is not installed. Skipping loading."
   exit 0
 fi
 
-# check if user wants to load $DIR
+# check if user wants to load apt
 read -p "Would you like to load $DIRNAME? [y/N] " do_load < /dev/tty
 if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
   echo "[-] Skipping $DIRNAME."
@@ -21,8 +21,7 @@ fi
 # go to the script directory
 pushd "$SCRIPT_DIR" > /dev/null
 
-echo "[+] Restoring $DIR"
-
-# TODO
+echo "[+] Restoring apt packages"
+cat apt.txt | xargs sudo apt install -y
 
 popd > /dev/null
