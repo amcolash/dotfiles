@@ -4,8 +4,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR/../" > /dev/null
 
-# List of directories to exclude from the whiptail menu
-EXCLUDE_DIRS=("nixos" "bootstrap" "dconf" "cinnamon" "flatpak" "brew" "copied" )
+# List of directories to exclude from the whiptail menu (save/load dirs are excluded already)
+EXCLUDE_DIRS=("nixos" "bootstrap" "system")
 
 # Hide some dotfiles if they are not applicable (mapping of [command:directory])
 declare -a COMMAND_DIR_MAP=(
@@ -31,12 +31,12 @@ done
 # Build the whiptail menu options
 OPTIONS=()
 
-# Iterate over directories and exclude the ones in EXCLUDE_DIRS
+# Iterate over directories and exclude the ones in EXCLUDE_DIRS OR those that support load/save
 for dir in */ ; do
   name="${dir%/}"
   EXCLUDED=false
   for exclude in "${EXCLUDE_DIRS[@]}"; do
-    if [[ "$name" == "$exclude" ]]; then
+    if [[ "$name" == "$exclude" ]] || [ -f "$dir/load.sh" ] || [ -f "$dir/save.sh" ]; then
       EXCLUDED=true
       break
     fi
@@ -75,5 +75,12 @@ else
     fi
   done
 fi
+
+echo
+read -p "Would you like to stow system files (/etc)? [y/N] " stow_system < /dev/tty
+if [[ "$stow_system" =~ ^[Yy]$ ]]; then
+  sudo stow --target=/ system
+fi
+echo
 
 popd > /dev/null
