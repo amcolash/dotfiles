@@ -75,6 +75,3 @@ install_spices_from_list "extensions.txt" "extensions"
 
 # Restart cinnamon
 pkill -HUP cinnamon
-
-echo "✅ All Cinnamon spices restored successfully."
-
