@@ -49,7 +49,8 @@ alias server-restart="pushd $GROW_HOME && dotenv && docker-compose down backend 
 alias db="pushd $GROW_HOME && make reset_docker_db && make seed_payors_in_db BACKEND_CONTAINER_ID=grow-dashboard-backend-1 && popd"
 alias payors="pushd $GROW_HOME && pipenv install --dev && pipenv shell \"python -m scripts.add_payors --execute --debug; exit\" && popd"
 alias clients="cd $GROW_HOME/grow-therapy-frontend && grow-login && dotenv && (docker stop grow-dashboard-ssr-1 || true) && bun codegen && yarn install --frozen-lockfile && waitForServer && NEXT_PUBLIC_PROJECT=SSR_APP npx nx run-many --target=serve --all --parallel"
-alias client="cd $GROW_HOME/grow-therapy-frontend && grow-login && dotenv && yarn install --frozen-lockfile && waitForServer && bun start csr-app"
+alias startFast="fastCodegen && yarn run segment-dev && yarn nx serve csr-app"
+alias client="cd $GROW_HOME/grow-therapy-frontend && grow-login && dotenv && yarn install --frozen-lockfile && waitForServer && startFast"
 alias storybook="cd $GROW_HOME/grow-therapy-frontend && dotenv && bun run storybook"
 #alias grow="cd $GROW_HOME && pipenv shell"
 alias nuke="cd $GROW_HOME && docker-compose down && docker system prune --all --force && docker volume prune --all --force"
@@ -59,16 +60,6 @@ alias viz="pushd $GROW_HOME/grow-therapy-frontend/apps/csr-app && npx vite-bundl
 alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
-
-# override codegen to check hash before re-gen
-yarn() {
-  if [ "$1" == "codegen" ]; then
-    fastCodegen "$2"
-    return 0
-  fi
-
-  command yarn "$@"
-}
 
 codeartifact() {
   pushd $GROW_HOME &>/dev/null
@@ -114,6 +105,8 @@ echo "Could not reach server, check that it is running."
 }
 
 fastCodegen() {
+  echo "Checking for codegen updates..."
+
   SCHEMA=$(curl -s 'http://provider.growtherapylocal.com:5000/graphql?' \
   -H 'content-type: application/json' \
   --data-raw '{"query":"\nquery IntrospectionQuery {\n  __schema {\n\nqueryType { name }\nmutationType { name }\nsubscriptionType { name }\ntypes {\n  ...FullType\n}\ndirectives {\n  name\n  description\n  \n  locations\n  args {\n...InputValue\n  }\n}\n  }\n}\n\nfragment FullType on __Type {\n  kind\n  name\n  description\n  \n  fields(includeDeprecated: true) {\nname\ndescription\nargs {\n  ...InputValue\n}\ntype {\n  ...TypeRef\n}\nisDeprecated\ndeprecationReason\n  }\n  inputFields {\n...InputValue\n  }\n  interfaces {\n...TypeRef\n  }\n  enumValues(includeDeprecated: true) {\nname\ndescription\nisDeprecated\ndeprecationReason\n  }\n  possibleTypes {\n...TypeRef\n  }\n}\n\nfragment InputValue on __InputValue {\n  name\n  description\n  type { ...TypeRef }\n  defaultValue\n  \n  \n}\n\nfragment TypeRef on __Type {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\nofType {\n  kind\n  name\n  ofType {\nkind\nname\n  }\n}\n  }\n}\n  }\n}\n  }\n}\n  ","operationName":"IntrospectionQuery"}')
@@ -137,4 +130,6 @@ fastCodegen() {
   else
     echo "Codegen files are up to date. Force rebuild with 'yarn codegen -f'"
   fi
+
+  echo
 }

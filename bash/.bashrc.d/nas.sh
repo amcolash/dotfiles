@@ -11,12 +11,24 @@ docker-restart() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1
+  pushd $1 > /dev/null
 
   docker-compose down
   docker-compose up -d
 
-  popd
+  popd > /dev/null
+}
+
+# Upgrade all docker containers
+docker-upgrade-all() {
+  for dir in ~/docker/*; do
+    if [ -d "$dir" ]; then
+      if [ -f "$dir/docker-compose.yml" ] || [ -f "$dir/upgrade.sh" ]; then
+        echo "Upgrading $dir"
+        docker-upgrade "$dir"
+      fi
+    fi
+  done
 }
 
 # Upgrade a docker container based on directory
@@ -26,7 +38,7 @@ docker-upgrade() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1
+  pushd $1 > /dev/null
 
   if [ -f ./upgrade.sh ]; then
     ./upgrade.sh
@@ -41,7 +53,7 @@ docker-upgrade() {
     docker-compose up --build -d
   fi
 
-  popd
+  popd > /dev/null
 }
 
 # Archive an old docker directory
@@ -51,8 +63,8 @@ docker-archive() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1
+  pushd $1 > /dev/null
   docker-compose down
-  popd
+  popd > /dev/null
   mv $1 ~/docker/old
 }
