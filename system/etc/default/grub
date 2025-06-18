@@ -7,8 +7,11 @@ GRUB_DEFAULT=0
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_TIMEOUT=2
 GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`
+
 RESUME_PARAMS="resume=UUID=$(blkid -s UUID -o value $(swapon --show | awk 'NR>1 {print $1}'))"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem_sleep_default=deep $RESUME_PARAMS"
+AMD_FIX="amdgpu.dcdebugmask=0x610"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem_sleep_default=deep $RESUME_PARAMS $AMD_FIX"
+
 GRUB_CMDLINE_LINUX=""
 
 # If your computer has multiple operating systems installed, then you

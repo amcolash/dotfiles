@@ -361,12 +361,12 @@
             "kitty.desktop",
             "nemo.desktop",
             "code.desktop",
-            "spotify.desktop",
-            "steam.desktop",
+            "com.spotify.Client.desktop:flatpak",
+            "com.valvesoftware.Steam.desktop:flatpak",
             "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
             "chrome-cmcgllllbclcpmgpnejgmkfadcikgkfj-Default.desktop",
             "chrome-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop",
-            "org.gnome.SystemMonitor.desktop",
+            "gnome-system-monitor.desktop",
             "cinnamon-settings.desktop"
         ]
     },
