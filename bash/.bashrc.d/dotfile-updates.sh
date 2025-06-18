@@ -5,7 +5,7 @@ CHECK_INTERVAL_SECONDS=$((60 * 60 * 24)) # 24 hours
 
 # Function to check for updates
 check_dotfiles_updates() {
-  echo "󱓎 Checking for dotfile updates..."
+  echo "  Checking for dotfile updates..."
 
   # Basic git check (requires being in the dotfiles repo or knowing its path)
   if [ -d "$DOTFILES_REPO" ]; then
@@ -15,8 +15,13 @@ check_dotfiles_updates() {
     REMOTE_REV=$(git rev-parse HEAD)
     popd > /dev/null
 
+    # Once check complete, overwrite the previous line with the result
+
     if [ "$LOCAL_REV" != "$REMOTE_REV" ]; then
-      echo "󱓊 Dotfile updates available!"
+      echo -e "\e[1A\e[K  Dotfile updates available!  "
+    else
+      echo -e "\e[1A\e[K  Dotfiles are up to date."
+      return 0
     fi
   else
     return 1
