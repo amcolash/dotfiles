@@ -1,6 +1,9 @@
 [[ ! -f "/sys/class/dmi/id/product_name" ]] && return
 [[ "$(<"/sys/class/dmi/id/product_name")" != "DS216+" ]] && return
 
+# Fix homebrew git message
+export HOMEBREW_GIT_PATH=/usr/local/bin/git
+
 # Override DOTFILES dir
 export DOTFILES="$HOME/scripts/dotfiles"
 
