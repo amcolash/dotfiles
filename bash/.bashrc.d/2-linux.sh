@@ -7,7 +7,6 @@ fi
 stow_file() {
   local stow_dir="$1"
   local filename="$2"
-  local dotfiles_repo="$HOME/Github/dotfiles"
 
   if [ -z "$stow_dir" ] || [ -z "$filename" ]; then
     echo "Usage: stow_file <stow_dir> <filename>"
@@ -38,7 +37,7 @@ stow_file() {
     relative_path_in_stow_dir="$(realpath --relative-to="$parent_dir_of_file" "$absolute_filename")"
   fi
 
-  local destination_path="$dotfiles_repo/$stow_dir/$parent_dir_of_file/$relative_path_in_stow_dir"
+  local destination_path="$DOTFILES/$stow_dir/$parent_dir_of_file/$relative_path_in_stow_dir"
   local destination_parent_dir="$(dirname "$destination_path")"
 
   echo "Moving '$absolute_filename' to '$destination_path'..."
@@ -50,7 +49,7 @@ stow_file() {
   sudo mv "$absolute_filename" "$destination_path" || { echo "Error: Could not move file '$absolute_filename' to '$destination_path'"; return 1; }
 
   echo "Running 'stow' on '$stow_dir'..."
-  sudo stow -d "$dotfiles_repo" -t / "$stow_dir" || { echo "Error: Stow failed for '$stow_dir'"; return 1; }
+  sudo stow -d "$DOTFILES" -t / "$stow_dir" || { echo "Error: Stow failed for '$stow_dir'"; return 1; }
 
-  echo "Successfully stowed '$absolute_filename' to '$dotfiles_repo/$stow_dir' and created symlink."
+  echo "Successfully stowed '$absolute_filename' to '$DOTFILES/$stow_dir' and created symlink."
 }

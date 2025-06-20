@@ -1,5 +1,4 @@
 # Dotfile Update Check, from gemini
-DOTFILES_REPO="$HOME/Github/dotfiles"
 LAST_UPDATE_CHECK_FILE="$HOME/.dotfile_update"
 CHECK_INTERVAL_SECONDS=$((60 * 60 * 24)) # 24 hours
 
@@ -8,8 +7,8 @@ check_dotfiles_updates() {
   echo "  Checking for dotfile updates..."
 
   # Basic git check (requires being in the dotfiles repo or knowing its path)
-  if [ -d "$DOTFILES_REPO" ]; then
-    pushd "$DOTFILES_REPO" > /dev/null
+  if [ -d "$DOTFILES" ]; then
+    pushd "$DOTFILES" > /dev/null
     git remote update > /dev/null 2>&1
     LOCAL_REV=$(git rev-parse @{u})
     REMOTE_REV=$(git rev-parse HEAD)
