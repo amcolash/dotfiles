@@ -14,8 +14,10 @@ check_dotfiles_updates() {
     REMOTE_REV=$(git rev-parse HEAD)
     popd > /dev/null
 
-    # Once check complete, overwrite the previous line with the result
+    # Update the last checked timestamp
+    date +%s > "$LAST_UPDATE_CHECK_FILE"
 
+    # Once check complete, overwrite the previous line with the result
     if [ "$LOCAL_REV" != "$REMOTE_REV" ]; then
       echo -e "\e[1A\e[K  Dotfile updates available!  "
     else
@@ -25,9 +27,6 @@ check_dotfiles_updates() {
   else
     return 1
   fi
-
-  # Update the last checked timestamp
-  date +%s > "$LAST_UPDATE_CHECK_FILE"
 }
 
 # Check if the last update file exists and if enough time has passed
