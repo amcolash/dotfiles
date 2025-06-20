@@ -24,7 +24,7 @@ docker-restart() {
 
 # Upgrade all docker containers
 docker-upgrade-all() {
-  for dir in ~/docker/*; do
+  for dir in $HOME/docker/*; do
     if [ -d "$dir" ]; then
       if [ -f "$dir/docker-compose.yml" ] || [ -f "$dir/upgrade.sh" ]; then
         echo "Upgrading $dir"
@@ -69,5 +69,6 @@ docker-archive() {
   pushd $1 > /dev/null
   docker-compose down
   popd > /dev/null
-  mv $1 ~/docker/old
+  mv $1 $HOME/docker/old
 }
+
