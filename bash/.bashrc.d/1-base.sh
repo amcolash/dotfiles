@@ -85,7 +85,7 @@ if [ $(command -v starship) ]; then
   mkdir -p $SESSION_DIR
 
   # remove sessions older than 7 days
-  find $SESSION_DIR -atime +7 -delete
+  find $SESSION_DIR -type f -atime +7 -delete
 
   # custom functions to set a file to indicate if the directory stack is active
   pushd() {
