@@ -358,6 +358,7 @@
         ],
         "value": [
             "google-chrome.desktop",
+            "org.gnome.Terminal.desktop",
             "kitty.desktop",
             "nemo.desktop",
             "code.desktop",
