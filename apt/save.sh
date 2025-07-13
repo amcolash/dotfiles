@@ -11,9 +11,8 @@ else
   SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
   pushd "$SCRIPT_DIR" > /dev/null
 
-  # TODO
   INSTALLED=$(comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u))
-  echo "$INSTALLED" > apt.txt
+  echo "$INSTALLED" | grep -v -e "linux-*" > apt.txt
 
   popd > /dev/null
 fi
