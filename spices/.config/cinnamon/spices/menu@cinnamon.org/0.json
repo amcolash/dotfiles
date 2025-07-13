@@ -116,7 +116,7 @@
             }
         ],
         "default_category": "Linux Mint",
-        "value": "linuxmint-logo-leaf-badge-symbolic"
+        "value": "cinnamon-symbolic"
     },
     "menu-icon-size": {
         "type": "spinbutton",

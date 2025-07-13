@@ -12,6 +12,10 @@ set tabstop=2 shiftwidth=2 expandtab
 set diffopt+=iwhite
 set diffexpr=""
 
+" Always enable mouse support
+set mouse=a
+set ttymouse=xterm2
+
 " Change temp file directory to keep things tidy
 "set backupdir=~/.vim/backup//
 "set directory=~/.vim/swp//
@@ -34,13 +38,6 @@ vnoremap <S-Tab> <gv
 nnoremap <C-H> :let @/=""<CR>
 " Close all windows forcibly
 nnoremap <C-Q> :qa!<CR>
-
-" Allow scrolling on mac os
-if has("mouse")
-  set mouse=a
-  set ttymouse=xterm2
-endif
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

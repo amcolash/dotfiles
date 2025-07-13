@@ -3,7 +3,6 @@ flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.github.tchx84.Flatseal -y
 flatpak install flathub com.rustdesk.RustDesk -y
 flatpak install flathub com.spotify.Client -y
-flatpak install flathub com.valvesoftware.Steam -y
 flatpak install flathub fr.handbrake.ghb -y
 flatpak install flathub io.github.ilya_zlobintsev.LACT -y
 flatpak install flathub org.bunkus.mkvtoolnix-gui -y

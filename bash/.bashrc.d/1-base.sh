@@ -75,7 +75,7 @@ shopt -s checkwinsize
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # use starship if possible, otherwise fall back to old manual PS1
-if [ $(command -v starship) ]; then
+if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ] ; then
   eval "$(starship init bash)"
 
   export STARSHIP_SESSION=$(starship session)
@@ -85,7 +85,7 @@ if [ $(command -v starship) ]; then
   mkdir -p $SESSION_DIR
 
   # remove sessions older than 7 days
-  find $SESSION_DIR -atime +7 -delete
+  find $SESSION_DIR -type f -atime +7 -delete
 
   # custom functions to set a file to indicate if the directory stack is active
   pushd() {
@@ -120,19 +120,21 @@ else
 fi
 
 # use ble.sh for better line completion + auto complete
-# (nixos)
-if [ $(command -v blesh-share) ]; then
-  source "$(blesh-share)"/ble.sh --attach=none
-  [[ ! ${BLE_VERSION-} ]] || ble-attach
-fi
+if [ ! -v DISABLE_BLESH ]; then
+  # (nixos)
+  if [ $(command -v blesh-share) ]; then
+    source "$(blesh-share)"/ble.sh --attach=none
+    [[ ! ${BLE_VERSION-} ]] || ble-attach
+  fi
 
-# ble.sh (non-nix)
-if [ -f ~/.local/share/blesh/ble.sh ]; then
-  source ~/.local/share/blesh/ble.sh
+  # ble.sh (non-nix)
+  if [ -f ~/.local/share/blesh/ble.sh ]; then
+    source ~/.local/share/blesh/ble.sh
+  fi
 fi
 
 # standard bash history settings when not using ble.sh
-if [ ! $(command -v ble) ]; then
+if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
   # don't put duplicate lines or lines starting with space in the history.
   # See bash(1) for more options
   HISTCONTROL=ignoreboth
@@ -146,17 +148,19 @@ if [ ! $(command -v ble) ]; then
 fi
 
 # use atuin for better history
-if [ -f "$HOME/.atuin/bin/env" ]; then
-  . "$HOME/.atuin/bin/env"
-fi
-
-if [ $(command -v atuin) ]; then
-  # use bash-preexec if atuin ble.sh not installed
-  if [ ! $(command -v ble) ]; then
+if [ ! -v DISABLE_ATUIN ]; then
+  # use bash-preexec with atuin is ble.sh not installed/set up
+  if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
     [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
   fi
 
-  eval "$(atuin init bash)"
+  if [ -f "$HOME/.atuin/bin/env" ]; then
+    . "$HOME/.atuin/bin/env"
+  fi
+
+  if [ $(command -v atuin) ]; then
+    eval "$(atuin init bash)"
+  fi
 fi
 
 # enable color support of ls and also add handy aliases

@@ -51,9 +51,10 @@ docker-upgrade() {
     fi
 
     docker-compose pull
+    docker-compose build
 
     docker-compose down
-    docker-compose up --build -d
+    docker-compose up -d
   fi
 
   popd > /dev/null

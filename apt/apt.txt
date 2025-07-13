@@ -1,3 +1,4 @@
+cheese
 code
 containerd.io
 docker-buildx-plugin
@@ -5,6 +6,7 @@ docker-ce
 docker-ce-cli
 docker-compose-plugin
 font-manager
+gedit
 git
 google-chrome-stable
 gparted
@@ -12,18 +14,6 @@ imagemagick
 kdeconnect
 libpam-fprintd
 linssid
-linux-headers-6.15.2-061502
-linux-headers-6.15.2-061502-generic
-linux-headers-6.16.0-061600rc1
-linux-headers-6.16.0-061600rc1-generic
-linux-headers-6.16.0-061600rc2
-linux-headers-6.16.0-061600rc2-generic
-linux-image-unsigned-6.15.2-061502-generic
-linux-image-unsigned-6.16.0-061600rc1-generic
-linux-image-unsigned-6.16.0-061600rc2-generic
-linux-modules-6.15.2-061502-generic
-linux-modules-6.16.0-061600rc1-generic
-linux-modules-6.16.0-061600rc2-generic
 mainline
 meld
 openscad
@@ -31,8 +21,10 @@ pineflash
 smartmontools
 sshfs
 steam-devices
+steam-installer
 stl-thumb
 stow
 ttf-mscorefonts-installer
 vim
+virtualbox-7.1
 vlc
