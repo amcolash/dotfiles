@@ -16,6 +16,9 @@ set diffexpr=""
 "set backupdir=~/.vim/backup//
 "set directory=~/.vim/swp//
 
+" Enable exploring directories
+" set nocompatible
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set shortcuts
