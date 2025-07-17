@@ -37,10 +37,16 @@ fi
 export NODE_OPTIONS="--max-old-space-size=14336"
 
 # Increase vitest debugging output
-DEBUG_PRINT_LIMIT=15000
+export DEBUG_PRINT_LIMIT=500000
+
+# pre-commit skip
+export SKIP=trufflehog
 
 # Turn on "fast-mode" for building with csr app
 export FAST_MODE=enabled
+
+# set empty variable to get yarn happy enough to run
+export CODEARTIFACT_AUTH_TOKEN=""
 
 # Aliases
 alias build_backend="pushd $GROW_HOME && dotenv && DOCKER_BUILDKIT=1 docker compose build backend --build-arg FONTAWESOME_NPM_AUTH_TOKEN_ARG=${FONTAWESOME_NPM_AUTH_TOKEN} && popd"
@@ -60,6 +66,8 @@ alias viz="pushd $GROW_HOME/grow-therapy-frontend/apps/csr-app && npx vite-bundl
 alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
+alias logs="pushd $GROW_HOME && docker-compose logs -f"
+alias codegen="pushd $GROW_HOME/grow-therapy-frontend && yarn codegen && popd"
 
 codeartifact() {
   pushd $GROW_HOME &>/dev/null
@@ -91,6 +99,19 @@ set +a
   if [ "$1" ]; then
 popd
   fi
+}
+
+# checkout main version of file
+cm() {
+  if [ ! "$1" ]; then
+    echo Checkout main version of a file from $GROW_HOME
+    echo Usage: cm [filename]
+    return 1
+  fi
+
+  pushd $GROW_HOME > /dev/null
+  git checkout main -- $1
+  popd > /dev/null
 }
 
 waitForServer() {

@@ -13,6 +13,9 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Show paging info with less
+export LESS='-Pslines %lt-%lb (%Pt-%Pb \%) bytes %bt-%bb file %f'
+
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
