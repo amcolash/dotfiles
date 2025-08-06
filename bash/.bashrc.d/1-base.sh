@@ -154,7 +154,11 @@ fi
 if [ ! -v DISABLE_ATUIN ]; then
   # use bash-preexec with atuin is ble.sh not installed/set up
   if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
-    [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+    if [[ -f ~/.bash-preexec.sh ]]; then
+      source ~/.bash-preexec.sh
+    else
+      echo Warning: bash-preexec missing! Please re-run "stow bash"
+    fi
   fi
 
   if [ -f "$HOME/.atuin/bin/env" ]; then
