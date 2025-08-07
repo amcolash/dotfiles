@@ -67,7 +67,12 @@ alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
 alias logs="pushd $GROW_HOME && docker-compose logs -f"
-alias codegen="pushd $GROW_HOME/grow-therapy-frontend && yarn codegen && popd"
+alias codegen="pushd $GROW_HOME/grow-therapy-frontend && waitForServer && yarn codegen && popd"
+alias gd="git diff main"
+
+exp() {
+  rg -l "export .* $1"
+}
 
 codeartifact() {
   pushd $GROW_HOME &>/dev/null
