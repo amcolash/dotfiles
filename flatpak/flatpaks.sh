@@ -5,6 +5,7 @@ flatpak install flathub com.rustdesk.RustDesk -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub fr.handbrake.ghb -y
 flatpak install flathub io.github.ilya_zlobintsev.LACT -y
+flatpak install flathub org.audacityteam.Audacity -y
 flatpak install flathub org.bunkus.mkvtoolnix-gui -y
 flatpak install flathub org.darktable.Darktable -y
 flatpak install flathub org.fontforge.FontForge -y

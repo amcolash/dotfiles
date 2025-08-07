@@ -1,5 +1,9 @@
 atuin
+emscripten
 eza
+ffmpeg
+mkcert
 node
+ripgrep
 starship
 tlrc

@@ -11,7 +11,7 @@ else
   SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
   pushd "$SCRIPT_DIR" > /dev/null
 
-  brew leaves > brew.txt
+  brew list --installed-on-request > brew.txt
 
   popd > /dev/null
 fi

@@ -3,6 +3,11 @@ if [ -f /etc/NIXOS ]; then
   return
 fi
 
+# Android setup
+export ANDROID_HOME=/usr/lib/android-sdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
 # Mostly ChatGPT for this helper function
 stow_file() {
   local stow_dir="$1"

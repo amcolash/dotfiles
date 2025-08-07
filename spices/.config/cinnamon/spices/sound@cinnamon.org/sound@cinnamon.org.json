@@ -43,7 +43,8 @@
             "rhythmbox",
             "firefox",
             "spotify",
-            "org.kde.kdeconnect.app"
+            "org.kde.kdeconnect.app",
+            "io.github.celluloid_player.Celluloid"
         ]
     },
     "section2": {
