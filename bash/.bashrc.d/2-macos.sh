@@ -69,6 +69,7 @@ alias start_fresh="nuke && server && waitForServer && db"
 alias logs="pushd $GROW_HOME && docker-compose logs -f"
 alias codegen="pushd $GROW_HOME/grow-therapy-frontend && waitForServer && yarn codegen && popd"
 alias gd="git diff main"
+alias sprout_local="useLocal $GROW_HOME/../sprout-ui @growtherapy/sprout-ui"
 
 exp() {
   rg -l "export .* $1"
@@ -130,6 +131,24 @@ echo "Could not reach server, check that it is running."
   fi
 }
 
+# use a local version of a module via npm-pack-here
+useLocal() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: useLocal [module path] [module name]"
+    exit 1
+  fi
+
+  echo "Setting up local version of $1"
+
+  cd $GROW_HOME/grow-therapy-frontend
+
+  npm-pack-here -t "$1"
+  yarn add "$2@file:local_modules/$2"
+  yarn install
+
+  npm-pack-here watch -t "$1"
+}
+
 fastCodegen() {
   echo "Checking for codegen updates..."
 
@@ -158,4 +177,20 @@ fastCodegen() {
   fi
 
   echo
+}
+
+# Aggressive errors on yarn install failures
+yarn() {
+  if [[ "$1" == "install" ]]; then
+    # Use 'command' to find the original yarn binary, bypassing our function
+    command yarn install "${@:2}"
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+      echo -e "\n\033[1;31m❌ YARN INSTALL FAILED ❌\033[0m\n"
+      return $exit_code
+    fi
+  else
+    # For all other 'yarn' commands, just run the original
+    command yarn "$@"
+  fi
 }
