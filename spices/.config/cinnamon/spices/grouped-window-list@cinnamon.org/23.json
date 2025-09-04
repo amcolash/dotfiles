@@ -358,12 +358,11 @@
         ],
         "value": [
             "google-chrome.desktop",
-            "org.gnome.Terminal.desktop",
             "kitty.desktop",
             "nemo.desktop",
             "code.desktop",
             "godot.desktop",
-            "Aseprite.desktop",
+            "aseprite.desktop",
             "steam.desktop",
             "com.spotify.Client.desktop:flatpak",
             "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",

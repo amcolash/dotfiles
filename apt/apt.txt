@@ -1,6 +1,7 @@
+adb
 android-sdk-build-tools-common
 android-sdk-common
-android-sdk-platform-tools
+android-sdk-platform-tools-common
 cheese
 code
 containerd.io
@@ -9,13 +10,13 @@ docker-buildx-plugin
 docker-ce
 docker-ce-cli
 docker-compose-plugin
-ffmpeg
 font-manager
 gedit
 git
-google-android-build-tools-33.0.2-installer
+gnome-color-manager
+google-android-build-tools-34.0.0-installer
 google-android-cmdline-tools-13.0-installer
-google-android-platform-33-installer
+google-android-platform-34-installer
 google-chrome-stable
 gparted
 gpick
@@ -30,6 +31,7 @@ meld
 openjdk-17-jdk
 openjdk-21-jdk
 openscad
+peek
 pineflash
 scons
 smartmontools

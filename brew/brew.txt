@@ -1,9 +1,13 @@
 atuin
-emscripten
+bat
+dust
 eza
-ffmpeg
+gcc@11
 mkcert
 node
+pkgconf
+pyenv
 ripgrep
 starship
 tlrc
+uv
