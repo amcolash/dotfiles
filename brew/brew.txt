@@ -2,7 +2,6 @@ atuin
 bat
 dust
 eza
-gcc@11
 mkcert
 node
 pkgconf

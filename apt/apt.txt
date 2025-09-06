@@ -10,6 +10,7 @@ docker-buildx-plugin
 docker-ce
 docker-ce-cli
 docker-compose-plugin
+fingwit
 font-manager
 gedit
 git
@@ -23,6 +24,8 @@ gpick
 gradle
 imagemagick
 kdeconnect
+libllvm20
+libllvm20:i386
 libnss3-tools
 libpam-fprintd
 linssid
