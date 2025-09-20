@@ -9,7 +9,8 @@ GRUB_TIMEOUT=2
 GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`
 
 RESUME_PARAMS="resume=UUID=$(blkid -s UUID -o value $(swapon --show | awk 'NR>1 {print $1}'))"
-AMD_FIX="amdgpu.dcdebugmask=0x610"
+# Attempt to fix some AMD freezes and turn off ambient level sensing (might be messing with colors)
+AMD_FIX="amdgpu.dcdebugmask=0x610 amdgpu.abmlevel=0"
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem_sleep_default=deep $RESUME_PARAMS $AMD_FIX"
 
 GRUB_CMDLINE_LINUX=""
