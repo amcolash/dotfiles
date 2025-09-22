@@ -1,3 +1,4 @@
+flatpak install flathub ca.desrt.dconf-editor -y
 flatpak install flathub cc.arduino.IDE2 -y
 flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.github.tchx84.Flatseal -y

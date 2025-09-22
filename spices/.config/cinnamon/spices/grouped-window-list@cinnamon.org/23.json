@@ -365,10 +365,10 @@
             "aseprite.desktop",
             "steam.desktop",
             "com.spotify.Client.desktop:flatpak",
-            "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
             "chrome-odheebnfoopplllgdhiikpefnihhieeh-Default.desktop",
+            "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
             "chrome-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop",
-            "gnome-system-monitor.desktop",
+            "org.gnome.SystemMonitor.desktop",
             "cinnamon-settings.desktop"
         ]
     },

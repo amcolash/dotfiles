@@ -3,6 +3,7 @@ android-sdk-build-tools-common
 android-sdk-common
 android-sdk-platform-tools-common
 cheese
+cmake
 code
 containerd.io
 default-jdk-headless
