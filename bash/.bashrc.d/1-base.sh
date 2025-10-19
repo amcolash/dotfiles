@@ -134,18 +134,18 @@ if [ ! -v DISABLE_BLESH ]; then
 fi
 
 # standard bash history settings when not using ble.sh
-if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
-  # don't put duplicate lines or lines starting with space in the history.
-  # See bash(1) for more options
-  HISTCONTROL=ignoreboth
+#if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
-  # append to the history file, don't overwrite it
-  shopt -s histappend
+# append to the history file, don't overwrite it
+shopt -s histappend
 
-  # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-  HISTSIZE=10000
-  HISTFILESIZE=20000
-fi
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
+#fi
 
 # use atuin for better history
 if [ ! -v DISABLE_ATUIN ]; then

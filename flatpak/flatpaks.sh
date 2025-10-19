@@ -16,3 +16,4 @@ flatpak install flathub org.gimp.GIMP -y
 flatpak install flathub org.gnome.World.PikaBackup -y
 flatpak install flathub org.inkscape.Inkscape -y
 flatpak install flathub org.remmina.Remmina -y
+flatpak install flathub org.signal.Signal -y
