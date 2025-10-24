@@ -60,28 +60,28 @@
   #  ];
   #};
 
-  environment.etc."rclone-mnt.conf".text = ''
-    [nas]
-    type = sftp
-    host = 192.168.1.101
-    user = amcolash
-    key_file = /root/.ssh/id_ed25519
-  '';
+  #environment.etc."rclone-mnt.conf".text = ''
+  #  [nas]
+  #  type = sftp
+  #  host = 192.168.1.101
+  #  user = amcolash
+  #  key_file = /root/.ssh/id_ed25519
+  #'';
 
-  fileSystems."/mnt/nas" = {
-    device = "nas:~/";
-    fsType = "rclone";
-    options = [
-      "nodev"
-      "nofail"
-      "allow_other"
-      "args2env"
-      #"x-systemd.automount"  # mount on demand
-      #"reconnect"              # handle connection drops
-      #"ServerAliveInterval=15" # keep connections alive
-      "config=/etc/rclone-mnt.conf"
-    ];
-  };
+  #fileSystems."/mnt/nas" = {
+  #  device = "nas:~/";
+  #  fsType = "rclone";
+  #  options = [
+  #    "nodev"
+  #    "nofail"
+  #    "allow_other"
+  #    "args2env"
+  #    #"x-systemd.automount"  # mount on demand
+  #    #"reconnect"              # handle connection drops
+  #    #"ServerAliveInterval=15" # keep connections alive
+  #    "config=/etc/rclone-mnt.conf"
+  #  ];
+  #};
 
   # longer timeout (minutes) for sudo
   security.sudo.extraConfig = ''
