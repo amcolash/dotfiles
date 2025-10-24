@@ -67,6 +67,23 @@ parse_git_branch() {
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=20000
+HISTFILESIZE=20000
+
+# don't put duplicate lines or lines starting with space
+# See bash(1) for more options
+HISTCONTROL=ignoreboth:erasedups
+
+# ignore some commands from history
+HISTIGNORE=”ls:ll:exit:clear:cd:top:htop*:history*:rm*”
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# write a multi line command in a single line
+shopt -s cmdhist
+
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 # shopt -s globstar
@@ -122,30 +139,16 @@ fi
 # use ble.sh for better line completion + auto complete
 if [ ! -v DISABLE_BLESH ]; then
   # (nixos)
-  if [ $(command -v blesh-share) ]; then
-    source "$(blesh-share)"/ble.sh --attach=none
-    [[ ! ${BLE_VERSION-} ]] || ble-attach
-  fi
+  #if [ $(command -v blesh-share) ]; then
+  #  source -- "$(blesh-share)"/ble.sh --attach=none
+  #  [[ ! ${BLE_VERSION-} ]] || ble-attach
+  #fi
 
   # ble.sh (non-nix)
-  if [ -f ~/.local/share/blesh/ble.sh ]; then
+  if [ -f ~/.local/share/blesh/ble.sh ] && [ ! -f /etc/NIXOS ]; then
     source ~/.local/share/blesh/ble.sh
   fi
 fi
-
-# standard bash history settings when not using ble.sh
-#if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
-#fi
 
 # use atuin for better history
 if [ ! -v DISABLE_ATUIN ]; then
@@ -177,6 +180,11 @@ if [ -x /usr/bin/dircolors ]; then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+fi
+
+# load fzf for simpler bash history via ctrl-r
+if [ $(command -v fzf) ] && [ ! -v DISABLE_FZF ]; then
+  eval "$(fzf --bash)"
 fi
 
 # Alias definitions.

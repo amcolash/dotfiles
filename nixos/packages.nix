@@ -26,6 +26,7 @@
     eza
     rclone # mount remote filesystems (faster than sshfs)
     appimage-run
+    fzf
 
     # terminal utils
     nix-search-cli
