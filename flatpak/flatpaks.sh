@@ -1,6 +1,7 @@
 flatpak install flathub ca.desrt.dconf-editor -y
 flatpak install flathub cc.arduino.IDE2 -y
 flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub com.freerdp.FreeRDP -y
 flatpak install flathub com.github.tchx84.Flatseal -y
 flatpak install flathub com.rustdesk.RustDesk -y
 flatpak install flathub com.spotify.Client -y
@@ -13,7 +14,10 @@ flatpak install flathub org.darktable.Darktable -y
 flatpak install flathub org.filezillaproject.Filezilla -y
 flatpak install flathub org.fontforge.FontForge -y
 flatpak install flathub org.gimp.GIMP -y
+flatpak install flathub org.gnome.Cheese -y
 flatpak install flathub org.gnome.World.PikaBackup -y
 flatpak install flathub org.inkscape.Inkscape -y
+flatpak install flathub org.openscad.OpenSCAD -y
 flatpak install flathub org.remmina.Remmina -y
 flatpak install flathub org.signal.Signal -y
+flatpak install flathub org.videolan.VLC -y

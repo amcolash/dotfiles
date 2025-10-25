@@ -187,6 +187,10 @@ if [ $(command -v fzf) ] && [ ! -v DISABLE_FZF ]; then
   eval "$(fzf --bash)"
 fi
 
+if [ $(command -v direnv) ]; then
+  eval "$(direnv hook bash)"
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
