@@ -12,13 +12,10 @@ export PATH=/opt/homebrew/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
-# eza
-export EZA_CONFIG_DIR="$HOME/.config/eza"
-
 # mise
-if [ -f "$HOME/.local/bin/mise" ]; then
-  eval "$(~/.local/bin/mise activate bash)"
-fi
+#if [ -f "$HOME/.local/bin/mise" ]; then
+#  eval "$(~/.local/bin/mise activate bash)"
+#fi
 
 # override pushd/popd from mise to include dir stack
 if [ $(command -v starship) ]; then

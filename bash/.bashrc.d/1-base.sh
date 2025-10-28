@@ -13,8 +13,11 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
-# custom bat theme
+# bat
 export BAT_THEME="ansi"
+
+# eza
+export EZA_CONFIG_DIR="$HOME/.config/eza"
 
 # Custom aliases
 alias reboot="sudo reboot && exit"
