@@ -3,11 +3,6 @@ if [ -f /etc/NIXOS ]; then
   return
 fi
 
-# Android setup
-export ANDROID_HOME=/usr/lib/android-sdk
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export PATH=$JAVA_HOME/bin:$PATH
-
 # Mostly ChatGPT for this helper function
 stow_file() {
   local stow_dir="$1"
@@ -58,17 +53,3 @@ stow_file() {
 
   echo "Successfully stowed '$absolute_filename' to '$DOTFILES/$stow_dir' and created symlink."
 }
-
-# A bunch of tools for pebble dev
-if [ -d "/home/amcolash/Dev/pebble-tools/emsdk" ]; then
-  export EMSDK_QUIET=1
-  source "/home/amcolash/Dev/pebble-tools/emsdk/emsdk_env.sh"
-fi
-
-if [ -d "/home/amcolash/Dev/pebble-tools/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi" ]; then
-  PATH=$PATH:/home/amcolash/Dev/pebble-tools/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin
-fi
-
-if [ -d "/home/amcolash/Dev/pebble-tools/qemu/arm-softmmu" ]; then
-  PATH=$PATH:/home/amcolash/Dev/pebble-tools/qemu/arm-softmmu
-fi

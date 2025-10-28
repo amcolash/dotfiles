@@ -2,13 +2,8 @@ atuin
 bat
 dust
 eza
-go
 mkcert
 node
-pkgconf
-pyenv
 ripgrep
-rust
 starship
 tlrc
-uv

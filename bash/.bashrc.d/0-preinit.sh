@@ -10,7 +10,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   DISABLE_BLESH=true
 fi
 
-if [ -f /etc/NIXOS ]; then
-  DISABLE_ATUIN=true
-  DISABLE_BLESH=true
-fi
+# for now, use fzf instead of atuin
+DISABLE_ATUIN=true
+DISABLE_BLESH=true
+

@@ -13,6 +13,9 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
+# custom bat theme
+export BAT_THEME="ansi"
+
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
@@ -170,6 +173,56 @@ if [ ! -v DISABLE_ATUIN ]; then
   fi
 fi
 
+# aternatively, load fzf for better bash history (via ctrl-r/up arrow)
+if [ $(command -v fzf) ] && [ -v DISABLE_ATUIN ] && [ ! -v DISABLE_FZF ]; then
+  #export FZF_THEME="--color=fg:#a7adba,fg+:#d0d0d0,bg:-1,bg+:#262626
+  #--color=hl:#6699cc,hl+:#5fd7ff,info:#fac863,marker:#5fb3b3
+  #--color=prompt:#fac863,spinner:#5fb3b3,pointer:#5fb3b3,header:#6699cc
+  #--color=border:#262626,label:#aeaeae,query:#d9d9d9"
+  #
+  export FZF_THEME="--ansi --color=16"
+  export FZF_DEFAULT_OPTS="--height 75% --inline-info --bind 'tab:accept' $FZF_THEME"
+
+  if [ $(command -v eza) ]; then
+    export FZF_CTRL_T_OPTS=" \
+    --walker-skip .git,node_modules,target \
+    --preview 'if [ -d {} ]; then \
+       tree -C {}; \
+     else \
+       eza -l --icons --git --color=always {}; \
+       if file -b --mime-type {} | grep -q \"^text/\"; then \
+         bat -n --color=always {}; \
+       fi
+     fi' \
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  else
+    export FZF_CTRL_T_OPTS="
+    --walker-skip .git,node_modules,target
+    --preview 'bat -n --color=always {}'
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  fi
+
+  export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+
+
+  export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
+
+  # use fzf for history (when pressing arrow up)
+  bind -x '"\e[A": __fzf_history__'
+
+  # initialize fzf
+  eval "$(fzf --bash)"
+fi
+
+if [ $(command -v direnv) ]; then
+  eval "$(direnv hook bash)"
+fi
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -180,15 +233,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
-fi
-
-# load fzf for simpler bash history via ctrl-r
-if [ $(command -v fzf) ] && [ ! -v DISABLE_FZF ]; then
-  eval "$(fzf --bash)"
-fi
-
-if [ $(command -v direnv) ]; then
-  eval "$(direnv hook bash)"
 fi
 
 # Alias definitions.
