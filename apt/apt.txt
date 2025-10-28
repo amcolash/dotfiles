@@ -1,6 +1,5 @@
 code
 containerd.io
-direnv
 docker-buildx-plugin
 docker-ce
 docker-ce-cli
@@ -23,6 +22,7 @@ libpam-fprintd
 linssid
 mainline
 meld
+nmon
 peek
 pipewire-jack
 qpwgraph

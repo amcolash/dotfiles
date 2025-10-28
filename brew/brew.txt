@@ -1,9 +1,12 @@
 atuin
 bat
+direnv
 dust
 eza
+fzf
+mise
 mkcert
-node
 ripgrep
 starship
 tlrc
+tree

@@ -223,6 +223,10 @@ if [ $(command -v direnv) ]; then
   eval "$(direnv hook bash)"
 fi
 
+if [ $(command -v mise) ]; then
+  eval "$(mise activate bash)"
+fi
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
