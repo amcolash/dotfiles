@@ -2,6 +2,9 @@ if [ "$(uname)" != "Darwin" ]; then
   return
 fi
 
+# Force rebrand
+export STORYBOOK_THEME="Rebrand (Client)"
+
 # Hide zsh warning
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
@@ -23,13 +26,13 @@ fi
 # override pushd/popd from mise to include dir stack
 if [ $(command -v starship) ]; then
   pushd() {
-__zsh_like_cd pushd "$@"
-dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+    __zsh_like_cd pushd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 
   popd() {
-__zsh_like_cd popd "$@"
-dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+    __zsh_like_cd popd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 fi
 
@@ -64,6 +67,7 @@ alias rebuild="cd $GROW_HOME && git checkout main && git pull && server && clien
 alias owners="codeowners \$(git diff --name-only main) | grep -v \"provider-coordination\|unowned\""
 alias viz="pushd $GROW_HOME/grow-therapy-frontend/apps/csr-app && npx vite-bundle-visualizer && popd"
 alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
+#alias grow-login="codeartifact"
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
 alias logs="pushd $GROW_HOME && docker-compose logs -f"
@@ -80,8 +84,8 @@ codeartifact() {
 
   aws sts get-caller-identity &>/dev/null
   if [ $? != 0 ]; then
-grow login
-# aws sso login
+    echo yes | grow login > /dev/null
+    # aws sso login
   fi
 
   eval $(grow shellenv)
@@ -93,17 +97,17 @@ grow login
 
 dotenv() {
   if [ "$1" ]; then
-pushd $1
+    pushd $1
   fi
 
   if [ -f .env ]; then
-set -a
-source .env
-set +a
+    set -a
+    source .env
+    set +a
   fi
 
   if [ "$1" ]; then
-popd
+    popd
   fi
 }
 
@@ -125,9 +129,9 @@ waitForServer() {
   echo Waiting for the server to start...
 
   if curl -sf --retry 8 --retry-all-errors http://provider.growtherapylocal.com:5000/health-status > /dev/null; then
-echo
+    echo
   else
-echo "Could not reach server, check that it is running."
+    echo "Could not reach server, check that it is running."
   fi
 }
 
@@ -171,7 +175,7 @@ fastCodegen() {
   if [ "$MD5" != "$OLD_MD5" ]; then
     echo "Generating new codegen files..."
     rm -f "$HOME/.grow/schema.md5"
-    npx nx codegen csr-app && npx nx codegen data-access && echo "$MD5" > "$HOME/.grow/schema.md5"
+    npx nx codegen csr-app && npx nx codegen data-access && npx nx codegen seedling-components && echo "$MD5" > "$HOME/.grow/schema.md5"
   else
     echo "Codegen files are up to date. Force rebuild with 'yarn codegen -f'"
   fi
@@ -187,6 +191,14 @@ yarn() {
     local exit_code=$?
     if [ $exit_code -ne 0 ]; then
       echo -e "\n\033[1;31m❌ YARN INSTALL FAILED ❌\033[0m\n"
+      return $exit_code
+    fi
+  elif [[ "$1" == "add" ]]; then
+    # Use 'command' to find the original yarn binary, bypassing our function
+    command yarn add "${@:2}"
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+      echo -e "\n\033[1;31m❌ YARN ADD FAILED ❌\033[0m\n"
       return $exit_code
     fi
   else
