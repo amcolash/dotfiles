@@ -183,8 +183,8 @@ if [ $(command -v fzf) ] && [ -v DISABLE_ATUIN ] && [ ! -v DISABLE_FZF ]; then
   #--color=prompt:#fac863,spinner:#5fb3b3,pointer:#5fb3b3,header:#6699cc
   #--color=border:#262626,label:#aeaeae,query:#d9d9d9"
   #
-  export FZF_THEME="--ansi --color=16"
-  export FZF_DEFAULT_OPTS="--height 75% --inline-info --bind 'tab:accept' $FZF_THEME"
+  export FZF_THEME="--ansi --color=16 --color=pointer:green"
+  export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' $FZF_THEME"
 
   if [ $(command -v eza) ]; then
     export FZF_CTRL_T_OPTS=" \
