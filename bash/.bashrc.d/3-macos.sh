@@ -12,21 +12,16 @@ export PATH=/opt/homebrew/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
-# mise
-#if [ -f "$HOME/.local/bin/mise" ]; then
-#  eval "$(~/.local/bin/mise activate bash)"
-#fi
-
 # override pushd/popd from mise to include dir stack
 if [ $(command -v starship) ]; then
   pushd() {
-__zsh_like_cd pushd "$@"
-dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+    __zsh_like_cd pushd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 
   popd() {
-__zsh_like_cd popd "$@"
-dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+    __zsh_like_cd popd "$@"
+    dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
   }
 fi
 

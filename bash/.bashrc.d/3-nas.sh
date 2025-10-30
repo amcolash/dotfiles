@@ -53,8 +53,11 @@ docker-upgrade() {
     docker-compose pull
     docker-compose build
 
-    docker-compose down
-    docker-compose up -d
+    # only restart if containers are already running
+    if [ $(docker-compose ps -q | wc -l) != 0 ]; then
+      docker-compose down
+      docker-compose up -d
+    fi
   fi
 
   popd > /dev/null
