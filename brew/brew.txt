@@ -3,10 +3,13 @@ bat
 direnv
 dust
 eza
+fd
 fzf
 mise
 mkcert
+neovim
 ripgrep
 starship
 tlrc
 tree
+uv
