@@ -1,3 +1,4 @@
+boot-repair
 code
 containerd.io
 docker-buildx-plugin

@@ -8,6 +8,7 @@ flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.tomjwatson.Emote -y
 flatpak install flathub fr.handbrake.ghb -y
 flatpak install flathub io.github.ilya_zlobintsev.LACT -y
+flatpak install flathub io.github.pwr_solaar.solaar -y
 flatpak install flathub org.audacityteam.Audacity -y
 flatpak install flathub org.bunkus.mkvtoolnix-gui -y
 flatpak install flathub org.darktable.Darktable -y
