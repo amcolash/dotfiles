@@ -16,7 +16,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
 # override pushd/popd from mise to include dir stack
-if [ $(command -v starship) ]; then
+if [ $(command -v starship) ] && [ $(command -v mise) ]; then
   pushd() {
     __zsh_like_cd pushd "$@"
     dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
@@ -59,13 +59,17 @@ alias rebuild="cd $GROW_HOME && git checkout main && git pull && server && clien
 alias owners="codeowners \$(git diff --name-only main) | grep -v \"provider-coordination\|unowned\""
 alias viz="pushd $GROW_HOME/grow-therapy-frontend/apps/csr-app && npx vite-bundle-visualizer && popd"
 alias grow-login='echo yes | grow login > /dev/null && eval "$(grow shellenv)"'
-#alias grow-login="codeartifact"
+alias gl="grow-login"
 alias sc="server && client"
 alias start_fresh="nuke && server && waitForServer && db"
 alias logs="pushd $GROW_HOME && docker-compose logs -f"
 alias codegen="pushd $GROW_HOME/grow-therapy-frontend && waitForServer && yarn codegen && popd"
 alias gd="git diff main"
 alias sprout_local="useLocal $GROW_HOME/../sprout-ui @growtherapy/sprout-ui"
+
+alias fe="pushd $GROW_HOME/grow-therapy-frontend"
+alias csr="fe && yarn fast-start-staging csr-app"
+alias ssr="fe && yarn fast-start-staging ssr-app"
 
 exp() {
   rg -l "export .* $1"
@@ -87,21 +91,24 @@ codeartifact() {
   popd &>/dev/null
 }
 
-dotenv() {
-  if [ "$1" ]; then
-    pushd $1
-  fi
-
-  if [ -f .env ]; then
-    set -a
-    source .env
-    set +a
-  fi
-
-  if [ "$1" ]; then
-    popd
-  fi
-}
+#dotenv() {
+#  # not used, since using devbox
+#  return
+#
+#  if [ "$1" ]; then
+#    pushd $1
+#  fi
+#
+#  if [ -f .env ]; then
+#    set -a
+#    source .env
+#    set +a
+#  fi
+#
+#  if [ "$1" ]; then
+#    popd
+#  fi
+#}
 
 # checkout main version of file
 cm() {
@@ -175,9 +182,13 @@ fastCodegen() {
   echo
 }
 
-# Aggressive errors on yarn install failures
+# Aggressive errors on yarn install failures + try to auth
 yarn() {
   if [[ "$1" == "install" ]]; then
+    if [ -z "$CODEARTIFACT_AUTH_TOKEN" ]; then
+      grow-login
+    fi
+
     # Use 'command' to find the original yarn binary, bypassing our function
     command yarn install "${@:2}"
     local exit_code=$?
@@ -186,6 +197,10 @@ yarn() {
       return $exit_code
     fi
   elif [[ "$1" == "add" ]]; then
+    if [ -z "$CODEARTIFACT_AUTH_TOKEN" ]; then
+      grow-login
+    fi
+
     # Use 'command' to find the original yarn binary, bypassing our function
     command yarn add "${@:2}"
     local exit_code=$?
