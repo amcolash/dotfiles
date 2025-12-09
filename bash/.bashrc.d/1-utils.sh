@@ -35,6 +35,11 @@ if [ $(command -v apt) ]; then
   alias updateInstall="sudo apt update && sudo apt install"
 fi
 
+# meld fallback
+if [ ! $(command -v meld) ]; then
+  alias meld="diff"
+fi
+
 # Dotfile helper functions
 dot() {
   pushd $DOTFILES > /dev/null
