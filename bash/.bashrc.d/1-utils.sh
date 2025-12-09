@@ -25,7 +25,7 @@ if [ $(command -v eza) ]; then
 else
   alias ls='ls --color=auto'
   alias ll='ls -l'
-  alias la='ls -A'
+  alias la='ls -la'
   alias l='ls -CF'
 fi
 
