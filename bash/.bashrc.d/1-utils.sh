@@ -25,7 +25,7 @@ if [ $(command -v eza) ]; then
 else
   alias ls='ls --color=auto'
   alias ll='ls -l'
-  alias la='ls -A'
+  alias la='ls -la'
   alias l='ls -CF'
 fi
 
@@ -39,6 +39,11 @@ fi
 if [ $(command -v apt) ]; then
   alias upgrade="sudo apt update && sudo apt upgrade"
   alias updateInstall="sudo apt update && sudo apt install"
+fi
+
+# meld fallback
+if [ ! $(command -v meld) ]; then
+  alias meld="diff"
 fi
 
 # Dotfile helper functions
