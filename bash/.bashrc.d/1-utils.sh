@@ -29,6 +29,12 @@ else
   alias l='ls -CF'
 fi
 
+# use neovim if available
+if [ $(command -v nvim) ]; then
+  alias vi='nvim'
+  alias vim='nvim'
+fi
+
 # helpful apt commands
 if [ $(command -v apt) ]; then
   alias upgrade="sudo apt update && sudo apt upgrade"
