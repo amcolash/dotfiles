@@ -11,7 +11,11 @@ else
   SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
   pushd "$SCRIPT_DIR" > /dev/null
 
-  brew list --installed-on-request > brew.txt
+  if [ "$(uname)" == "Darwin" ]; then
+    brew list --installed-on-request > brew_mac.txt
+  else
+    brew list --installed-on-request > brew.txt
+  fi
 
   popd > /dev/null
 fi
