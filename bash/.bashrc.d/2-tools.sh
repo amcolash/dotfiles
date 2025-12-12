@@ -65,42 +65,8 @@ else
   esac
 fi
 
-# use ble.sh for better line completion + auto complete
-if [ ! -v DISABLE_BLESH ]; then
-  # (nixos)
-  #if [ $(command -v blesh-share) ]; then
-  #  source -- "$(blesh-share)"/ble.sh --attach=none
-  #  [[ ! ${BLE_VERSION-} ]] || ble-attach
-  #fi
-
-  # ble.sh (non-nix)
-  if [ -f ~/.local/share/blesh/ble.sh ] && [ ! -f /etc/NIXOS ]; then
-    source ~/.local/share/blesh/ble.sh
-  fi
-fi
-
-# use atuin for better history
-if [ ! -v DISABLE_ATUIN ]; then
-  # use bash-preexec with atuin is ble.sh not installed/set up
-  if [ ! $(command -v ble) ] || [ -v DISABLE_BLESH ]; then
-    if [[ -f ~/.bash-preexec.sh ]]; then
-      source ~/.bash-preexec.sh
-    else
-      echo Warning: bash-preexec missing! Please re-run "stow bash"
-    fi
-  fi
-
-  if [ -f "$HOME/.atuin/bin/env" ]; then
-    . "$HOME/.atuin/bin/env"
-  fi
-
-  if [ $(command -v atuin) ]; then
-    eval "$(atuin init bash)"
-  fi
-fi
-
-# aternatively, load fzf for better bash history (via ctrl-r/up arrow)
-if [ $(command -v fzf) ] && [ -v DISABLE_ATUIN ] && [ ! -v DISABLE_FZF ]; then
+# load fzf for bash history (via ctrl-r/up arrow)
+if [ $(command -v fzf) ]; then
   #export FZF_THEME="--color=fg:#a7adba,fg+:#d0d0d0,bg:-1,bg+:#262626
   #--color=hl:#6699cc,hl+:#5fd7ff,info:#fac863,marker:#5fb3b3
   #--color=prompt:#fac863,spinner:#5fb3b3,pointer:#5fb3b3,header:#6699cc
@@ -108,6 +74,10 @@ if [ $(command -v fzf) ] && [ -v DISABLE_ATUIN ] && [ ! -v DISABLE_FZF ]; then
   #
   export FZF_THEME="--ansi --color=16 --color=pointer:green"
   export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' $FZF_THEME"
+
+  if [ ! "$(command -v bat)" ]; then
+    echo WARNING: bat is not installed. fzf might not work
+  fi
 
   if [ $(command -v eza) ]; then
     export FZF_CTRL_T_OPTS=" \

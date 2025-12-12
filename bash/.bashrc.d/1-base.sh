@@ -4,10 +4,6 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
-# Tool config
-export BAT_THEME="ansi"
-export EZA_CONFIG_DIR="$HOME/.config/eza"
-
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
