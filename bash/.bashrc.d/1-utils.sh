@@ -56,6 +56,7 @@ fi
 # use bat instead of cat
 if [ $(command -v bat) ]; then
   export BAT_THEME="ansi"
+  alias cat_orig="$(command -v cat)"
   alias cat="bat"
 fi
 
