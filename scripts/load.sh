@@ -3,18 +3,16 @@ set -euo pipefail
 
 # move to the script directory
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd "$SCRIPT_DIR" > /dev/null
+pushd "$SCRIPT_DIR/.." > /dev/null
 
-echo "[+] Saving settings..."
-echo
+echo "[+] Loading saved settings..."
 
 for dir in */ ; do
   if [ -f "$dir/save.sh" ] && [ ! $dir == "templates/" ]; then
     pushd "$dir" > /dev/null
-    ./save.sh
+    ./load.sh
     popd > /dev/null
   fi
 done
 
-echo
-echo "[✓] Saving complete."
+echo "[✓] Loading complete."

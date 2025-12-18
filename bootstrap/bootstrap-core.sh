@@ -110,7 +110,7 @@ bootstrap/bootstrap-stow.sh
 
 # 5. Load additional settings (cinnamon, dconf, etc.)
 echo
-./load.sh
+./scripts/load.sh
 
 # 5. Prompt for nixos-rebuild
 if [[ -f /etc/NIXOS ]]; then

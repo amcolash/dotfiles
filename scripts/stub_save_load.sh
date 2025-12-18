@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+pushd ../ > /dev/null
+
 # usage stub_save_load.sh <dir>
 if [ -z "$1" ]; then
   echo "Usage: $0 <dir>"
+  popd > /dev/null
   exit 1
 fi
 
@@ -23,3 +26,5 @@ if [ ! -f "$1/load.sh" ]; then
 
   chmod +x "$1/load.sh"
 fi
+
+popd > /dev/null
