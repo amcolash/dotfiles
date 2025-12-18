@@ -1,86 +1,48 @@
 #!/usr/bin/env bash
 set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")/../scripts" && pwd)"
+source "$SCRIPT_DIR/stow_utils.sh"
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd "$SCRIPT_DIR/../" > /dev/null
+cd "$DOTFILES_ROOT"
 
-# List of directories to exclude from the whiptail menu (save/load dirs are excluded already)
-EXCLUDE_DIRS=("nixos" "bootstrap" "system" "templates")
-
-# Hide some dotfiles if they are not applicable (mapping of [command:directory])
-declare -a COMMAND_DIR_MAP=(
-  "hyprland:hypr"
-  "kitty:kitty"
-  "cinnamon:spices"
-  "waybar:waybar"
-  "alacritty:alacritty"
-)
-
-# Iterate over the defined command-to-directory mappings
-for item in "${COMMAND_DIR_MAP[@]}"; do
-  # Temporarily set IFS to ':' to split the string into command and directory
-  IFS=':' read -r command_name dir_name <<< "$item"
-
-  # Check if the command exists silently
-  if [ ! $(command -v "$command_name") ]; then
-    # If the command is not found, add its corresponding directory to EXCLUDE_DIRS
-    EXCLUDE_DIRS+=("$dir_name")
-  fi
-done
-
-# Build the whiptail menu options
 OPTIONS=()
+STOWED_BEFORE=()
+packages=$(get_stowable_packages)
 
-# Iterate over directories and exclude the ones in EXCLUDE_DIRS OR those that support load/save
-for dir in */ ; do
-  name="${dir%/}"
-  EXCLUDED=false
-  for exclude in "${EXCLUDE_DIRS[@]}"; do
-    if [[ "$name" == "$exclude" ]] || [ -f "$dir/load.sh" ] || [ -f "$dir/save.sh" ]; then
-      EXCLUDED=true
-      break
-    fi
-  done
-
-  if ! $EXCLUDED ; then
-    OPTIONS+=("$name" "" "ON")
+for pkg in $packages; do
+  if is_package_stowed "$pkg"; then
+    OPTIONS+=("$pkg" "" "ON")
+    STOWED_BEFORE+=("$pkg")
+  else
+    OPTIONS+=("$pkg" "" "OFF")
   fi
 done
 
-# Generate the whiptail menu
 set +e
 CHOICES=$(whiptail --title "Stow Dotfiles" --checklist \
-"Choose the dotfiles you want to stow:" 20 78 15 \
-"${OPTIONS[@]}" 3>&1 1>&2 2>&3)
+  "Select packages to sync. Unchecking will UNSTOW." 20 78 15 \
+  "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
+exitstatus=$?
 set -e
 
-exitstatus=$?
+[[ $exitstatus != 0 ]] && echo "[!] Cancelled." && exit 0
 
-if [[ -z "$CHOICES" || $exitstatus != 0 ]]; then
-  echo "[!] No choices selected or stow cancelled."
-else
-  echo "[+] Stowing selected dotfiles..."
-  echo
-  # Iterate over the selected choices (which are space-separated)
-  for choice in $CHOICES; do
-    # Remove quotes from the choice
-    clean_choice=$(echo "$choice" | sed 's/"//g')
+SELECTED_ARRAY=()
+for choice in $CHOICES; do SELECTED_ARRAY+=($(echo "$choice" | sed 's/"//g')); done
 
-    if stow "$clean_choice"; then
-      echo "  [✓] Successfully stowed $clean_choice"
-    else
-      echo
-      echo "  [!] Failed to stow $clean_choice"
-      echo
-    fi
-  done
-fi
+echo "[+] Syncing dotfiles..."
+for pkg in $packages; do
+  IS_SELECTED=false
+  for s in "${SELECTED_ARRAY[@]}"; do [[ "$s" == "$pkg" ]] && IS_SELECTED=true && break; done
 
-echo
-read -p "Would you like to stow system files (/etc)? [y/N] " stow_system < /dev/tty
-if [[ "$stow_system" =~ ^[Yy]$ ]]; then
-  sudo stow --target=/ system
-fi
-echo
+  WAS_STOWED=false
+  for s in "${STOWED_BEFORE[@]}"; do [[ "$s" == "$pkg" ]] && WAS_STOWED=true && break; done
 
-popd > /dev/null
+  if $IS_SELECTED; then
+    stow -R -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
+    echo "  [✓] Stowed $pkg"
+  elif $WAS_STOWED; then
+    stow -D -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
+    echo "  [X] Unstowed $pkg"
+  fi
+done
