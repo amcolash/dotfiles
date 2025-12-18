@@ -35,6 +35,17 @@ vim.api.nvim_set_keymap('v', '<Tab>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<S-Tab>', '<C-o><<', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
 
+-- auto-indent on save (from gemini)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local view = vim.fn.winsaveview()
+    -- gg (top) =G (format to bottom)
+    vim.cmd([[silent! normal! gg=G]])
+    vim.fn.winrestview(view)
+  end,
+})
+
 -- open netrw if no file passed on start
 vim.api.nvim_create_autocmd("VimEnter", {
   group = vim.api.nvim_create_augroup("NetrwOpen", { clear = true }),
@@ -47,5 +58,5 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- restore command for netrw
+-- restore ":E" command for netrw
 vim.api.nvim_create_user_command('E', 'Ex', {})
