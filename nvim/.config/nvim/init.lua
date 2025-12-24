@@ -9,6 +9,10 @@ require("config.lsp")
 --vim.cmd.colorscheme("wombat")
 vim.cmd.colorscheme("doom-one")
 
+-- ensure term gui colors are on and highlight hex/rgba/css/etc colors
+vim.opt.termguicolors = true
+require('nvim-highlight-colors').setup({})
+
 -- set ruler color
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#444444" })
 
