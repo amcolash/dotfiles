@@ -6,6 +6,20 @@ CHECK_INTERVAL_SECONDS=$((60 * 60 * 24)) # 24 hours
 check_dotfiles_updates() {
   echo "  Checking for dotfile updates..."
 
+  # mac and linux have different timeout values (ms vs s)
+  # Determine OS and set timeout (6 seconds)
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    TIMEOUT=6000
+  else
+    TIMEOUT=6
+  fi
+
+  # make sure there is a network connection with 6 sec timeout
+  if ! ping -c 1 -W "$TIMEOUT" github.com > /dev/null 2>&1; then
+    echo -e "\e[1A\e[K󰌙  Connection timed out. Skipping update check."
+    return 1
+  fi
+
   # Basic git check (requires being in the dotfiles repo or knowing its path)
   if [ -d "$DOTFILES" ]; then
     pushd "$DOTFILES" > /dev/null
