@@ -1,5 +1,5 @@
-atuin
 bat
+bun
 direnv
 dust
 eza
@@ -8,8 +8,10 @@ fzf
 mise
 mkcert
 neovim
+picocom
 ripgrep
 starship
+stow
 tlrc
 tree
 uv
