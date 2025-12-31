@@ -18,6 +18,7 @@ else
     "/org/gnome/desktop/"
     "/org/gnome/gedit/"
     "/org/gnome/meld/"
+    "/org/gnome/terminal/"
   )
 
   for path in "${PATHS[@]}"; do
