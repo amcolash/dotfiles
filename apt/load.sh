@@ -22,6 +22,6 @@ fi
 pushd "$SCRIPT_DIR" > /dev/null
 
 echo "[+] Restoring apt packages"
-cat apt.txt | xargs sudo apt install -y
+cat apt.txt | xargs sudo apt install -m
 
 popd > /dev/null
