@@ -36,6 +36,5 @@ steam-installer
 stl-thumb
 ttf-mscorefonts-installer
 vim
-virtualbox-7.1
 vpn-unlimited
 xattr
