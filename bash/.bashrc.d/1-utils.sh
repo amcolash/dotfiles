@@ -33,14 +33,9 @@ fi
 
 # use neovim if available
 if [ $(command -v nvim) ]; then
+  alias nv="nvim"
   alias vi="nvim"
   alias vim="nvim"
-fi
-
-# helpful apt commands
-if [ $(command -v apt) ]; then
-  alias upgrade="sudo apt update && sudo apt upgrade"
-  alias updateInstall="sudo apt update && sudo apt install"
 fi
 
 # meld fallback
@@ -58,6 +53,10 @@ if [ $(command -v bat) ]; then
   export BAT_THEME="ansi"
   alias cat_orig="$(command -v cat)"
   alias cat="bat"
+fi
+
+if [ $(command -v brew) ]; then
+  alias brew_upgrade="brew upgrade && brew upgrade --cask"
 fi
 
 # Dotfile helper functions

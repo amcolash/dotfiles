@@ -22,6 +22,12 @@ fi
 pushd "$SCRIPT_DIR" > /dev/null
 
 echo "[+] Restoring homebrew..."
-cat brew.txt | xargs brew install
+
+if [ "$(uname)" == "Darwin" ]; then
+  cat brew_mac.txt | xargs brew install
+  car brew_mac_cask.txt | xargs brew install --cask
+else
+  cat brew.txt | xargs brew install
+fi
 
 popd > /dev/null

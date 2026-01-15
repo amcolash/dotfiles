@@ -13,7 +13,7 @@ else
 
   if [ "$(uname)" == "Darwin" ]; then
     brew list --installed-on-request > brew_mac.txt
-    brew list --cask >> brew_mac.txt
+    brew list --cask > brew_mac_cask.txt
   else
     brew list --installed-on-request > brew.txt
   fi
