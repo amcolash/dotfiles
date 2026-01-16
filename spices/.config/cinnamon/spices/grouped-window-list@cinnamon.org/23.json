@@ -357,7 +357,7 @@
             "org.gnome.Terminal.desktop"
         ],
         "value": [
-            "google-chrome.desktop",
+            "com.brave.Browser.desktop:flatpak",
             "kitty.desktop",
             "nemo.desktop",
             "code.desktop",

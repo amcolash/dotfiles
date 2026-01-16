@@ -33,6 +33,8 @@ fi
 
 # use neovim if available
 if [ $(command -v nvim) ]; then
+  alias vi_orig="$(command -v vi)"
+  alias vim_orig="$(command -v vim)"
   alias vi="nvim"
   alias vim="nvim"
 fi
