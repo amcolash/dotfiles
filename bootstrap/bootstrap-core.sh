@@ -4,6 +4,16 @@ set -euo pipefail
 echo
 echo "[+] Starting dotfiles bootstrap"
 
+if [ ! $(command -v brew) ]; then
+  read -p "[?] Homebrew appears to be missing, would you like to install it? [y/N] " install_brew < /dev/tty
+
+  if [[ "$install_brew" =~ ^[Yy]$ ]]; then
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+  fi
+else
+  echo "[✓] Homebrew is installed"
+fi
+
 # Check for required programs before running script
 for cmd in unzip git stow ssh-keygen whiptail; do
   if [ ! $(command -v "$cmd") ]; then
@@ -63,6 +73,8 @@ else
   GITHUB_URL="https://github.com/settings/ssh/new"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     open $GITHUB_URL
+  elif [ $(command -v "brave-browser") ]; then
+    brave-browser $GITHUB_URL &
   elif [ $(command -v "google-chrome") ]; then
     google-chrome $GITHUB_URL &
   elif [ $(command -v "firefox") ]; then
