@@ -40,7 +40,11 @@ if [ $(command -v nvim) ]; then
   alias vim="nvim"
 fi
 
-# meld fallback
+# meld fallbacks
+if flatpak info org.gnome.meld &>/dev/null; then
+  alias meld="flatpak run org.gnome.meld"
+fi
+
 if [ ! "$(command -v meld)" ]; then
   alias meld="diff"
 fi
