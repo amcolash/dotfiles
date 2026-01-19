@@ -4,18 +4,23 @@ set -euo pipefail
 echo
 echo "[+] Starting dotfiles bootstrap"
 
+if [ ! $(command -v git) ]; then
+  echo Git is required to bootstrap system. Please install with your OS package manager.
+fi
+
 if [ ! $(command -v brew) ]; then
   read -p "[?] Homebrew appears to be missing, would you like to install it? [y/N] " install_brew < /dev/tty
 
   if [[ "$install_brew" =~ ^[Yy]$ ]]; then
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
   fi
 else
   echo "[✓] Homebrew is installed"
 fi
 
 # Check for required programs before running script
-for cmd in unzip git stow ssh-keygen whiptail; do
+for cmd in unzip stow ssh-keygen whiptail; do
   if [ ! $(command -v "$cmd") ]; then
     echo "[!] Missing required command: $cmd"
 
