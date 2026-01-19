@@ -60,12 +60,12 @@ for pkg in $packages; do
           echo ""
           echo "File: $file"
           echo "Diff (- is your dotfile, + is adopted system file):"
-          
+
           # Show diff without head to avoid SIGPIPE issues
           set +e
           git diff --color=always "$file"
           set -e
-          
+
           # Pause so user can read the diff
           echo ""
           read -p "Press Enter to continue..." -r

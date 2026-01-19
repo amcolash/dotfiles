@@ -9,12 +9,18 @@ if [ ! $(command -v git) ]; then
 fi
 
 if [ ! $(command -v brew) ]; then
-  read -p "[?] Homebrew appears to be missing, would you like to install it? [y/N] " install_brew < /dev/tty
-
-  if [[ "$install_brew" =~ ^[Yy]$ ]]; then
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+  # attempt to load homebrew if it exists
+  if [ -d /home/linuxbrew/.linuxbrew/bin ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-    echo "[✓] Homebrew installed and activated"
+    echo "[✓] Homebrew is installed"
+  else
+    read -p "[?] Homebrew appears to be missing, would you like to install it? [y/N] " install_brew < /dev/tty
+
+    if [[ "$install_brew" =~ ^[Yy]$ ]]; then
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+      echo "[✓] Homebrew installed and activated"
+    fi
   fi
 else
   echo "[✓] Homebrew is installed"
