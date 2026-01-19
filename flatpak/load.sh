@@ -11,13 +11,6 @@ if [ ! $(command -v flatpak) ]; then
   exit 0
 fi
 
-# check if user wants to load flatpaks
-read -p "Would you like to load $DIRNAME? [y/N] " do_load < /dev/tty
-if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
-  echo "[-] Skipping $DIRNAME."
-  exit 0
-fi
-
 # go to the script directory
 pushd "$SCRIPT_DIR" > /dev/null
 

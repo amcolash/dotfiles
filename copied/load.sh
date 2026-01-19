@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DIRNAME=$(basename "$SCRIPT_DIR")
 
 # check if user wants to load settings
-read -p "Would you like to copy special system files? [y/N] " do_load < /dev/tty
+read -p "Are you sure you want to copy special system files? [y/N] " do_load < /dev/tty
 if [[ ! "$do_load" =~ ^[Yy]$ ]]; then
   echo "[-] Skipping $DIRNAME."
   exit 0
