@@ -6,8 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DIRNAME=$(basename "$SCRIPT_DIR")
 
 # only install fonts for linux
-if [ "$(uname)" != "Darwin" ]; then
-  echo "[-] Non-linux system detected. Skipping loading."
+if [ "$(uname)" == "Darwin" ]; then
+  echo "[-] MacOS detected. Skipping font install."
   exit 0
 fi
 
