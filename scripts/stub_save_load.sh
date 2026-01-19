@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-pushd ../ > /dev/null
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+pushd $SCRIPT_DIR/../ > /dev/null
 
 # usage stub_save_load.sh <dir>
 if [ -z "$1" ]; then
