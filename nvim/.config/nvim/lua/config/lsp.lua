@@ -10,13 +10,18 @@ local lspconfig = require('lspconfig')
 
 -- Define the list of servers you want Mason to manage/install
 local servers = {
-  'ts_ls',
-  'pyright',
-  'html',
-  'cssls',
-  'clangd',
-  'arduino_language_server',
-  'lua_ls',
+  'ts_ls',                    -- TypeScript/JavaScript/React
+  'pyright',                  -- Python
+  'html',                     -- HTML
+  'cssls',                    -- CSS
+  'tailwindcss',              -- Tailwind CSS
+  'clangd',                   -- C/C++ (also works for PlatformIO)
+  'arduino_language_server',  -- Arduino
+  'lua_ls',                   -- Lua
+  'bashls',                   -- Bash/Shell scripts
+  'yamlls',                   -- YAML
+  'jsonls',                   -- JSON
+  'taplo',                    -- TOML
 }
 
 -- Prepare LSP capabilities for nvim-cmp integration

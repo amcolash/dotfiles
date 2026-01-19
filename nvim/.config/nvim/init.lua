@@ -39,14 +39,14 @@ vim.api.nvim_set_keymap('v', '<Tab>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<S-Tab>', '<C-o><<', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
 
--- auto-indent on save (from gemini)
+-- LSP-based formatting on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    local view = vim.fn.winsaveview()
-    -- gg (top) =G (format to bottom)
-    vim.cmd([[silent! normal! gg=G]])
-    vim.fn.winrestview(view)
+    -- Only format if an LSP client is attached to the buffer
+    if #vim.lsp.get_active_clients({ bufnr = 0 }) > 0 then
+      vim.lsp.buf.format({ async = false })
+    end
   end,
 })
 
@@ -64,3 +64,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- restore ":E" command for netrw
 vim.api.nvim_create_user_command('E', 'Ex', {})
+
+-- custom :indent command for manual indenting
+vim.api.nvim_create_user_command('Indent', function()
+  local view = vim.fn.winsaveview()
+  vim.cmd([[silent! normal! gg=G]])
+  vim.fn.winrestview(view)
+end, {})
