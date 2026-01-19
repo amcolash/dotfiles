@@ -39,8 +39,48 @@ for pkg in $packages; do
   for s in "${STOWED_BEFORE[@]}"; do [[ "$s" == "$pkg" ]] && WAS_STOWED=true && break; done
 
   if $IS_SELECTED; then
-    stow -R -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
-    echo "  [✓] Stowed $pkg"
+    # Check for conflicts first with dry-run
+    if stow -n -R -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg" 2>/dev/null; then
+      # No conflicts, proceed normally
+      stow -R -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
+      echo "  [✓] Stowed $pkg"
+    else
+      # Conflicts detected, use --adopt and handle interactively
+      echo "  [!] Conflicts detected for $pkg, adopting existing files..."
+      stow --adopt -R -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
+
+      # Check what files were adopted (modified in git)
+      if ! git diff --quiet --exit-code "$pkg/"; then
+        echo "  [?] Files were adopted, reviewing changes..."
+
+        # Get list of modified files in this package
+        modified_files=$(git diff --name-only "$pkg/" 2>/dev/null || true)
+
+        for file in $modified_files; do
+          echo ""
+          echo "File: $file"
+          echo "Diff (- is your dotfile, + is adopted system file):"
+          git diff --color=always "$file" | head -20
+
+          if whiptail --yesno "Keep adopted version of $file?\n\nYes = Keep system file\nNo = Restore your dotfile" 15 70; then
+            # Keep adopted file - add it to git
+            git add "$file"
+            echo "  [+] Kept adopted: $file"
+          else
+            # Restore dotfile version
+            git checkout -- "$file"
+            echo "  [↺] Restored dotfile: $file"
+          fi
+        done
+
+        # If any files were kept (staged), commit them
+        if ! git diff --cached --quiet --exit-code "$pkg/" 2>/dev/null; then
+          git commit -m "Adopted system files for $pkg"
+          echo "  [✓] Committed adopted files for $pkg"
+        fi
+      fi
+      echo "  [✓] Stowed $pkg (with conflicts resolved)"
+    fi
   elif $WAS_STOWED; then
     stow -D -d "$DOTFILES_ROOT" -t "$TARGET_DIR" "$pkg"
     echo "  [X] Unstowed $pkg"
