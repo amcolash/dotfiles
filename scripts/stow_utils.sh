@@ -35,8 +35,34 @@ is_package_stowed() {
 
   if [ ! -d "$package_path" ]; then return 0; fi
 
-  # Use find to get every single file in the package
-  while IFS= read -r file_item; do
+  # Quick check: if the package directory itself is stowed
+  if [[ -L "$TARGET_DIR/$package" ]]; then
+    local link_target="$(readlink "$TARGET_DIR/$package")"
+    if [[ "$link_target" == "$package_path" ]] || [[ "$(readlink -f "$TARGET_DIR/$package")" == "$package_path" ]]; then
+      return 0
+    fi
+  fi
+
+  # Check only a few files for performance, and check directories first
+  local files_checked=0
+  local max_files=10
+
+  # First, check if any top-level directories are stowed
+  for dir in "$package_path"/*/; do
+    [ -d "$dir" ] || continue
+    local dir_name=$(basename "$dir")
+    local target_dir="$TARGET_DIR/$dir_name"
+
+    if [[ -L "$target_dir" ]]; then
+      local link_target="$(readlink "$target_dir")"
+      if [[ "$link_target" == "$dir" ]] || [[ "$(readlink -f "$target_dir")" == "$dir" ]]; then
+        return 0  # Found at least one stowed directory
+      fi
+    fi
+  done
+
+  # Use find to get files, but limit how many we check
+  while IFS= read -r file_item && [ $files_checked -lt $max_files ]; do
     local rel_path="${file_item#$package_path/}"
     local home_path="$TARGET_DIR/$rel_path"
 
@@ -50,7 +76,9 @@ is_package_stowed() {
       if [[ -L "$current_check" ]]; then
         # Check if this link points to the corresponding path in our dotfiles
         local expected_dot_path="$package_path/${current_check#$TARGET_DIR/}"
-        if [[ "$(readlink -f "$current_check")" == "$(readlink -f "$expected_dot_path")" ]]; then
+        # Try fast readlink first, fallback to -f if needed
+        local link_target="$(readlink "$current_check")"
+        if [[ "$link_target" == "$expected_dot_path" ]] || [[ "$(readlink -f "$current_check")" == "$(readlink -f "$expected_dot_path")" ]]; then
           found_link=true
           break
         fi
@@ -62,6 +90,8 @@ is_package_stowed() {
       [[ "${STOW_DEBUG:-}" == "true" ]] && echo >&2 "  [DEBUG] No link found in path tree for: $home_path"
       return 1
     fi
+
+    ((files_checked++))
   done < <(find "$package_path" -type f)
 
   return 0
