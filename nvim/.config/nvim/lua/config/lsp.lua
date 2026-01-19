@@ -9,14 +9,13 @@ local cmp_lsp = require('cmp_nvim_lsp')
 local lspconfig = require('lspconfig')
 
 -- Define the list of servers you want Mason to manage/install
-local servers = { 
-  'tsserver', 
-  'pyright',  
-  'html',     
-  'cssls',    
-  'clangd',   
-  'arduino_language_server', 
-  'gdscript', 
+local servers = {
+  'ts_ls',
+  'pyright',
+  'html',
+  'cssls',
+  'clangd',
+  'arduino_language_server',
   'lua_ls',
 }
 
@@ -68,7 +67,7 @@ cmp.setup({
     { name = 'buffer' },
   },
   mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), 
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
     -- ... your other cmp mappings ...
   }),
 })
