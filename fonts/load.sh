@@ -26,11 +26,14 @@ echo "[+] Installing fonts..."
 mkdir -p ~/.local/share/fonts
 
 function install_font() {
-  echo Downloading font $1
+  FONT=$(basename "$1" .zip)
+  echo Downloading font $FONT
+  curl -sSL -o $FONT.zip "$1"
 
-  curl -sSL -o font.zip "$1"
-  unzip font.zip -d ~/.local/share/fonts
-  rm -f font.zip
+  mkdir -p "~/.local/share/fonts/$FONT"
+  unzip $FONT.zip -d "~/.local/share/fonts/$FONT"
+
+  rm -f $FONT.zip
 }
 
 # Grab nerd fonts and install locally
