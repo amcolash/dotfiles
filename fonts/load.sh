@@ -27,18 +27,26 @@ mkdir -p ~/.local/share/fonts
 
 function install_font() {
   FONT=$(basename "$1" .zip)
+  FONT_DIR="$HOME/.local/share/fonts/$FONT"
+
+  if [ -d "$FONT_DIR" ]; then
+    echo "[=] Font $FONT already installed. Skipping."
+    return
+  fi
+
   echo Downloading font $FONT
   curl -sSL -o $FONT.zip "$1"
 
-  mkdir -p ~/.local/share/fonts/$FONT
-  unzip $FONT.zip -d ~/.local/share/fonts/$FONT
+  mkdir -p $FONT_DIR
+  unzip $FONT.zip -d $FONT_DIR
 
   rm -f $FONT.zip
 }
 
 # Grab nerd fonts and install locally
-install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.zip
-install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip
+install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.zip "UbuntuMono Nerd Font"
+install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip "SourceCodePro Nerd Font"
 
 # Refresh font cache
-fc-cache -fv ~/.local/share/fonts
+echo "[+] Refreshing font cache..."
+fc-cache -f ~/.local/share/fonts
