@@ -370,14 +370,13 @@
             "kitty.desktop",
             "nemo.desktop",
             "code.desktop",
+            "com.brave.Browser.flextop.brave-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop:flatpak",
             "godot.desktop",
-            "aseprite.desktop",
             "steam.desktop",
-            "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop",
-            "chrome-odheebnfoopplllgdhiikpefnihhieeh-Default.desktop",
-            "chrome-lfcegnpobjncbeohhpifkflhjhlgeinb-Default.desktop",
+            "com.brave.Browser.flextop.brave-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop:flatpak",
             "org.signal.Signal.desktop:flatpak",
-            "chrome-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop",
+            "com.brave.Browser.flextop.brave-hpfldicfbfomlpcikngkocigghgafkph-Default.desktop:flatpak",
+            "com.brave.Browser.flextop.brave-odheebnfoopplllgdhiikpefnihhieeh-Default.desktop:flatpak",
             "org.gnome.SystemMonitor.desktop",
             "cinnamon-settings.desktop"
         ]

@@ -1,0 +1,9 @@
+appimageupdatetool
+cura
+etcher
+mqtt-explorer
+musescore
+nrf-connect
+virtualbox
+winboat
+yubikey-manager

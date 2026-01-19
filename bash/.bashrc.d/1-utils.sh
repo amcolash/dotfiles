@@ -65,15 +65,19 @@ if [ $(command -v brew) ]; then
   alias brew_upgrade="brew upgrade && brew upgrade --cask"
 fi
 
+if [ $(command -v appman) ]; then
+  alias am="appman"
+fi
+
 # Dotfile helper functions
 dot() {
-  pushd $DOTFILES > /dev/null
+  pushd $DOTFILES >/dev/null
 }
 
 dotpull() {
-  pushd $DOTFILES > /dev/null
+  pushd $DOTFILES >/dev/null
   git pull
-  popd > /dev/null
+  popd >/dev/null
 }
 
 bashrc() {
