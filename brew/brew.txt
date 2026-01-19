@@ -1,5 +1,4 @@
 bat
-bun
 direnv
 dust
 eza
@@ -8,6 +7,7 @@ fzf
 mise
 mkcert
 neovim
+oven-sh/bun/bun
 picocom
 ripgrep
 starship

@@ -14,6 +14,7 @@ if [ ! $(command -v brew) ]; then
   if [[ "$install_brew" =~ ^[Yy]$ ]]; then
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+    echo "[✓] Homebrew installed and activated"
   fi
 else
   echo "[✓] Homebrew is installed"
