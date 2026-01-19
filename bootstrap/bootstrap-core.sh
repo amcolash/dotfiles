@@ -5,7 +5,14 @@ echo
 echo "[+] Starting dotfiles bootstrap"
 
 if [ ! $(command -v git) ]; then
-  echo Git is required to bootstrap system. Please install with your OS package manager.
+  if [ $(command -v apt) ]; then
+    echo "[*] Attempting to install git using apt..."
+    sudo apt update
+    sudo apt install -y git
+  else
+    echo "[!] Git is required to bootstrap system and use homebrew. Please install it with your OS package manager."
+    exit 1
+  fi
 fi
 
 if [ ! $(command -v brew) ]; then
