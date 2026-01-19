@@ -31,7 +31,6 @@ else
   bash "$SCRIPT_DIR/bootstrap-core.sh"
 fi
 
-cd "$SCRIPT_DIR"
 if ! git rev-parse --is-inside-work-tree &>/dev/null; then
   echo
   echo "[+] Removing temporary bootstrap script"
