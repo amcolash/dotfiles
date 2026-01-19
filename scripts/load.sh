@@ -53,7 +53,7 @@ CHOICES=$(whiptail --title "Load Settings" --checklist \
 exitstatus=$?
 set -e
 
-[[ $exitstatus != 0 ]] && echo "[!] Cancelled." && exit 0
+[[ $exitstatus != 0 ]] && echo "[!] Loading Cancelled." && exit 0
 
 # parse selected choices
 SELECTED_ARRAY=()
