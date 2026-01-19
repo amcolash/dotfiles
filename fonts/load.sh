@@ -30,8 +30,8 @@ function install_font() {
   echo Downloading font $FONT
   curl -sSL -o $FONT.zip "$1"
 
-  mkdir -p "~/.local/share/fonts/$FONT"
-  unzip $FONT.zip -d "~/.local/share/fonts/$FONT"
+  mkdir -p ~/.local/share/fonts/$FONT
+  unzip $FONT.zip -d ~/.local/share/fonts/$FONT
 
   rm -f $FONT.zip
 }
