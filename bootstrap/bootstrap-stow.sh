@@ -60,9 +60,17 @@ for pkg in $packages; do
           echo ""
           echo "File: $file"
           echo "Diff (- is your dotfile, + is adopted system file):"
-          git diff --color=always "$file" | head -20
+          
+          # Show diff without head to avoid SIGPIPE issues
+          set +e
+          git diff --color=always "$file"
+          set -e
+          
+          # Pause so user can read the diff
+          echo ""
+          read -p "Press Enter to continue..." -r
 
-          if whiptail --yesno "Keep adopted version of $file?\n\nYes = Keep system file\nNo = Restore your dotfile" 15 70; then
+          if whiptail --defaultno --yesno "Keep adopted version of $file?\n\nYes = Keep system file\nNo = Restore your dotfile (default)" 15 70; then
             # Keep adopted file - add it to git
             git add "$file"
             echo "  [+] Kept adopted: $file"
