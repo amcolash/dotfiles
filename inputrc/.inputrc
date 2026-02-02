@@ -1,0 +1,2 @@
+# Ctrl+Space re-runs the last command
+"\C-@": "\C-p\C-m"

@@ -69,6 +69,11 @@ if [ $(command -v appman) ]; then
   alias am="appman"
 fi
 
+# docker-compose muscle memory
+if [ $(command -v docker) ] && [ ! $(command -v docker-compose) ]; then
+  alias docker-compose="docker compose"
+fi
+
 # Dotfile helper functions
 dot() {
   pushd $DOTFILES >/dev/null
