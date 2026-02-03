@@ -34,6 +34,7 @@
   rm-merged = !git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D
 	cleanup = !git branch --show-current > ~/.git_current_branch && git switch main && git pull --prune && git rm-merged && git switch $(cat ~/.git_current_branch) && rm ~/.git_current_branch
   merge-main = !git branch --show-current > ~/.git_current_branch && git switch main && git pull --prune && git switch $(cat ~/.git_current_branch) && rm ~/.git_current_branch && git merge main
+  merge-master = !git branch --show-current > ~/.git_current_branch && git switch master && git pull --prune && git switch $(cat ~/.git_current_branch) && rm ~/.git_current_branch && git merge master
   cv = commit --no-verify
 
 [pull]
