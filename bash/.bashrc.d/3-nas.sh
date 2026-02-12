@@ -49,7 +49,7 @@ docker-upgrade() {
     if [ -d .git ] || [ -d ../.git ]; then
       git pull || {
         printf >&2 "ERROR: git pull failed, please see log."
-        exit 1
+        return 1
       }
     fi
 
