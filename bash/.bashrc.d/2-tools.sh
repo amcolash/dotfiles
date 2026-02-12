@@ -3,7 +3,7 @@ if [ $(command -v mise) ]; then
 fi
 
 # use starship if possible, otherwise fall back to old manual PS1
-if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ] ; then
+if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ]; then
   eval "$(starship init bash)"
 
   export STARSHIP_SESSION=$(starship session)
@@ -20,28 +20,28 @@ if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ] ; then
     # override pushd/popd from mise to include dir stack
     pushd() {
       __zsh_like_cd pushd "$@"
-      dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+      dirs -v | wc -l >$SESSION_DIR/$STARSHIP_SESSION
     }
 
     popd() {
       __zsh_like_cd popd "$@"
-      dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+      dirs -v | wc -l >$SESSION_DIR/$STARSHIP_SESSION
     }
   else
     pushd() {
       builtin pushd "$@"
-      dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+      dirs -v | wc -l >$SESSION_DIR/$STARSHIP_SESSION
     }
 
     popd() {
       builtin popd "$@"
-      dirs -v | wc -l > $SESSION_DIR/$STARSHIP_SESSION
+      dirs -v | wc -l >$SESSION_DIR/$STARSHIP_SESSION
     }
   fi
 else
   # set a fancy prompt (non-color, unless we know we "want" color)
   case "$TERM" in
-  xterm-color|*-256color|xterm-kitty) color_prompt=yes ;;
+  xterm-color | *-256color | xterm-kitty) color_prompt=yes ;;
   esac
 
   if [ "$color_prompt" = yes ]; then
@@ -102,7 +102,6 @@ if [ $(command -v fzf) ]; then
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
-
 
   export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules,target

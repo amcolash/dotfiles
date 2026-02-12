@@ -15,14 +15,16 @@
 	prompt = false
 [difftool "meld"]
   trustExitCode = true
-  cmd = meld "$LOCAL" "$REMOTE"
+  # try to use local, then try flatpak
+  cmd = "if command -v meld >/dev/null 2>&1; then meld \"$LOCAL\" \"$REMOTE\"; else flatpak run org.gnome.meld \"$LOCAL\" \"$REMOTE\"; fi"
 [merge]
   tool = meld
 [mergetool]
   prompt = false
 [mergetool "meld"]
   trustExitCode = true
-  cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output="$MERGED"
+  # try to use local, then try flatpak
+  cmd = "if command -v meld >/dev/null 2>&1; then meld \"$LOCAL\" \"$REMOTE\"; else flatpak run org.gnome.meld \"$LOCAL\" \"$REMOTE\"; fi"
 
 [alias]
 	d = difftool

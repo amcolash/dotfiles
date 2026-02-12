@@ -14,12 +14,12 @@ docker-restart() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1 > /dev/null
+  pushd $1 >/dev/null
 
   docker-compose down
   docker-compose up -d
 
-  popd > /dev/null
+  popd >/dev/null
 }
 
 # Upgrade all docker containers
@@ -41,13 +41,16 @@ docker-upgrade() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1 > /dev/null
+  pushd $1 >/dev/null
 
   if [ -f ./upgrade.sh ]; then
     ./upgrade.sh
   else
     if [ -d .git ] || [ -d ../.git ]; then
-      git pull
+      git pull || {
+        printf >&2 "ERROR: git pull failed, please see log."
+        exit 1
+      }
     fi
 
     docker-compose pull
@@ -60,7 +63,7 @@ docker-upgrade() {
     fi
   fi
 
-  popd > /dev/null
+  popd >/dev/null
 }
 
 # Archive an old docker directory
@@ -70,9 +73,8 @@ docker-archive() {
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1 > /dev/null
+  pushd $1 >/dev/null
   docker-compose down
-  popd > /dev/null
+  popd >/dev/null
   mv $1 $HOME/docker/old
 }
-

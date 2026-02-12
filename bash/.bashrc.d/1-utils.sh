@@ -41,11 +41,9 @@ if [ $(command -v nvim) ]; then
 fi
 
 # meld fallbacks
-if flatpak info org.gnome.meld &>/dev/null; then
+if [ $(command -v flatpak) ] && flatpak info org.gnome.meld &>/dev/null; then
   alias meld="flatpak run org.gnome.meld"
-fi
-
-if [ ! "$(command -v meld)" ]; then
+elif [ ! "$(command -v meld)" ]; then
   alias meld="diff"
 fi
 
@@ -72,6 +70,12 @@ fi
 # docker-compose muscle memory
 if [ $(command -v docker) ] && [ ! $(command -v docker-compose) ]; then
   alias docker-compose="docker compose"
+fi
+
+if [ $(command -v xclip) ]; then
+  function clip() {
+    cat_orig $1 | xclip -selection clipboard
+  }
 fi
 
 # Dotfile helper functions
