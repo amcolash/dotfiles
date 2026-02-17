@@ -1,6 +1,9 @@
 [[ ! -f "/sys/class/dmi/id/product_name" ]] && return
 [[ "$(<"/sys/class/dmi/id/product_name")" != "DS216+" ]] && return
 
+# Kitty won't fix it, so I will
+export TERM="xterm-256color"
+
 # Fix homebrew git message
 export HOMEBREW_GIT_PATH=/usr/local/bin/git
 
