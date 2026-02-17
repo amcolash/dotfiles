@@ -7,7 +7,7 @@ pushd "$SCRIPT_DIR/.." > /dev/null
 
 # display name mappings for directories
 declare -A DISPLAY_NAMES
-DISPLAY_NAMES["copied"]="system settings"
+DISPLAY_NAMES["copied"]="system settings (copied)"
 
 # create reverse mapping for lookup
 declare -A DIR_NAMES
@@ -57,9 +57,9 @@ set -e
 
 # parse selected choices
 SELECTED_ARRAY=()
-for choice in $CHOICES; do
-  SELECTED_ARRAY+=($(echo "$choice" | sed 's/"//g'))
-done
+if [[ -n "$CHOICES" ]]; then
+  eval "SELECTED_ARRAY=($CHOICES)"
+fi
 
 # load selected modules
 echo "[+] Loading saved settings..."

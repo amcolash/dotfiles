@@ -25,7 +25,7 @@ CHOICES=$(whiptail --title "Stow Dotfiles" --checklist \
 exitstatus=$?
 set -e
 
-[[ $exitstatus != 0 ]] && echo "[!] Cancelled." && exit 0
+[[ $exitstatus != 0 ]] && echo "[!] Stow Cancelled." && exit 0
 
 SELECTED_ARRAY=()
 for choice in $CHOICES; do SELECTED_ARRAY+=($(echo "$choice" | sed 's/"//g')); done
