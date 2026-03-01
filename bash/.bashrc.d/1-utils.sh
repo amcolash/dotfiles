@@ -78,6 +78,10 @@ if [ $(command -v xclip) ]; then
   }
 fi
 
+if [ -d $HOME/Github/Kokoro-FastAPI ]; then
+  alias kokoro="docker-compose -f $HOME/Github/Kokoro-FastAPI/docker/cpu/docker-compose.yml up"
+fi
+
 # Dotfile helper functions
 dot() {
   pushd $DOTFILES >/dev/null
