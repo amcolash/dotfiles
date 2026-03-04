@@ -4,6 +4,12 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Check if UbuntuMono Nerd Font is installed AND on supported terminal
+export NERDFONTS_INSTALLED=$(command -v fc-list && fc-list | grep -i "UbuntuMono Nerd Font" >/dev/null)
+if [ $NERDFONTS_INSTALLED ] && [ "$TERM" != "linux" ]; then
+  export ENABLE_NERDFONTS=1
+fi
+
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 

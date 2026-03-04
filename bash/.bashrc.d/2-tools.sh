@@ -4,6 +4,11 @@ fi
 
 # use starship if possible, otherwise fall back to old manual PS1
 if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ]; then
+  # Use basic config without nerdfonts if ENABLE_NERDFONTS is not set
+  if [ ! -v ENABLE_NERDFONTS ] || [ "$ENABLE_NERDFONTS" -eq 0 ]; then
+    export STARSHIP_CONFIG=~/.config/starship-basic.toml
+  fi
+
   eval "$(starship init bash)"
 
   export STARSHIP_SESSION=$(starship session)
