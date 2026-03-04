@@ -18,7 +18,8 @@ else
 fi
 
 # If we have nerdfont AND using supported terminal, use enhanced starship config
-if [ $HAS_NERD_FONT ] && [ "$TERM" != "linux" ]; then
+# Additionally, if in an SSH session, we likely are using a terminal with nerdfonts set up
+if [ $HAS_NERD_FONT ] && [ "$TERM" != "linux" ] || [ -n "$SSH_TTY" ]; then
   export BASIC_STARSHIP=0
 else
   export BASIC_STARSHIP=1
