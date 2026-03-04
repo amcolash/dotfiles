@@ -4,7 +4,7 @@
 
 if [ "$TERM" = "linux" ]; then
     # Black
-    printf "\e]P02A2E38\e]P85F646A"
+    printf "\e]P02A2E34\e]P85F646A"
     # Red
     printf "\e]P1FF6C6B\e]P9FF6C6B"
     # Green

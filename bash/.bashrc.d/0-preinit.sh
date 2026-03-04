@@ -16,3 +16,10 @@ else
     HAS_NERD_FONT=1
   fi
 fi
+
+# If we have nerdfont AND using supported terminal, use enhanced starship config
+if [ $HAS_NERD_FONT ] && [ "$TERM" != "linux" ]; then
+  export BASIC_STARSHIP=0
+else
+  export BASIC_STARSHIP=1
+fi
