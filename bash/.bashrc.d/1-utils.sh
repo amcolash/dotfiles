@@ -94,3 +94,10 @@ dotpull() {
 bashrc() {
   vim $DOTFILES/bash/.bashrc.d/
 }
+
+# Install basic homebrew utils
+if [ $(command -v brew) ]; then
+  homebrew_install() {
+    brew install fd rg eza nvim bat fzf starship direnv
+  }
+fi
