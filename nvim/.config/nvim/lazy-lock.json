@@ -7,11 +7,11 @@
   "doom-one.nvim": { "branch": "main", "commit": "beae92173315c7282f6897e666cfd67fbf0f3ac9" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "lush.nvim": { "branch": "main", "commit": "9c60ec2279d62487d942ce095e49006af28eed6e" },
-  "mason-lspconfig.nvim": { "branch": "main", "commit": "38499e0bda64bc0f3ec6e7f03f8e13dd11c0fa00" },
+  "mason-lspconfig.nvim": { "branch": "main", "commit": "25f609e7fca78af7cede4f9fa3af8a94b1c4950b" },
   "mason.nvim": { "branch": "main", "commit": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65" },
   "nvim-cmp": { "branch": "main", "commit": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca" },
   "nvim-highlight-colors": { "branch": "main", "commit": "e2cb22089cc2358b2b995c09578224f142de6039" },
-  "nvim-lspconfig": { "branch": "master", "commit": "1a6d69206749a646ef28bfb39460610b14baff40" },
+  "nvim-lspconfig": { "branch": "master", "commit": "11afebab7ae8953c1db8f4c223e7742132d035f3" },
   "smartcolumn.nvim": { "branch": "main", "commit": "b9cdbdf42f7ac5a659204cd5926017c7ff724a19" },
   "wombat.nvim": { "branch": "main", "commit": "d450f6bc61aeafc1c4792c96c888701e9a6a196b" }
 }

@@ -1,5 +1,7 @@
 batterypower@joka42
 betterlock
+cpufreq@mtwebster
+darkMode@linuxedo.com
 power-profiles@rcalixte
 temperature@fevimu
 weather@mockturtl

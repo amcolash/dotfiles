@@ -1,7 +1,8 @@
+android-studio
 appimageupdatetool
 cura
 etcher
-mqtt-explorer
+mqtt-explorer**
 musescore
 nrf-connect
 virtualbox

@@ -4,6 +4,10 @@ dust
 eza
 fd
 fzf
+gcc
+jq
+less
+lynx
 mise
 mkcert
 neovim
@@ -14,4 +18,3 @@ starship
 stow
 tlrc
 tree
-uv

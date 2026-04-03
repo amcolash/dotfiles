@@ -13,7 +13,6 @@ fi
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
-alias weather="curl https://wttr.in"
 alias ncu="npx npm-check-updates"
 
 # override `ls` to use `eza` if available
@@ -74,6 +73,13 @@ if [ $(command -v xclip) ]; then
   function clip() {
     cat_orig $1 | xclip -selection clipboard
   }
+fi
+
+# Installed via "npm install -g @16bitweather/weather-cli"
+if [ ! $(command -v weather) ]; then
+  alias weather="weather forecast"
+else
+  alias weather="curl https://wttr.in"
 fi
 
 if [ -d $HOME/Github/Kokoro-FastAPI ]; then
