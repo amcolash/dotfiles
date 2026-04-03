@@ -1,0 +1,6 @@
+[Unit]
+Description=Update Flatpak apps
+
+[Service]
+Type=oneshot
+ExecStart=flatpak update --noninteractive
