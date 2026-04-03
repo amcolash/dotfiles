@@ -5,3 +5,5 @@
 *.swo
 
 device.txt
+
+0-env.sh
