@@ -1,3 +1,5 @@
+# Set up aliases to a bunch of flatpak exports with bins associated
+
 # Based off of this post: https://github.com/flatpak/flatpak/issues/994#issuecomment-1464841258
 alias_flatpak_exports() {
   # list of overrides id -> name
