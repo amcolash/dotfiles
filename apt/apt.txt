@@ -1,6 +1,7 @@
-boot-repair
+cheese
 code
 containerd.io
+cpupower-gui
 docker-buildx-plugin
 docker-ce
 docker-ce-cli
@@ -30,8 +31,11 @@ linssid
 mainline
 mintsysadm
 nmon
+numlockx
+openjdk-17-jdk
 peek
 pipewire-jack
+powertop
 python3-babel
 python3-ibus-1.0
 python-babel-localedata
@@ -41,9 +45,13 @@ sshfs
 steam-devices
 steam-installer
 stl-thumb
+stow
 ttf-mscorefonts-installer
+ulauncher
 vim
 vpn-unlimited
 vulkan-tools
 xapp-symbolic-icons
 xattr
+xcalib
+xclip

@@ -332,7 +332,7 @@
             "Mint-Y-Teal": "Mint-Y-Teal"
         },
         "description": "Window border theme",
-        "value": "Mint-L-Teal"
+        "value": "Mint-Y-Teal"
     },
     "dark_win_border_theme": {
         "type": "combobox",

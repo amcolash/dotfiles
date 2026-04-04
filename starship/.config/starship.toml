@@ -80,7 +80,7 @@ diverged = " 󰁞 ${ahead_count} 󰁆 ${behind_count}"
 disabled = false
 time_format = "%l:%M"
 style = "fg:black bg:bar4"
-format = '[$time ]($style)'
+format = '[ $time ]($style)'
 
 [jobs]
 symbol = " "
