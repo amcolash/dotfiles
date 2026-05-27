@@ -629,7 +629,7 @@
             "ubuntu-mono-light": "ubuntu-mono-light"
         },
         "description": "Icon theme",
-        "value": "Papirus"
+        "value": "Papirus-Light"
     },
     "dark_icon_theme": {
         "type": "combobox",
@@ -724,7 +724,7 @@
             "ubuntu-mono-light": "ubuntu-mono-light"
         },
         "description": "Icon theme",
-        "value": "Papirus"
+        "value": "Papirus-Dark"
     },
     "enable_light_background_switch": {
         "type": "switch",
@@ -762,7 +762,7 @@
         "type": "generic",
         "default": "-1",
         "description": "Internal use",
-        "value": null
+        "value": -1
     },
     "__md5__": "fef6bb2672658445c3119e67fbff9004"
 }

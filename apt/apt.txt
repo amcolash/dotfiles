@@ -40,6 +40,7 @@ python3-babel
 python3-ibus-1.0
 python-babel-localedata
 qpwgraph
+qt6ct
 smartmontools
 sshfs
 steam-devices

@@ -1,3 +1,8 @@
+# Set up rust and cargo if installed
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
+
 if [ $(command -v mise) ]; then
   eval "$(mise activate bash)"
 fi

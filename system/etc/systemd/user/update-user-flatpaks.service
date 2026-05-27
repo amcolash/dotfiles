@@ -1,11 +1,11 @@
 [Unit]
-Description=Automatically update system Flatpaks
+Description=Automatically update user Flatpaks
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/flatpak update --assumeyes --noninteractive --system
+ExecStart=/usr/bin/flatpak update --assumeyes --noninteractive
 
 [Install]
 WantedBy=multi-user.target

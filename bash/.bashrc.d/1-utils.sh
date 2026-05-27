@@ -13,7 +13,7 @@ fi
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
-alias ncu="npx npm-check-updates"
+alias ncu="npx -y npm-check-updates"
 
 # override `ls` to use `eza` if available
 if [ $(command -v eza) ]; then

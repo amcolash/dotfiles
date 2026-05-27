@@ -2,7 +2,7 @@
 Description=Daily automatic update of system Flatpaks
 
 [Timer]
-OnCalendar=daily
+OnCalendar=hourly
 Persistent=true
 
 [Install]

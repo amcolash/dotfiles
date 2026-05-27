@@ -1,5 +1,5 @@
 [Unit]
-Description=Run Flatpak update hourly
+Description=Daily automatic update of user Flatpaks
 
 [Timer]
 OnCalendar=hourly
