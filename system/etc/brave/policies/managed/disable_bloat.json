@@ -1,0 +1,10 @@
+{
+  "BraveRewardsDisabled": true,
+  "BraveAdsDisabled": true,
+  "BraveWalletDisabled": true,
+  "BraveVPNDisabled": true,
+  "BraveAIChatEnabled": false,
+  "BraveNewsEnabled": false,
+  "TorDisabled": true,
+  "BravePlaylistEnabled": false
+}
