@@ -1,10 +1,13 @@
 bat
 direnv
 dust
+espflash
 eza
 fd
 fzf
 gcc
+gh
+iperf3
 jq
 less
 lynx
