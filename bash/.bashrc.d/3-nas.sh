@@ -46,7 +46,7 @@ docker-upgrade() {
     return 1 # Exit but do not kill shell
   fi
 
-  if [ $# -ne 0]; then
+  if [ $# -ne 0 ]; then
     pushd $1 >/dev/null
   fi
 
@@ -70,7 +70,7 @@ docker-upgrade() {
     fi
   fi
 
-  if [ $# -ne 0]; then
+  if [ $# -ne 0 ]; then
     popd >/dev/null
   fi
 }
