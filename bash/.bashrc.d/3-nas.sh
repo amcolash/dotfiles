@@ -10,6 +10,8 @@ export HOMEBREW_GIT_PATH=/usr/local/bin/git
 # Override DOTFILES dir
 export DOTFILES="$HOME/scripts/dotfiles"
 
+alias dl="docker compose logs -f"
+
 # Restart a service with docker compose
 docker-restart() {
   if [ $# -ne 1 ]; then
@@ -39,16 +41,18 @@ docker-upgrade-all() {
 
 # Upgrade a docker container based on directory
 docker-upgrade() {
-  if [ $# -ne 1 ]; then
+  if [ ! -f docker-compose.yml ] && [ $# -ne 1 ]; then
     echo "Usage: docker-upgrade [docker-compose.yml directory]"
     return 1 # Exit but do not kill shell
   fi
 
-  pushd $1 >/dev/null
+  if [ $# -ne 0]; then
+    pushd $1 >/dev/null
+  fi
 
   if [ -f ./upgrade.sh ]; then
     ./upgrade.sh
-  else
+  elif [ -f docker-compose.yml ]; then
     if [ -d .git ] || [ -d ../.git ]; then
       git pull || {
         printf >&2 "ERROR: git pull failed, please see log."
@@ -61,12 +65,14 @@ docker-upgrade() {
 
     # only restart if containers are already running
     if [ $(docker-compose ps -q | wc -l) != 0 ]; then
-      docker-compose down
-      docker-compose up -d
+      #docker-compose down
+      docker-compose up -d --force-recreate
     fi
   fi
 
-  popd >/dev/null
+  if [ $# -ne 0]; then
+    popd >/dev/null
+  fi
 }
 
 # Archive an old docker directory
