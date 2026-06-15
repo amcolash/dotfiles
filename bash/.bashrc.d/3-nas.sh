@@ -39,8 +39,13 @@ docker-upgrade-all() {
   done
 
   # after upgrade, prune old stuff
+  echo Pruning images
   docker image prune -f
+
+  echo Pruning networks
   docker network prune -f
+
+  echo Pruning build cache
   docker builder prune -f
 }
 
