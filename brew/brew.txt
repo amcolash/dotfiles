@@ -14,7 +14,7 @@ lynx
 mise
 mkcert
 neovim
-oven-sh/bun/bun
+nuclei
 picocom
 ripgrep
 starship

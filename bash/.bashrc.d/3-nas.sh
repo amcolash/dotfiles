@@ -21,8 +21,8 @@ docker-restart() {
 
   pushd $1 >/dev/null
 
-  docker-compose down
-  docker-compose up -d
+  docker compose down
+  docker compose up -d
 
   popd >/dev/null
 }
@@ -37,6 +37,11 @@ docker-upgrade-all() {
       fi
     fi
   done
+
+  # after upgrade, prune old stuff
+  docker image prune -f
+  docker network prune -f
+  docker builder prune -f
 }
 
 # Upgrade a docker container based on directory
@@ -60,13 +65,13 @@ docker-upgrade() {
       }
     fi
 
-    docker-compose pull
-    docker-compose build
+    docker compose pull --ignore-buildable
+    docker compose build --pull
 
     # only restart if containers are already running
-    if [ $(docker-compose ps -q | wc -l) != 0 ]; then
+    if [ $(docker compose ps -q | wc -l) != 0 ]; then
       #docker-compose down
-      docker-compose up -d --force-recreate
+      docker compose up -d --force-recreate
     fi
   fi
 
@@ -83,7 +88,7 @@ docker-archive() {
   fi
 
   pushd $1 >/dev/null
-  docker-compose down
+  docker compose down
   popd >/dev/null
   mv $1 $HOME/docker/old
 }

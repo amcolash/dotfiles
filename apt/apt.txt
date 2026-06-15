@@ -24,6 +24,7 @@ jlink
 jstest-gtk
 kdeconnect
 libfdk-aac2
+libfwupd3
 libllvm20
 libllvm20:i386
 libpam-fprintd
@@ -36,6 +37,8 @@ openjdk-17-jdk
 peek
 pipewire-jack
 powertop
+proton-vpn-gnome-desktop
+protonvpn-stable-release
 python3-babel
 python3-ibus-1.0
 python-babel-localedata
