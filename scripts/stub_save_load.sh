@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd $SCRIPT_DIR/../ > /dev/null
+pushd "$SCRIPT_DIR/../" > /dev/null
 
 # usage stub_save_load.sh <dir>
-if [ -z "$1" ]; then
+if [[ -z "${1:-}" ]]; then
   echo "Usage: $0 <dir>"
   popd > /dev/null
   exit 1
@@ -13,7 +14,7 @@ fi
 mkdir -p "$1"
 
 # create save.sh
-if [ ! -f "$1/save.sh" ]; then
+if [[ ! -f "$1/save.sh" ]]; then
   cp templates/save.sh "$1/save.sh"
   sed -i "s|\$DIR|$1|g" "$1/save.sh"
 
@@ -21,7 +22,7 @@ if [ ! -f "$1/save.sh" ]; then
 fi
 
 # create load.sh
-if [ ! -f "$1/load.sh" ]; then
+if [[ ! -f "$1/load.sh" ]]; then
   cp templates/load.sh "$1/load.sh"
   sed -i "s|\$DIR|$1|g" "$1/load.sh"
 
