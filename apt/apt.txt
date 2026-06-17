@@ -1,3 +1,5 @@
+bluez-firmware
+bluez-tools
 cheese
 code
 containerd.io
