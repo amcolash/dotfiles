@@ -3,7 +3,9 @@ if [ -f /etc/NIXOS ]; then
   return
 fi
 
-update_kitty() {
+alias kitty_config="vim /home/amcolash/Github/dotfiles/kitty/.config/kitty/kitty.conf"
+
+kitty_update() {
   # download/update version
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
@@ -60,13 +62,22 @@ stow_file() {
   echo "Moving '$absolute_filename' to '$destination_path'..."
 
   # Create the necessary directory structure in the dotfiles repo
-  mkdir -p "$destination_parent_dir" || { echo "Error: Could not create directory '$destination_parent_dir'"; return 1; }
+  mkdir -p "$destination_parent_dir" || {
+    echo "Error: Could not create directory '$destination_parent_dir'"
+    return 1
+  }
 
   # Move the file using sudo
-  sudo mv "$absolute_filename" "$destination_path" || { echo "Error: Could not move file '$absolute_filename' to '$destination_path'"; return 1; }
+  sudo mv "$absolute_filename" "$destination_path" || {
+    echo "Error: Could not move file '$absolute_filename' to '$destination_path'"
+    return 1
+  }
 
   echo "Running 'stow' on '$stow_dir'..."
-  sudo stow -d "$DOTFILES" -t / "$stow_dir" || { echo "Error: Stow failed for '$stow_dir'"; return 1; }
+  sudo stow -d "$DOTFILES" -t / "$stow_dir" || {
+    echo "Error: Stow failed for '$stow_dir'"
+    return 1
+  }
 
   echo "Successfully stowed '$absolute_filename' to '$DOTFILES/$stow_dir' and created symlink."
 }

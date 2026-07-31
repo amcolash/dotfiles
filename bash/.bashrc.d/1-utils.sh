@@ -69,7 +69,12 @@ if [ $(command -v docker) ] && [ ! $(command -v docker-compose) ]; then
   alias docker-compose="docker compose"
 fi
 
-if [ $(command -v xclip) ]; then
+# Try to copy clipboard with wayland, fallback to x11
+if [ $(command -v wl-copy) ]; then
+  function clip() {
+    cat_orig $1 | wl-copy
+  }
+elif [ $(command -v xclip) ]; then
   function clip() {
     cat_orig $1 | xclip -selection clipboard
   }

@@ -83,7 +83,7 @@ if [ $(command -v fzf) ]; then
   #--color=border:#262626,label:#aeaeae,query:#d9d9d9"
   #
   export FZF_THEME="--ansi --color=16 --color=pointer:green"
-  export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' $FZF_THEME"
+  export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' --extended $FZF_THEME"
 
   if [ ! "$(command -v bat)" ]; then
     echo WARNING: bat is not installed. fzf might not work
@@ -114,7 +114,8 @@ if [ $(command -v fzf) ]; then
   --header 'Press CTRL-Y to copy command into clipboard'"
 
   export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target
+  --walker-skip .git,node_modules,target,.gemini
+  --tiebreak=begin,length
   --preview 'tree -C {}'"
 
   # use fzf for history (when pressing arrow up)
@@ -126,4 +127,9 @@ fi
 
 if [ $(command -v direnv) ]; then
   eval "$(direnv hook bash)"
+fi
+
+export GODOT_BINARY=/home/amcolash/Downloads/Godot_v4.6.1-stable_linux.x86_64
+if [ -f $GODOT_BINARY ]; then
+  alias godot=$GODOT_BINARY
 fi
