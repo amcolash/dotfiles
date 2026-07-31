@@ -50,9 +50,9 @@ if [ $(command -v rg) ]; then
 fi
 
 # use bat instead of cat
+alias cat_orig="$(command -v cat)"
 if [ $(command -v bat) ]; then
   export BAT_THEME="ansi"
-  alias cat_orig="$(command -v cat)"
   alias cat="bat"
 fi
 
