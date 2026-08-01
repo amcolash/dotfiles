@@ -14,15 +14,33 @@ fi
 # go to the script directory
 pushd "$SCRIPT_DIR" > /dev/null
 
-echo "[+] Restoring dconf settings..."
-for file in *.conf; do
-  base=$(basename "$file" .conf)
+# detect OS
+source ../scripts/os_detect.sh
 
-  # Convert filename back to dconf path and add trailing slash
-  dconf_path="/${base//./\/}/"
+echo "[+] Restoring shared dconf settings..."
+if [ -d "shared" ]; then
+  for file in shared/*.conf; do
+    [ -e "$file" ] || continue
+    base=$(basename "$file" .conf)
+    dconf_path="/${base//./\/}/"
+    echo "Loading $file into $dconf_path"
+    dconf load "$dconf_path" < "$file"
+  done
+fi
 
-  echo "Loading $file into $dconf_path"
-  dconf load "$dconf_path" < "$file"
-done
+if [ -n "$OS_PROFILE" ] && [ "$OS_PROFILE" != "unknown" ]; then
+  echo "[+] Restoring ${OS_PROFILE} dconf settings..."
+  if [ -d "$OS_PROFILE" ]; then
+    for file in "$OS_PROFILE"/*.conf; do
+      [ -e "$file" ] || continue
+      base=$(basename "$file" .conf)
+      dconf_path="/${base//./\/}/"
+      echo "Loading $file into $dconf_path"
+      dconf load "$dconf_path" < "$file"
+    done
+  else
+    echo "[-] No OS-specific dconf settings found for profile: ${OS_PROFILE}."
+  fi
+fi
 
 popd > /dev/null
