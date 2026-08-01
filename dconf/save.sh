@@ -38,8 +38,14 @@ for path in "${SHARED_PATHS[@]}"; do
   clean_path="${path#/}"
   clean_path="${clean_path%/}"
   filename="shared/${clean_path//\//.}.conf"
-  echo "[*] Exporting shared path $path -> $filename"
-  dconf dump "$path" > "$filename"
+  
+  dump_output=$(dconf dump "$path")
+  if [ -n "$dump_output" ]; then
+    echo "[*] Exporting shared path $path -> $filename"
+    echo "$dump_output" > "$filename"
+  else
+    echo "[-] Skipping $path (empty or not installed on this OS)"
+  fi
 done
 
 # Select OS specific paths
@@ -56,8 +62,14 @@ if [ ${#OS_PATHS[@]} -gt 0 ]; then
     clean_path="${path#/}"
     clean_path="${clean_path%/}"
     filename="${OS_PROFILE}/${clean_path//\//.}.conf"
-    echo "[*] Exporting ${OS_PROFILE} path $path -> $filename"
-    dconf dump "$path" > "$filename"
+    
+    dump_output=$(dconf dump "$path")
+    if [ -n "$dump_output" ]; then
+      echo "[*] Exporting ${OS_PROFILE} path $path -> $filename"
+      echo "$dump_output" > "$filename"
+    else
+      echo "[-] Skipping $path (empty or not installed on this OS)"
+    fi
   done
 fi
 
