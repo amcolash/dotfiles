@@ -14,10 +14,15 @@ for file in $(cat files.txt); do
   mkdir -p "$parent_dir"
 
   # copy each file, only use root if necessary
-  if [ -f $file ]; then
-    cp $file $parent_dir
+  if [ -r "$file" ]; then
+    # We have read permission, normal copy works
+    cp "$file" "$parent_dir"
+  elif sudo test -f "$file"; then
+    # File exists but we need root to read it
+    sudo cp "$file" "$parent_dir"
   else
-    sudo cp $file $parent_dir
+    # File doesn't exist at all
+    echo "[!] Warning: $file does not exist. Skipping."
   fi
 done
 

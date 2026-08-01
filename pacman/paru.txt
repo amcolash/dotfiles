@@ -1,0 +1,7 @@
+inputactions-kwin
+koi-git
+kwin-effects-glass-git
+nixd
+ttf-ms-fonts
+ttf-tahoma
+ttf-vista-fonts
