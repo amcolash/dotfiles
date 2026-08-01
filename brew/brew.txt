@@ -1,9 +1,9 @@
 bat
 direnv
 dust
-espflash
 eza
 fd
+feh
 fzf
 gcc
 gh

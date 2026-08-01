@@ -1,7 +1,6 @@
 android-studio
 appimageupdatetool
 cura
-etcher
 mqtt-explorer**
 musescore
 nrf-connect

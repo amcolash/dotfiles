@@ -10,7 +10,6 @@ discord
 docker
 docker-buildx
 docker-compose
-efibootmgr
 extra-cmake-modules
 eyedropper
 fastflowlm
