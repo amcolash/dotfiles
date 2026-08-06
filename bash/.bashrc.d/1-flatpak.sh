@@ -11,6 +11,7 @@ alias_flatpak_exports() {
     ["org.bunkus.mkvtoolnix-gui"]="mkvtoolnix"
     ["com.brave.Browser"]="brave"
     ["org.gnome.Snapshot"]="camera"
+    ["com.dropbox.Client"]="dropbox"
   )
 
   local item app_id target_name
