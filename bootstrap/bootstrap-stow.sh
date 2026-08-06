@@ -7,9 +7,9 @@ cd "$DOTFILES_ROOT"
 
 OPTIONS=()
 STOWED_BEFORE=()
-packages=$(get_stowable_packages)
+mapfile -t packages < <(get_stowable_packages)
 
-for pkg in $packages; do
+for pkg in "${packages[@]}"; do
   if is_package_stowed "$pkg"; then
     OPTIONS+=("$pkg" "" "ON")
     STOWED_BEFORE+=("$pkg")
@@ -18,25 +18,33 @@ for pkg in $packages; do
   fi
 done
 
-set +e
-CHOICES=$(whiptail --title "Stow Dotfiles" --checklist \
+if ! CHOICES=$(whiptail --title "Stow Dotfiles" --checklist \
   "Select packages to sync. Unchecking will UNSTOW." 20 78 15 \
-  "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
-exitstatus=$?
-set -e
-
-[[ $exitstatus != 0 ]] && echo "[!] Stow Cancelled." && exit 0
+  "${OPTIONS[@]}" 3>&1 1>&2 2>&3); then
+  echo "[!] Stow Cancelled."
+  exit 0
+fi
 
 SELECTED_ARRAY=()
-for choice in $CHOICES; do SELECTED_ARRAY+=($(echo "$choice" | sed 's/"//g')); done
+for choice in $CHOICES; do SELECTED_ARRAY+=("${choice//\"/}"); done
 
 echo "[+] Syncing dotfiles..."
-for pkg in $packages; do
+for pkg in "${packages[@]}"; do
   IS_SELECTED=false
-  for s in "${SELECTED_ARRAY[@]}"; do [[ "$s" == "$pkg" ]] && IS_SELECTED=true && break; done
+  for s in "${SELECTED_ARRAY[@]}"; do
+    if [[ "$s" == "$pkg" ]]; then
+      IS_SELECTED=true
+      break
+    fi
+  done
 
   WAS_STOWED=false
-  for s in "${STOWED_BEFORE[@]}"; do [[ "$s" == "$pkg" ]] && WAS_STOWED=true && break; done
+  for s in "${STOWED_BEFORE[@]}"; do
+    if [[ "$s" == "$pkg" ]]; then
+      WAS_STOWED=true
+      break
+    fi
+  done
 
   if $IS_SELECTED; then
     # Check for conflicts first with dry-run
@@ -54,17 +62,15 @@ for pkg in $packages; do
         echo "  [?] Files were adopted, reviewing changes..."
 
         # Get list of modified files in this package
-        modified_files=$(git diff --name-only "$pkg/" 2>/dev/null || true)
+        mapfile -t modified_files < <(git diff --name-only "$pkg/" 2>/dev/null || true)
 
-        for file in $modified_files; do
+        for file in "${modified_files[@]}"; do
           echo ""
           echo "File: $file"
           echo "Diff (- is your dotfile, + is adopted system file):"
 
           # Show diff without head to avoid SIGPIPE issues
-          set +e
-          git diff --color=always "$file"
-          set -e
+          git diff --color=always "$file" || true
 
           # Pause so user can read the diff
           echo ""

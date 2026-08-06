@@ -44,7 +44,8 @@
             "firefox",
             "spotify",
             "org.kde.kdeconnect.app",
-            "io.github.celluloid_player.Celluloid"
+            "io.github.celluloid_player.Celluloid",
+            "camoufox-default"
         ]
     },
     "section2": {

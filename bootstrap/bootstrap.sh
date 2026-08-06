@@ -1,40 +1,38 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd "$SCRIPT_DIR" > /dev/null
+# Move to wherever this script is actually located (if run locally)
+if [[ -f "$0" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+  pushd "$SCRIPT_DIR" > /dev/null
+fi
 
 CORE_SCRIPT="https://raw.githubusercontent.com/amcolash/dotfiles/refs/heads/main/bootstrap/bootstrap-core.sh"
 
-# Remove old bootstrap if not in git repo
-if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-  echo "[*] Not in a git repository — removing old bootstrap script"
-  rm -f bootstrap-core.sh
-fi
-
-# Grab the script if it doesn't exist
-# TODO: Remove the download, just use curl + exec (?)
-if ! [ -f bootstrap-core.sh ]; then
+if [ -f "bootstrap-core.sh" ]; then
+  CORE_FILE="bootstrap-core.sh"
+else
   echo "[+] Bootstrap script missing — downloading from Github"
   echo
-  curl -s $CORE_SCRIPT -o bootstrap-core.sh
-  chmod +x bootstrap-core.sh
+
+  CORE_FILE=$(mktemp /tmp/bootstrap-core.XXXXXX.sh)
+
+  # Clean up temp file when the script exits - regardless of success or error
+  trap 'rm -f "$CORE_FILE"' EXIT
+
+  curl -s "$CORE_SCRIPT" -o "$CORE_FILE"
+  chmod +x "$CORE_FILE"
 fi
 
 # Detect NixOS
 if [[ -f /etc/NIXOS ]]; then
-  echo "[+] Detected NixOS — using nix-shell"
-
-  exec nix-shell -p git stow openssh firefox unzip newt --run "$SCRIPT_DIR/bootstrap-core.sh"
+  echo "[+] Detected NixOS — using nix-shell to bootstrap"
+  nix-shell -p git stow openssh firefox unzip newt --run "$CORE_FILE"
 else
-  echo "[+] Non-NixOS system — running normally"
-  bash "$SCRIPT_DIR/bootstrap-core.sh"
+  echo "[+] Non-NixOS system — running bootstrap normally"
+  bash "$CORE_FILE"
 fi
 
-if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-  echo
-  echo "[+] Removing temporary bootstrap script"
-  rm bootstrap-core.sh
+if [[ -f "$0" ]]; then
+  popd > /dev/null
 fi
-
-popd > /dev/null

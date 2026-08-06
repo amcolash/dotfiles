@@ -4,6 +4,9 @@ export EDITOR="vim"
 export VISUAL="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
+# make less scroll with mouse wheel, make ASCII escapes work and only activate pager when larger than a screen
+export LESS="--mouse --wheel-lines=3 -FR"
+
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
@@ -22,6 +25,9 @@ shopt -s histappend
 
 # write a multi line command in a single line
 shopt -s cmdhist
+
+# save history immediately after each command - not just on exit
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.

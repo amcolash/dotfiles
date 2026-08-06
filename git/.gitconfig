@@ -30,7 +30,8 @@
 	d = difftool
 	a = add
 	c = commit
-	p = push
+  p = push
+  pr = pull --rebase
 	s = status
   l = log --pretty=oneline
   undo = "!git show -s --format='Undoing commit: %s' HEAD && git reset --soft HEAD~1"

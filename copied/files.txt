@@ -1,1 +1,2 @@
 /etc/polkit-1/rules.d/10-enable-hibernate.rules
+/etc/brave/policies/managed/disable_bloat.json

@@ -18,8 +18,8 @@ LOAD_DIRS=()
 TEMP_OPTIONS=()
 
 for dir in */ ; do
-  dir_name=$(basename "$dir")
-  if [ -f "$dir/load.sh" ] && [ "$dir" != "templates/" ] && [ "$dir" != "scripts/" ]; then
+  dir_name="${dir%/}"
+  if [[ -f "$dir/load.sh" && "$dir" != "templates/" && "$dir" != "scripts/" ]]; then
     # use display name if available, otherwise use directory name
     display_name="${DISPLAY_NAMES[$dir_name]:-$dir_name}"
     TEMP_OPTIONS+=("$display_name|||$dir_name")
@@ -27,12 +27,11 @@ for dir in */ ; do
 done
 
 # sort by display name and build final OPTIONS array
-IFS=$'\n' sorted=($(sort <<<"${TEMP_OPTIONS[*]}"))
-unset IFS
+mapfile -t sorted < <(printf '%s\n' "${TEMP_OPTIONS[@]}" | sort)
 
 for item in "${sorted[@]}"; do
-  display_name=$(echo "$item" | cut -d'|' -f1)
-  dir_name=$(echo "$item" | cut -d'|' -f4)
+  display_name="${item%%|||*}"
+  dir_name="${item##*|||}"
   OPTIONS+=("$display_name" "" "OFF")
   LOAD_DIRS+=("$display_name")
   # store reverse mapping
@@ -46,14 +45,12 @@ if [ ${#LOAD_DIRS[@]} -eq 0 ]; then
 fi
 
 # show whiptail checklist
-set +e
-CHOICES=$(whiptail --title "Load Settings" --checklist \
+if ! CHOICES=$(whiptail --title "Load Settings" --checklist \
   "Select modules to load:" 20 78 15 \
-  "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
-exitstatus=$?
-set -e
-
-[[ $exitstatus != 0 ]] && echo "[!] Loading Cancelled." && exit 0
+  "${OPTIONS[@]}" 3>&1 1>&2 2>&3); then
+  echo "[!] Loading Cancelled."
+  exit 0
+fi
 
 # parse selected choices
 SELECTED_ARRAY=()

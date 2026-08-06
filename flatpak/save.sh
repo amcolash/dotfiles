@@ -12,6 +12,9 @@ echo "[+] Saving flatpak settings..."
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 pushd "$SCRIPT_DIR" > /dev/null
 
-flatpak list --app --columns=origin --columns=application | awk '{print "flatpak install " $1,$2 " -y"}' > flatpaks.sh
+# detect OS
+source ../scripts/os_detect.sh
+
+flatpak list --app --columns=origin --columns=application | awk '{print "flatpak install " $1,$2 " -y"}' > "flatpaks_${OS_PROFILE}.sh"
 
 popd > /dev/null

@@ -14,7 +14,15 @@ fi
 # go to the script directory
 pushd "$SCRIPT_DIR" > /dev/null
 
-echo "[+] Restoring flatpaks..."
-./flatpaks.sh
+# detect OS
+source ../scripts/os_detect.sh
+
+if [ -f "flatpaks_${OS_PROFILE}.sh" ]; then
+  echo "[+] Restoring flatpaks for profile: ${OS_PROFILE}..."
+  chmod +x "flatpaks_${OS_PROFILE}.sh"
+  ./flatpaks_${OS_PROFILE}.sh
+else
+  echo "[-] No flatpak list found for profile: ${OS_PROFILE}. Skipping."
+fi
 
 popd > /dev/null

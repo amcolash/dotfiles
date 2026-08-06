@@ -5,6 +5,7 @@ if [ -d /home/linuxbrew/.linuxbrew ] && [ ! -f /etc/NIXOS ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Attempt to check if NerdFont is installed
 if [ "$(uname)" != "Darwin" ]; then
   if command -v fc-list >/dev/null 2>&1; then
     if fc-list :family | grep -qi "SauceCodePro Nerd Font Mono"; then

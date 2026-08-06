@@ -21,6 +21,9 @@ for file in $(cat files.txt); do
 # remove leading slash of dir
   local_file="${file#/}"
 
+  # make the directory if it doesn't exist
+  sudo mkdir -p "$(dirname "$file")"
+
   # copy the file
   sudo cp $local_file $file
 done

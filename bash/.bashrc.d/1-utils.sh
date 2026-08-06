@@ -13,8 +13,7 @@ fi
 # Custom aliases
 alias reboot="sudo reboot && exit"
 alias shutdown="sudo shutdown now"
-alias weather="curl https://wttr.in"
-alias ncu="npx npm-check-updates"
+alias ncu="npx -y npm-check-updates"
 
 # override `ls` to use `eza` if available
 if [ $(command -v eza) ]; then
@@ -51,9 +50,9 @@ if [ $(command -v rg) ]; then
 fi
 
 # use bat instead of cat
+alias cat_orig="$(command -v cat)"
 if [ $(command -v bat) ]; then
   export BAT_THEME="ansi"
-  alias cat_orig="$(command -v cat)"
   alias cat="bat"
 fi
 
@@ -70,10 +69,22 @@ if [ $(command -v docker) ] && [ ! $(command -v docker-compose) ]; then
   alias docker-compose="docker compose"
 fi
 
-if [ $(command -v xclip) ]; then
+# Try to copy clipboard with wayland, fallback to x11
+if [ $(command -v wl-copy) ]; then
+  function clip() {
+    cat_orig $1 | wl-copy
+  }
+elif [ $(command -v xclip) ]; then
   function clip() {
     cat_orig $1 | xclip -selection clipboard
   }
+fi
+
+# Installed via "npm install -g @16bitweather/weather-cli"
+if [ ! $(command -v weather) ]; then
+  alias weather="weather forecast"
+else
+  alias weather="curl https://wttr.in"
 fi
 
 if [ -d $HOME/Github/Kokoro-FastAPI ]; then
