@@ -13,4 +13,3 @@ XTerm*cursorBlink:      true
 ! Color Theme
 #include ".Xresources.d/themes/doom-one"
 ! #include ".Xresources.d/themes/doom-one-light"
-
