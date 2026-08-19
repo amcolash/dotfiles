@@ -4,7 +4,6 @@ XTerm*faceSize:         12
 
 ! Scrollback & Scrollbar
 XTerm*saveLines:        100000
-XTerm*scrollBar:        true
 
 ! Cursor (I-beam / blinking)
 XTerm*cursorShape:      1
