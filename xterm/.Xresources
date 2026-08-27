@@ -1,0 +1,14 @@
+! Fonts
+XTerm*faceName:         UbuntuMono Nerd Font
+XTerm*faceSize:         12
+
+! Scrollback & Scrollbar
+XTerm*saveLines:        100000
+
+! Cursor (I-beam / blinking)
+XTerm*cursorShape:      1
+XTerm*cursorBlink:      true
+
+! Color Theme
+#include ".Xresources.d/themes/doom-one"
+! #include ".Xresources.d/themes/doom-one-light"

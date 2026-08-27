@@ -1,0 +1,45 @@
+! Doom One Light Theme for XTerm / Xresources
+! Author: Henrik Lissner <https://github.com/hlissner>
+! Ported from Kitty configuration
+
+! Special colors
+*.foreground:           #222221
+*.background:           #f5f5f5
+*.cursorColor:          #16aec9
+*.cursorTextColor:      #f5f5f5
+*.pointerColor:         #16aec9
+*.pointerColorBackground:#f5f5f5
+*.highlightColor:       #c1c1c1
+*.highlightTextColor:   #f5f5f5
+
+! Black (normal / bright)
+*.color0:               #2a2e38
+*.color8:               #3f444a
+
+! Red
+*.color1:               #ff6c6b
+*.color9:               #ff6655
+
+! Green
+*.color2:               #98be65
+*.color10:              #99bb66
+
+! Yellow
+*.color3:               #ECBE7B
+*.color11:              #ECBE7B
+
+! Blue
+*.color4:               #51afef
+*.color12:              #51afef
+
+! Magenta
+*.color5:               #c678dd
+*.color13:              #c678dd
+
+! Cyan
+*.color6:               #46D9FF
+*.color14:              #46D9FF
+
+! White
+*.color7:               #DFDFDF
+*.color15:              #bbc2cf
