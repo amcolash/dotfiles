@@ -4,6 +4,7 @@ cura
 mqtt-explorer**
 musescore
 nrf-connect
+shutter-encoder
 virtualbox
 winboat
 yubikey-manager

@@ -1,5 +1,6 @@
 amdgpu_top
 audacity
+blender
 brave-bin
 btrfs-assistant
 calibre
@@ -17,14 +18,21 @@ filezilla
 flatpak
 flatseal
 freecad
+fuse2
 gedit-plugins
 geoclue
 gimp
 gst-plugin-va
 handbrake
 heroic-games-launcher-bin
+hip-runtime-amd
 hunspell-en_us
 inkscape
+joyutils
+kicad
+kicad-demos
+kicad-library
+kicad-library-3d
 kitty-terminfo
 lact
 linssid
@@ -47,3 +55,4 @@ tiled
 vlc
 wavemon
 zed
+zip
