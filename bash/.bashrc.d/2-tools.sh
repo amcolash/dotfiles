@@ -128,8 +128,3 @@ fi
 if [ $(command -v direnv) ]; then
   eval "$(direnv hook bash)"
 fi
-
-export GODOT_BINARY=/home/amcolash/Downloads/Godot_v4.6.1-stable_linux.x86_64
-if [ -f $GODOT_BINARY ]; then
-  alias godot=$GODOT_BINARY
-fi

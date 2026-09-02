@@ -1,0 +1,11 @@
+# Nintendo Switch Joy-Con (L)
+KERNEL=="event*", SUBSYSTEM=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2006", ENV{ID_INPUT_JOYSTICK}="1", TAG+="uaccess"
+
+# Nintendo Switch Joy-Con (R)
+KERNEL=="event*", SUBSYSTEM=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2007", ENV{ID_INPUT_JOYSTICK}="1", TAG+="uaccess"
+
+# Nintendo Switch Joy-Con Charging Grip
+KERNEL=="event*", SUBSYSTEM=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="200e", ENV{ID_INPUT_JOYSTICK}="1", TAG+="uaccess"
+
+# Nintendo Switch Pro Controller
+KERNEL=="event*", SUBSYSTEM=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2009", ENV{ID_INPUT_JOYSTICK}="1", TAG+="uaccess"
