@@ -75,48 +75,52 @@ else
   esac
 fi
 
-# load fzf for bash history (via ctrl-r/up arrow)
-if [ $(command -v fzf) ]; then
+# load fzf for bash history (via ctrl-r/up arrow). for now, fd is also required
+if [ $(command -v fzf) ] && [ $(command -v fd) ]; then
+  if [ ! "$(command -v bat)" ]; then
+    echo WARNING: bat is not installed. fzf might not work
+  fi
+
+  # Use fd and set up exclusions
+  FD_EXCLUDES="--hidden --exclude .git --exclude node_modules --exclude target --exclude .gemini"
+
+  export FZF_DEFAULT_COMMAND="fd --type f $FD_EXCLUDES"
+  export FZF_CTRL_T_COMMAND="fd $FD_EXCLUDES"
+  export FZF_ALT_C_COMMAND="fd --type d $FD_EXCLUDES"
+
   #export FZF_THEME="--color=fg:#a7adba,fg+:#d0d0d0,bg:-1,bg+:#262626
   #--color=hl:#6699cc,hl+:#5fd7ff,info:#fac863,marker:#5fb3b3
   #--color=prompt:#fac863,spinner:#5fb3b3,pointer:#5fb3b3,header:#6699cc
   #--color=border:#262626,label:#aeaeae,query:#d9d9d9"
   #
-  export FZF_THEME="--ansi --color=16 --color=pointer:green"
-  export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' --extended $FZF_THEME"
 
-  if [ ! "$(command -v bat)" ]; then
-    echo WARNING: bat is not installed. fzf might not work
-  fi
+  export FZF_THEME="--ansi --color=16 --color=pointer:green"
+  export FZF_DEFAULT_OPTS="--height 75% --bind 'tab:accept' --extended --tiebreak=begin,length,index $FZF_THEME"
+
 
   if [ $(command -v eza) ]; then
     export FZF_CTRL_T_OPTS=" \
-    --walker-skip .git,node_modules,target \
     --preview 'if [ -d {} ]; then \
        tree -C {}; \
      else \
        eza -l --icons --git --color=always {}; \
        if file -b --mime-type {} | grep -q \"^text/\"; then \
          bat -n --color=always {}; \
-       fi
+       fi \
      fi' \
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
   else
-    export FZF_CTRL_T_OPTS="
-    --walker-skip .git,node_modules,target
-    --preview 'bat -n --color=always {}'
+    export FZF_CTRL_T_OPTS=" \
+    --preview 'bat -n --color=always {}' \
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
   fi
 
-  export FZF_CTRL_R_OPTS="
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
+  export FZF_CTRL_R_OPTS=" \
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+  --color header:italic \
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-  export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target,.gemini
-  --tiebreak=begin,length
-  --preview 'tree -C {}'"
+  export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
   # use fzf for history (when pressing arrow up)
   bind -x '"\e[A": __fzf_history__'

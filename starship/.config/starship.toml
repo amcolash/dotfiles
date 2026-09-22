@@ -30,7 +30,7 @@ style = "fg:bar2 bg:bar4"
 format = "[$output]($style)"
 
 [custom.dir_stack]
-when = "test ! $(cat $SESSION_DIR/$STARSHIP_SESSION) = '1'"
+when = 'test -f "$SESSION_DIR/$STARSHIP_SESSION" && test "$(cat "$SESSION_DIR/$STARSHIP_SESSION" 2>/dev/null)" != "1"'
 command = "echo  "
 style = "bg:bar2 fg:black"
 format = "[$output  ]($style)"

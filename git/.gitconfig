@@ -35,6 +35,7 @@
 	s = status
   l = log --pretty=oneline
   undo = "!git show -s --format='Undoing commit: %s' HEAD && git reset --soft HEAD~1"
+  fix = "!rm .git/index && git reset"
 
   rm-merged = !git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D
 	cleanup = !git branch --show-current > ~/.git_current_branch && git switch main && git pull --prune && git rm-merged && git switch $(cat ~/.git_current_branch) && rm ~/.git_current_branch
