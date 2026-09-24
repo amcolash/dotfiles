@@ -18,7 +18,7 @@ $git_branch\
 $git_status\
 
 $time\
-$jobs\
+${custom.jobs}\
 [ ](fg:bar4)\
 $line_break\
 $character"""
@@ -83,10 +83,12 @@ time_format = "%l:%M"
 style = "fg:black bg:bar4"
 format = '[ $time ]($style)'
 
-[jobs]
-symbol = " "
+[custom.jobs]
+description = "Background jobs indicator with icons for vim, agy, and generic jobs"
+when = 'test -n "$STARSHIP_JOBS_OUTPUT"'
+command = 'echo "$STARSHIP_JOBS_OUTPUT"'
 style = "fg:black bg:bar4"
-format = "[$symbol$number]($style)"
+format = "[$output  ]($style)"
 
 [line_break]
 disabled = true
