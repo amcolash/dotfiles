@@ -3,6 +3,8 @@ if [ -f /etc/NIXOS ]; then
   return
 fi
 
+alias tdr="agyh ~/Godot/drag-race"
+
 alias kitty_config="vim /home/amcolash/Github/dotfiles/kitty/.config/kitty/kitty.conf"
 
 kitty_update() {
@@ -19,7 +21,7 @@ kitty_update() {
   sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
   sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
   # Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
-  echo 'kitty.desktop' > ~/.config/xdg-terminals.list
+  echo 'kitty.desktop' >~/.config/xdg-terminals.list
 }
 
 # Mostly ChatGPT for this helper function
