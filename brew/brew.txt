@@ -9,6 +9,7 @@ gcc
 gh
 iperf3
 jq
+just
 less
 lynx
 mise
