@@ -98,6 +98,7 @@ dot() {
 
 dotpull() {
   pushd $DOTFILES >/dev/null
+  git checkout HEAD -- nvim/.config/nvim/lazy-lock.json 2>/dev/null
   git pull
   popd >/dev/null
 }
