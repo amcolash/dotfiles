@@ -1,12 +1,28 @@
 # This file is sourced before any other scripts in the .bashrc.d directory.
 
+# Detect Operating System and Environment
+case "$(uname)" in
+  Darwin)
+    export IS_MACOS=1
+    ;;
+  Linux)
+    export IS_LINUX=1
+    if [ -f "/etc/NIXOS" ]; then
+      export IS_NIXOS=1
+    fi
+    if [ -f "/sys/class/dmi/id/product_name" ] && [ "$(cat /sys/class/dmi/id/product_name 2>/dev/null)" = "DS216+" ]; then
+      export IS_NAS=1
+    fi
+    ;;
+esac
+
 # Load linux homebrew
-if [ -d /home/linuxbrew/.linuxbrew ] && [ ! -f /etc/NIXOS ]; then
+if [ -d /home/linuxbrew/.linuxbrew ] && [ -z "$IS_NIXOS" ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # Attempt to check if NerdFont is installed
-if [ "$(uname)" != "Darwin" ]; then
+if [ -z "$IS_MACOS" ]; then
   if command -v fc-list >/dev/null 2>&1; then
     if fc-list :family | grep -qi "SauceCodePro Nerd Font Mono"; then
       HAS_NERD_FONT=1

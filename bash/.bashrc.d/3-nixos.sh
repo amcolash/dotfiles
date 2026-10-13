@@ -1,4 +1,4 @@
-if [ ! -f /etc/NIXOS ]; then
+if [ -z "$IS_NIXOS" ]; then
   return
 fi
 

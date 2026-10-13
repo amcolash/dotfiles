@@ -1,4 +1,4 @@
-if [ "$(uname)" != "Darwin" ]; then
+if [ -z "$IS_MACOS" ]; then
   return
 fi
 

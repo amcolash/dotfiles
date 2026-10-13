@@ -1,5 +1,6 @@
-[[ ! -f "/sys/class/dmi/id/product_name" ]] && return
-[[ "$(<"/sys/class/dmi/id/product_name")" != "DS216+" ]] && return
+if [ -z "$IS_NAS" ]; then
+  return
+fi
 
 # Kitty won't fix it, so I will
 export TERM="xterm-256color"

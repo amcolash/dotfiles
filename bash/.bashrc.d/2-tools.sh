@@ -16,91 +16,93 @@ if [ $(command -v starship) ] && [ ! -v DISABLE_STARSHIP ]; then
 
   eval "$(starship init bash)"
 
-  # Dynamically categorize background jobs for starship prompt
-  _starship_update_jobs() {
-    local vim_count=0
-    local agy_count=0
-    local other_count=0
-    local line
+  # Dynamically categorize background jobs for starship prompt (skip on NAS / non-bash shells)
+  if [ -z "$IS_NAS" ] && [ -n "$BASH_VERSION" ]; then
+    _starship_update_jobs() {
+      local vim_count=0
+      local agy_count=0
+      local other_count=0
+      local line
 
-    # Clear completed jobs first
-    builtin jobs &>/dev/null
+      # Clear completed jobs first
+      builtin jobs &>/dev/null
 
-    while IFS= read -r line; do
-      [[ -z "$line" ]] && continue
-      local pid="" cmd=""
-      if [[ "$line" =~ ^\[[0-9]+\][+-]?[[:space:]]+([0-9]+)[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
-        pid="${BASH_REMATCH[1]}"
-        cmd="${BASH_REMATCH[2]}"
-      elif [[ "$line" =~ ^\[[0-9]+\][+-]?[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
-        cmd="${BASH_REMATCH[1]}"
+      while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        local pid="" cmd=""
+        if [[ "$line" =~ ^\[[0-9]+\][+-]?[[:space:]]+([0-9]+)[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
+          pid="${BASH_REMATCH[1]}"
+          cmd="${BASH_REMATCH[2]}"
+        elif [[ "$line" =~ ^\[[0-9]+\][+-]?[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
+          cmd="${BASH_REMATCH[1]}"
+        fi
+
+        local proc_name=""
+        if [[ -n "$pid" ]]; then
+          if [[ -r "/proc/$pid/comm" ]]; then
+            proc_name=$(<"/proc/$pid/comm")
+          elif command -v ps >/dev/null 2>&1; then
+            proc_name=$(ps -p "$pid" -o comm= 2>/dev/null)
+            proc_name="${proc_name##*/}"
+          fi
+        fi
+
+        if [[ "$proc_name" =~ ^(vim|nvim|vi|gvim|view)$ ]] || [[ "$cmd" =~ (^|[/\ ])(vim|nvim|vi|gvim|view)($|[[:space:]]) ]]; then
+          ((vim_count++))
+        elif [[ "$proc_name" =~ ^(agy|antigravity)$ ]] || [[ "$cmd" =~ (^|[/\ ])(agy|antigravity)($|[[:space:]]) ]]; then
+          ((agy_count++))
+        else
+          ((other_count++))
+        fi
+      done < <(builtin jobs -l 2>/dev/null)
+
+      local out=""
+      if ((vim_count > 0)); then
+        if ((vim_count == 1)); then
+          out+=" "
+        else
+          out+=" $vim_count  "
+        fi
       fi
-
-      local proc_name=""
-      if [[ -n "$pid" ]]; then
-        if [[ -r "/proc/$pid/comm" ]]; then
-          proc_name=$(<"/proc/$pid/comm")
-        elif command -v ps >/dev/null 2>&1; then
-          proc_name=$(ps -p "$pid" -o comm= 2>/dev/null)
-          proc_name="${proc_name##*/}"
+      if ((agy_count > 0)); then
+        if ((agy_count == 1)); then
+          out+=" "
+        else
+          out+=" $agy_count  "
+        fi
+      fi
+      if ((other_count > 0)); then
+        if ((other_count == 1)); then
+          out+=" "
+        else
+          out+=" $other_count  "
         fi
       fi
 
-      if [[ "$proc_name" =~ ^(vim|nvim|vi|gvim|view)$ ]] || [[ "$cmd" =~ (^|[/\ ])(vim|nvim|vi|gvim|view)($|[[:space:]]) ]]; then
-        ((vim_count++))
-      elif [[ "$proc_name" =~ ^(agy|antigravity)$ ]] || [[ "$cmd" =~ (^|[/\ ])(agy|antigravity)($|[[:space:]]) ]]; then
-        ((agy_count++))
-      else
-        ((other_count++))
-      fi
-    done < <(builtin jobs -l 2>/dev/null)
+      export STARSHIP_JOBS_OUTPUT="${out%  }"
+    }
 
-    local out=""
-    if ((vim_count > 0)); then
-      if ((vim_count == 1)); then
-        out+=" "
-      else
-        out+=" $vim_count  "
-      fi
-    fi
-    if ((agy_count > 0)); then
-      if ((agy_count == 1)); then
-        out+=" "
-      else
-        out+=" $agy_count  "
-      fi
-    fi
-    if ((other_count > 0)); then
-      if ((other_count == 1)); then
-        out+=" "
-      else
-        out+=" $other_count  "
-      fi
-    fi
+    starship_precmd_user_func="_starship_update_jobs"
 
-    export STARSHIP_JOBS_OUTPUT="${out%  }"
-  }
-
-  starship_precmd_user_func="_starship_update_jobs"
-
-  # Restore window title to process name when foregrounding
-  fg() {
-    local job_spec="${1:-%+}"
-    local job_line
-    job_line=$(builtin jobs "$job_spec" 2>/dev/null)
-    if [[ -n "$job_line" ]]; then
-      local cmd=""
-      if [[ "$job_line" =~ ^\[[0-9]+\][+-]?[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
-        cmd="${BASH_REMATCH[1]}"
+    # Restore window title to process name when foregrounding
+    fg() {
+      local job_spec="${1:-%+}"
+      local job_line
+      job_line=$(builtin jobs "$job_spec" 2>/dev/null)
+      if [[ -n "$job_line" ]]; then
+        local cmd=""
+        if [[ "$job_line" =~ ^\[[0-9]+\][+-]?[[:space:]]+[A-Za-z0-9_\ \(\)-]+[[:space:]]{2,}(.*)$ ]]; then
+          cmd="${BASH_REMATCH[1]}"
+        fi
+        local first_word="${cmd%% *}"
+        local proc_name="${first_word##*/}"
+        if [[ -n "$proc_name" ]]; then
+          printf "\033]0;%s\007" "$proc_name"
+        fi
       fi
-      local first_word="${cmd%% *}"
-      local proc_name="${first_word##*/}"
-      if [[ -n "$proc_name" ]]; then
-        printf "\033]0;%s\007" "$proc_name"
-      fi
-    fi
-    builtin fg "$@"
-  }
+      builtin fg "$@"
+    }
+  fi
 
   export STARSHIP_SESSION=$(starship session)
   export SESSION_DIR=~/.sessionStack

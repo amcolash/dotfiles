@@ -1,7 +1,7 @@
-# Only run on non-nix linux
-if [ -f /etc/NIXOS ]; then
-  return
-fi
+# Only run on standard (non-Nix, non-NAS) Linux
+[ -z "$IS_LINUX" ] && return
+[ -n "$IS_NIXOS" ] && return
+[ -n "$IS_NAS" ] && return
 
 alias tdr="agyh ~/Godot/drag-race"
 
