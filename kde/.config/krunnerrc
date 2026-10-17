@@ -1,0 +1,11 @@
+[Plugins]
+baloosearchEnabled=false
+browserhistoryEnabled=false
+browsertabsEnabled=false
+krunner_placesrunnerEnabled=false
+krunner_recentdocumentsEnabled=false
+krunner_shellEnabled=false
+locationsEnabled=false
+
+[Plugins][Favorites]
+plugins=krunner_sessions,krunner_powerdevil,krunner_systemsettings,krunner_services
